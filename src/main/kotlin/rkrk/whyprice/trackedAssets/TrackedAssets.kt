@@ -1,5 +1,7 @@
 package rkrk.whyprice.trackedAssets
 
+import rkrk.whyprice.common.Responser
+
 class TrackedAssets {
     private val assets = mutableListOf<Asset>()
 
@@ -11,14 +13,15 @@ class TrackedAssets {
         assets.remove(asset)
     }
 
-    fun checkVolatility(): List<Asset> {
+    fun hasVolatility(responser: Responser): List<Asset> {
         val resList = mutableListOf<Asset>()
         for (asset in assets) {
-            if (asset.hasVolatility())
-                {
-                    resList.add(asset)
-                }
+            if (responser.hasVolatility(asset)) {
+                resList.add(asset)
+            }
         }
         return resList
     }
+
+    fun getAssets(): List<Asset> = assets
 }

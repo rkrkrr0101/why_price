@@ -1,9 +1,13 @@
 package rkrk.whyprice.trackedAssets
 
+import rkrk.whyprice.asset.AssetFetcher
+
 interface Asset {
-    fun fetchData()
+    fun fetchData(assetFetchers: List<AssetFetcher>)
 
     fun isDataEmpty(): Boolean
 
-    fun hasVolatility(): Boolean
+    fun getData(): Map<String, String>
+
+    fun getTicker(): String
 }

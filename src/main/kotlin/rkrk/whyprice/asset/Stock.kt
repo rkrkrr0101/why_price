@@ -3,18 +3,21 @@ package rkrk.whyprice.asset
 import rkrk.whyprice.trackedAssets.Asset
 
 class Stock(
-    val ticker: String,
+    private val ticker: String,
 ) : Asset {
-    private val dataMap = hashMapOf<String, String>()
+    private var dataMap = hashMapOf<String, String>()
 
-    override fun fetchData() {
+    override fun fetchData(assetFetchers: List<AssetFetcher>) {
         dataMap.clear()
-        // 외부데이터 입력
+        assetFetchers.forEach {
+            val (tempKey, tempValue) = it.fetch()
+            dataMap[tempKey] = tempValue
+        }
     }
 
     override fun isDataEmpty(): Boolean = dataMap.isEmpty()
 
-    override fun hasVolatility(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun getData(): Map<String, String> = dataMap
+
+    override fun getTicker(): String = ticker
 }
