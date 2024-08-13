@@ -1,4 +1,4 @@
-package rkrk.why_price
+package rkrk.whyprice
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
