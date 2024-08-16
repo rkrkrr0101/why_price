@@ -1,5 +1,5 @@
 package rkrk.whyprice.asset
 
-interface AssetFetcher  {
-    fun fetch(): Pair<String, String>
+interface AssetFetcher {
+    fun fetch(isinCode: String): Map<String, String>
 }
