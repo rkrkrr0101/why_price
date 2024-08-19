@@ -33,13 +33,6 @@ abstract class ApiFetcher : AssetFetcher {
         return url
     }
 
-    protected abstract fun getBaseUrl(): String
-
-    protected abstract fun createQueryParams(
-        isinCode: String,
-        serviceKey: String,
-    ): MultiValueMap<String, String>
-
     private fun apiCall(
         restTemplate: RestTemplate,
         url: URI,
@@ -58,6 +51,13 @@ abstract class ApiFetcher : AssetFetcher {
             return emptyMap()
         }
     }
+
+    protected abstract fun getBaseUrl(): String
+
+    protected abstract fun createQueryParams(
+        isinCode: String,
+        serviceKey: String,
+    ): MultiValueMap<String, String>
 
     protected abstract fun responseErrorCheck(response: ResponseEntity<String>)
 

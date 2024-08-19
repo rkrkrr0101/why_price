@@ -27,9 +27,20 @@ class BasicFetcher : ApiFetcher() {
         val resMap = HashMap<String, String>()
         val itemNode = getItemNode(response)
 
-        resMap["assetName"] = itemNode.get("itmsNm").asText()
+        resMap["assetName"] = extractNodeValue(itemNode, "itmsNm")
 
         return resMap
+    }
+
+    private fun extractNodeValue(
+        node: JsonNode,
+        key: String,
+    ): String {
+        try {
+            return node.get(key).asText()
+        } catch (e: Exception) {
+            throw NoSuchElementException("${javaClass.name}에서 해당하는 노드의 키값이 없음 키:$key ")
+        }
     }
 
     private fun getItemNode(response: ResponseEntity<String>): JsonNode {
