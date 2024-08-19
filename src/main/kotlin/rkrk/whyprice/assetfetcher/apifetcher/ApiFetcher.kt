@@ -50,28 +50,16 @@ abstract class ApiFetcher : AssetFetcher {
             val response = fetchApiResponse(restTemplate, url)
 
             responseErrorCheck(response)
-            log.info("성공 메시지={}", isinCode)
+            log.info("성공 법인코드={}", isinCode)
 
             return extractResponseAsMap(response)
         } catch (e: Exception) {
-            log.warn("BasicFetcher통신에 문제발생 스택트레이스={}", e.stackTrace)
+            log.warn("${javaClass.name}통신에 문제발생 메시지={} 스택트레이스={}", e.message, e.stackTrace)
             return emptyMap()
         }
     }
 
-    //           todo 에러코드가 0이 아닐때 처리
-    // 컨텐츠타입이 xml이면 에러
-    // response.headers.contentType== MediaType.TEXT_XML
-    // 이후 에러메시지와 에러코드 담아서 로깅
-//           todo 결과값의 갯수가 0일때 처리
-//           todo http코드 예외발생시 처리
-    private fun responseErrorCheck(response: ResponseEntity<String>) {
-        val log = LoggerFactory.getLogger(this.javaClass)
-        if (response.statusCode.value() != 200) {
-            log.warn("BasicFetcher 상태코드이상 상태코드={}", response.statusCode.value())
-            throw RuntimeException("${javaClass.name}BasicFetcher http상태코드가 200이 아님")
-        }
-    }
+    protected abstract fun responseErrorCheck(response: ResponseEntity<String>)
 
     protected open fun fetchApiResponse(
         restTemplate: RestTemplate,
