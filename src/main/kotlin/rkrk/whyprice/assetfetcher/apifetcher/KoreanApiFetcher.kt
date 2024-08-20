@@ -12,22 +12,22 @@ import rkrk.whyprice.config.ApiConfig
 import java.net.URI
 import java.time.Duration
 
-abstract class ApiFetcher : AssetFetcher {
-    override fun fetch(isinCode: String): Map<String, String> {
+abstract class KoreanApiFetcher : AssetFetcher {
+    override fun fetch(crNo: String): Map<String, String> {
         val restTemplate = createRestTemplate()
 
-        val url = buildUrl(isinCode)
+        val url = buildUrl(crNo)
 
-        return apiCall(restTemplate, url, isinCode)
+        return apiCall(restTemplate, url, crNo)
     }
 
-    private fun buildUrl(isinCode: String): URI {
+    private fun buildUrl(crNo: String): URI {
         val baseUrl = getBaseUrl() // url
         val serviceKey = ApiConfig.getApiKey()
         val url =
             UriComponentsBuilder
                 .fromHttpUrl(baseUrl)
-                .queryParams(createQueryParams(isinCode, serviceKey))
+                .queryParams(createQueryParams(crNo, serviceKey))
                 .build(true)
                 .toUri()
         return url
@@ -36,14 +36,14 @@ abstract class ApiFetcher : AssetFetcher {
     private fun apiCall(
         restTemplate: RestTemplate,
         url: URI,
-        isinCode: String,
+        crNo: String,
     ): Map<String, String> {
         val log = LoggerFactory.getLogger(this.javaClass)
         try {
             val response = fetchApiResponse(restTemplate, url)
 
             responseErrorCheck(response)
-            log.info("성공 법인코드={}", isinCode)
+            log.info("성공 법인코드={}", crNo)
 
             return extractResponseAsMap(response)
         } catch (e: Exception) {
@@ -55,7 +55,7 @@ abstract class ApiFetcher : AssetFetcher {
     protected abstract fun getBaseUrl(): String
 
     protected abstract fun createQueryParams(
-        isinCode: String,
+        crNo: String,
         serviceKey: String,
     ): MultiValueMap<String, String>
 

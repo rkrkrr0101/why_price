@@ -2,15 +2,15 @@ package rkrk.whyprice.asset
 
 import rkrk.whyprice.trackedAssets.Asset
 
-class Stock(
-    private val isinCode: String, // 단축코드 법인번호로 변경?
+class KoreanStock(
+    private val crNo: String, // 단축코드 법인번호로 변경?
 ) : Asset {
     private var dataMap = hashMapOf<String, String>()
 
     override fun fetchData(assetFetchers: List<AssetFetcher>) {
         dataMap.clear()
         assetFetchers.forEach {
-            val insertMap = it.fetch(isinCode)
+            val insertMap = it.fetch(crNo)
             insertData(insertMap)
         }
     }
@@ -23,5 +23,5 @@ class Stock(
 
     override fun getData(): Map<String, String> = dataMap
 
-    override fun getIsinCode(): String = isinCode
+    override fun getIdentityCode(): String = crNo
 }

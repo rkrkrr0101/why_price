@@ -5,27 +5,27 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.springframework.http.ResponseEntity
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
-import rkrk.whyprice.assetfetcher.apifetcher.ApiFetcher
+import rkrk.whyprice.assetfetcher.apifetcher.KoreanApiFetcher
 import javax.xml.parsers.DocumentBuilderFactory
 
-class BasicFetcher : ApiFetcher() {
+class BasicFetcher : KoreanApiFetcher() {
     override fun getBaseUrl(): String = "https://apis.data.go.kr/1160100/service/GetKrxListedInfoService/getItemInfo"
 
     override fun createQueryParams(
-        isinCode: String,
+        crNo: String,
         serviceKey: String,
     ): MultiValueMap<String, String> {
         val resMap: MultiValueMap<String, String> = LinkedMultiValueMap()
         resMap["resultType"] = "json"
         resMap["numOfRows"] = "1"
         resMap["serviceKey"] = serviceKey
-        resMap["isinCd"] = isinCode
+        resMap["crno"] = crNo
         return resMap
     }
 
     override fun extractResponseAsMap(response: ResponseEntity<String>): Map<String, String> {
         val resMap = HashMap<String, String>()
-        val itemNode = getItemNode(response)
+        val itemNode = extractItemNode(response)
 
         resMap["assetName"] = extractNodeValue(itemNode, "itmsNm")
 
@@ -43,7 +43,7 @@ class BasicFetcher : ApiFetcher() {
         }
     }
 
-    private fun getItemNode(response: ResponseEntity<String>): JsonNode {
+    private fun extractItemNode(response: ResponseEntity<String>): JsonNode {
         val om = jacksonObjectMapper()
         val readTree = om.readTree(response.body)
         try {
@@ -54,7 +54,7 @@ class BasicFetcher : ApiFetcher() {
                 .get("item")
                 .toList()[0]
         } catch (e: IndexOutOfBoundsException) {
-            throw NoSuchElementException("${javaClass.name}가 조회에 실패함 ${response.headers.eTag}")
+            throw NoSuchElementException("${javaClass.name}가 item노드 추출에 실패함 ${response.headers.eTag}")
         }
     }
 

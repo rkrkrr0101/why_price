@@ -3,7 +3,7 @@ package rkrk.whyprice.unittest
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import rkrk.whyprice.asset.Stock
+import rkrk.whyprice.asset.KoreanStock
 import rkrk.whyprice.mock.ResponserMock
 import rkrk.whyprice.trackedAssets.TrackedAssets
 
@@ -14,16 +14,16 @@ class TrackedAssetsTest {
         val trackedAssets = basicSetUpTrackedAssets()
 
         val volatilityAssetList = trackedAssets.hasVolatility(ResponserMock())
-        val tickerList = volatilityAssetList.map { it.getIsinCode() }
+        val tickerList = volatilityAssetList.map { it.getIdentityCode() }
 
         Assertions.assertThat(volatilityAssetList.size).isEqualTo(2)
         Assertions.assertThat(tickerList.contains("notVol1")).isFalse()
     }
 
     private fun basicSetUpTrackedAssets(): TrackedAssets {
-        val stock1 = Stock("volatility1")
-        val stock2 = Stock("volatility2")
-        val stock3 = Stock("notVol1")
+        val stock1 = KoreanStock("volatility1")
+        val stock2 = KoreanStock("volatility2")
+        val stock3 = KoreanStock("notVol1")
         val trackedAssets = TrackedAssets()
         trackedAssets.addAsset(stock1)
         trackedAssets.addAsset(stock2)

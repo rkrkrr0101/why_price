@@ -5,7 +5,7 @@ import rkrk.whyprice.report.Report
 import rkrk.whyprice.trackedAssets.Asset
 
 class ResponserMock : Responser {
-    override fun hasVolatility(asset: Asset): Boolean = asset.getIsinCode().contains("volatility")
+    override fun hasVolatility(asset: Asset): Boolean = asset.getIdentityCode().contains("volatility")
 
     override fun createReport(): List<Report> {
         TODO("Not yet implemented")

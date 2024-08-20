@@ -9,5 +9,5 @@ interface Asset {
 
     fun getData(): Map<String, String>
 
-    fun getIsinCode(): String
+    fun getIdentityCode(): String
 }
