@@ -1,4 +1,4 @@
-package rkrk.whyprice.outerapi
+package rkrk.whyprice.study
 
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test

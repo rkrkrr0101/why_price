@@ -1,7 +1,7 @@
 package rkrk.whyprice.mock
 
-import rkrk.whyprice.common.Responser
 import rkrk.whyprice.report.Report
+import rkrk.whyprice.share.Responser
 import rkrk.whyprice.trackedAssets.Asset
 
 class ResponserMock : Responser {

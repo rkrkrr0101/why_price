@@ -23,7 +23,7 @@ abstract class KoreanApiFetcher : AssetFetcher {
 
     private fun buildUrl(crNo: String): URI {
         val baseUrl = getBaseUrl() // url
-        val serviceKey = ApiConfig.getApiKey()
+        val serviceKey = ApiConfig.getOpenApiKey()
         val url =
             UriComponentsBuilder
                 .fromHttpUrl(baseUrl)

@@ -1,9 +1,9 @@
-package rkrk.whyprice.common
+package rkrk.whyprice.share
 
 import rkrk.whyprice.report.Report
 import rkrk.whyprice.trackedAssets.Asset
 
-interface Responser  {
+interface Responser {
     fun hasVolatility(asset: Asset): Boolean
 
     fun createReport(): List<Report>

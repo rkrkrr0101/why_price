@@ -1,6 +1,6 @@
 package rkrk.whyprice.trackedAssets
 
-import rkrk.whyprice.common.Responser
+import rkrk.whyprice.share.Responser
 
 class TrackedAssets {
     private val assets = mutableListOf<Asset>()

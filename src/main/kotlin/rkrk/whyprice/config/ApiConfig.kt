@@ -13,6 +13,12 @@ class ApiConfig private constructor() {
             properties.load(inputStream)
         }
 
-        fun getApiKey(): String = properties.getProperty("OPENAPI_KEY")
+        fun getOpenApiKey(): String = properties.getProperty("OPENAPI_KEY")
+
+        fun getGptKey(): String = properties.getProperty("GPT_KEY")
+
+        fun getKoreaInvKey(): String = properties.getProperty("KOREA_INV_KEY")
+
+        fun getKoreaSecretKey(): String = properties.getProperty("KOREA_INV_SECRET")
     }
 }

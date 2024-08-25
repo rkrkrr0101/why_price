@@ -3,7 +3,7 @@ package rkrk.whyprice.asset
 import rkrk.whyprice.trackedAssets.Asset
 
 class KoreanStock(
-    private val crNo: String, // 단축코드 법인번호로 변경?
+    private val crNo: String,
 ) : Asset {
     private var dataMap = hashMapOf<String, String>()
 
