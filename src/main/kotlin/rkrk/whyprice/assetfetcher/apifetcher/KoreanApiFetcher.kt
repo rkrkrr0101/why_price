@@ -1,36 +1,24 @@
 package rkrk.whyprice.assetfetcher.apifetcher
 
 import org.slf4j.LoggerFactory
-import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.http.HttpMethod
 import org.springframework.http.ResponseEntity
 import org.springframework.util.MultiValueMap
 import org.springframework.web.client.RestTemplate
-import org.springframework.web.util.UriComponentsBuilder
 import rkrk.whyprice.asset.AssetFetcher
 import rkrk.whyprice.config.ApiConfig
+import rkrk.whyprice.util.ApiUtil
 import java.net.URI
-import java.time.Duration
 
-abstract class KoreanApiFetcher : AssetFetcher {
+abstract class KoreanApiFetcher(
+    private val apiUtil: ApiUtil,
+) : AssetFetcher {
     override fun fetch(crNo: String): Map<String, String> {
-        val restTemplate = createRestTemplate()
+        val restTemplate = apiUtil.createRestTemplate()
 
-        val url = buildUrl(crNo)
+        val url = apiUtil.buildUrl(getBaseUrl(), createQueryParams(crNo, ApiConfig.getOpenApiKey()))
 
         return apiCall(restTemplate, url, crNo)
-    }
-
-    private fun buildUrl(crNo: String): URI {
-        val baseUrl = getBaseUrl() // url
-        val serviceKey = ApiConfig.getOpenApiKey()
-        val url =
-            UriComponentsBuilder
-                .fromHttpUrl(baseUrl)
-                .queryParams(createQueryParams(crNo, serviceKey))
-                .build(true)
-                .toUri()
-        return url
     }
 
     private fun apiCall(
@@ -66,23 +54,14 @@ abstract class KoreanApiFetcher : AssetFetcher {
         url: URI,
     ): ResponseEntity<String> {
         val response =
-            restTemplate.exchange(
+            apiUtil.fetchApiResponse(
+                restTemplate,
                 url,
                 HttpMethod.GET,
                 null,
-                String::class.java,
             )
         return response
     }
 
     protected abstract fun extractResponseAsMap(response: ResponseEntity<String>): Map<String, String>
-
-    private fun createRestTemplate(): RestTemplate {
-        val restTemplate =
-            RestTemplateBuilder()
-                .setConnectTimeout(Duration.ofSeconds(3))
-                .setReadTimeout(Duration.ofSeconds(3))
-                .build()
-        return restTemplate
-    }
 }

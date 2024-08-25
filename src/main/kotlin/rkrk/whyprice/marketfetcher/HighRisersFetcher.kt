@@ -2,63 +2,26 @@ package rkrk.whyprice.marketfetcher
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.ResponseEntity
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
-import org.springframework.web.client.RestTemplate
-import org.springframework.web.util.UriComponentsBuilder
 import rkrk.whyprice.config.ApiConfig
-import java.net.URI
-import java.time.Duration
+import rkrk.whyprice.util.ApiUtil
 
-class HighRisersFetcher : RankFetcher {
+class HighRisersFetcher(
+    private val apiUtil: ApiUtil,
+) : RankFetcher {
     override fun fetch(): List<String> {
-        val restTemplate = createRestTemplate()
-        val url = buildUrl()
+        val restTemplate = apiUtil.createRestTemplate()
+        val url = apiUtil.buildUrl(getBaseUrl(), createQueryParams())
         val httpEntity = createHttpEntity()
-        val response = fetchApiResponse(restTemplate, url, httpEntity)
+        val response = apiUtil.fetchApiResponse(restTemplate, url, HttpMethod.GET, httpEntity)
         print(response)
         return extractResponseAsList(response)
         // return response.body.lines()
-    }
-
-    private fun createRestTemplate(): RestTemplate { // 리팩터링 합성+di로 처리?
-        val restTemplate =
-            RestTemplateBuilder()
-                .setConnectTimeout(Duration.ofSeconds(3))
-                .setReadTimeout(Duration.ofSeconds(3))
-                .build()
-        return restTemplate
-    }
-
-    private fun buildUrl(): URI { // 리팩터링
-        val baseUrl = getBaseUrl() // url
-        val url =
-            UriComponentsBuilder
-                .fromHttpUrl(baseUrl)
-                .queryParams(createQueryParams())
-                .build(true)
-                .toUri()
-        return url
-    }
-
-    private fun fetchApiResponse( // 리팩터링
-        restTemplate: RestTemplate,
-        url: URI,
-        httpEntity: HttpEntity<String>,
-    ): ResponseEntity<String> {
-        val response =
-            restTemplate.exchange(
-                url,
-                HttpMethod.GET,
-                httpEntity,
-                String::class.java,
-            )
-        return response
     }
 
     private fun createHttpEntity(): HttpEntity<String> {
@@ -88,7 +51,7 @@ class HighRisersFetcher : RankFetcher {
         return resMap
     }
 
-    fun extractResponseAsList(response: ResponseEntity<String>): List<String> {
+    private fun extractResponseAsList(response: ResponseEntity<String>): List<String> {
         val itemNode = extractNodeList(response)
         val resList = mutableListOf<String>()
         for (node in itemNode) {

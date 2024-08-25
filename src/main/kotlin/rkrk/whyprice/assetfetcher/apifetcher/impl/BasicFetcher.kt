@@ -6,9 +6,12 @@ import org.springframework.http.ResponseEntity
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 import rkrk.whyprice.assetfetcher.apifetcher.KoreanApiFetcher
+import rkrk.whyprice.util.ApiUtil
 import javax.xml.parsers.DocumentBuilderFactory
 
-class BasicFetcher : KoreanApiFetcher() {
+class BasicFetcher(
+    apiUtil: ApiUtil,
+) : KoreanApiFetcher(apiUtil) {
     override fun getBaseUrl(): String = "https://apis.data.go.kr/1160100/service/GetKrxListedInfoService/getItemInfo"
 
     override fun createQueryParams(
