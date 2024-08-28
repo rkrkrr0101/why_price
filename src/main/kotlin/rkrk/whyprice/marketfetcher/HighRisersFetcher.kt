@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 import rkrk.whyprice.config.ApiConfig
+import rkrk.whyprice.marketfetcher.koreaninvtoken.KoreanInvTokenFetcher
+import rkrk.whyprice.share.RankFetcher
 import rkrk.whyprice.util.ApiUtil
 
 class HighRisersFetcher(
@@ -19,14 +21,14 @@ class HighRisersFetcher(
         val url = apiUtil.buildUrl(getBaseUrl(), createQueryParams())
         val httpEntity = createHttpEntity()
         val response = apiUtil.fetchApiResponse(restTemplate, url, HttpMethod.GET, httpEntity)
-        print(response)
-        return extractResponseAsList(response)
-        // return response.body.lines()
+
+        return extractResponseAsList(response, "hts_kor_isnm")
     }
 
     private fun createHttpEntity(): HttpEntity<String> {
         val headers = HttpHeaders()
         headers.set("content-type", "application/json; charset=utf-8")
+        headers.set("authorization", "Bearer " + KoreanInvTokenFetcher(apiUtil).fetch())
         headers.set("appkey", ApiConfig.getKoreaInvKey())
         headers.set("appsecret", ApiConfig.getKoreaSecretKey())
         headers.set("tr_id", "FHPST01700000")
@@ -48,14 +50,24 @@ class HighRisersFetcher(
         resMap["fid_trgt_cls_code"] = "0"
         resMap["fid_trgt_exls_cls_code"] = "0"
         resMap["fid_div_cls_code"] = "0"
+
+        resMap["fid_rsfl_rate1"] = ""
+        resMap["fid_rsfl_rate2"] = ""
+        resMap["fid_input_price_1"] = ""
+        resMap["fid_input_price_2"] = ""
+        resMap["fid_vol_cnt"] = ""
+
         return resMap
     }
 
-    private fun extractResponseAsList(response: ResponseEntity<String>): List<String> {
+    private fun extractResponseAsList(
+        response: ResponseEntity<String>,
+        key: String,
+    ): List<String> {
         val itemNode = extractNodeList(response)
         val resList = mutableListOf<String>()
         for (node in itemNode) {
-            resList.add(extractNodeValue(node, "hts_kor_isnm"))
+            resList.add(apiUtil.extractNodeValue(node, key))
         }
         return resList
     }
@@ -69,17 +81,6 @@ class HighRisersFetcher(
                 .toList()
         } catch (e: IndexOutOfBoundsException) {
             throw NoSuchElementException("${javaClass.name}가 노드 추출에 실패함 ${response.headers.eTag}")
-        }
-    }
-
-    private fun extractNodeValue(
-        node: JsonNode,
-        key: String,
-    ): String {
-        try {
-            return node.get(key).asText()
-        } catch (e: Exception) {
-            throw NoSuchElementException("${javaClass.name}에서 해당하는 노드의 키값이 없음 키:$key ")
         }
     }
 }

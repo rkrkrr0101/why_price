@@ -1,9 +1,10 @@
-package rkrk.whyprice.marketfetcher
+package rkrk.whyprice.marketfetcher.koreaninvtoken
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
+import org.springframework.http.ResponseEntity
 import rkrk.whyprice.config.ApiConfig
 import rkrk.whyprice.util.ApiUtil
 
@@ -14,8 +15,9 @@ class KoreanInvTokenFetcher(
         val restTemplate = apiUtil.createRestTemplate()
         val url = apiUtil.buildUrl(getBaseUrl(), null, false)
         val response = apiUtil.fetchApiResponse(restTemplate, url, HttpMethod.POST, createHttpEntity())
-        return response.body!!
+        return extractResponseValue(response, "access_token")
     }
+    // todo response에서 access_token만 추출해서 반환하도록 수정
 
     private fun getBaseUrl(): String = "https://openapi.koreainvestment.com:9443/oauth2/tokenP"
 
@@ -33,5 +35,18 @@ class KoreanInvTokenFetcher(
                 "appsecret" to ApiConfig.getKoreaSecretKey(),
             )
         return jacksonObjectMapper().writeValueAsString(requestBody)
+    }
+
+    private fun extractResponseValue(
+        response: ResponseEntity<String>,
+        key: String,
+    ): String {
+        val om = jacksonObjectMapper()
+        val readTree = om.readTree(response.body)
+        try {
+            return readTree[key].asText()
+        } catch (e: IndexOutOfBoundsException) {
+            throw NoSuchElementException("${javaClass.name}가 응답 추출에 실패함 ${response.headers.eTag}")
+        }
     }
 }

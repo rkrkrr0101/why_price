@@ -1,5 +1,6 @@
 package rkrk.whyprice.util
 
+import com.fasterxml.jackson.databind.JsonNode
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.ResponseEntity
@@ -25,4 +26,9 @@ interface ApiUtil {
         httpMethod: HttpMethod,
         httpEntity: HttpEntity<*>?,
     ): ResponseEntity<String>
+
+    fun extractNodeValue(
+        node: JsonNode,
+        key: String,
+    ): String
 }

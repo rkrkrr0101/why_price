@@ -10,7 +10,7 @@ import rkrk.whyprice.util.ApiUtil
 import javax.xml.parsers.DocumentBuilderFactory
 
 class BasicFetcher(
-    apiUtil: ApiUtil,
+    private val apiUtil: ApiUtil,
 ) : KoreanApiFetcher(apiUtil) {
     override fun getBaseUrl(): String = "https://apis.data.go.kr/1160100/service/GetKrxListedInfoService/getItemInfo"
 
@@ -30,20 +30,9 @@ class BasicFetcher(
         val resMap = HashMap<String, String>()
         val itemNode = extractItemNode(response)
 
-        resMap["assetName"] = extractNodeValue(itemNode, "itmsNm")
+        resMap["assetName"] = apiUtil.extractNodeValue(itemNode, "itmsNm")
 
         return resMap
-    }
-
-    private fun extractNodeValue(
-        node: JsonNode,
-        key: String,
-    ): String {
-        try {
-            return node.get(key).asText()
-        } catch (e: Exception) {
-            throw NoSuchElementException("${javaClass.name}에서 해당하는 노드의 키값이 없음 키:$key ")
-        }
     }
 
     private fun extractItemNode(response: ResponseEntity<String>): JsonNode {

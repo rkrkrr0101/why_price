@@ -1,7 +1,7 @@
 package rkrk.whyprice.study
 
 import org.junit.jupiter.api.Test
-import rkrk.whyprice.marketfetcher.KoreanInvTokenFetcher
+import rkrk.whyprice.marketfetcher.koreaninvtoken.KoreanInvTokenFetcher
 import rkrk.whyprice.util.ApiUtilImpl
 
 class KoreanInvTokenFetcherTest {

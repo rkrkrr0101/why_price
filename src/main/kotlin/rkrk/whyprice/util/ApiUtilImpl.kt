@@ -1,5 +1,6 @@
 package rkrk.whyprice.util
 
+import com.fasterxml.jackson.databind.JsonNode
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
@@ -51,5 +52,16 @@ class ApiUtilImpl : ApiUtil {
                 String::class.java,
             )
         return response
+    }
+
+    override fun extractNodeValue(
+        node: JsonNode,
+        key: String,
+    ): String {
+        try {
+            return node.get(key).asText()
+        } catch (e: Exception) {
+            throw NoSuchElementException("${javaClass.name}에서 해당하는 노드의 키값이 없음 키:$key ")
+        }
     }
 }
