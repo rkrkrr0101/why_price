@@ -1,0 +1,32 @@
+실시간순위api docs
+https://apiportal.koreainvestment.com/apiservice/apiservice-domestic-stock-ranking#L_6df56964-f22b-43d4-9457-f06264018e5b
+
+토큰api에서 리턴값 파싱//완
+
+멤버 아이디 추가
+멤버 엔티티화
+멤버 컨트롤러 서비스 레포지토리 추가
+TrackedAssets 엔티티화
+TrackedAssets레포지토리 추가
+랭크레포트 엔티티추가(시간,레포트,에셋?)
+랭크레포트 레포지토리,서비스(랭크레포트 1시간이내면 걍주고,아니면 갱신우 주기) 추가
+
+
+후순위
+gptResponser에서 모델 di받기
+gptResponser에서 AiRespnser로 변경(di모델 추상화로 가능해짐)
+gpt 모델과 옵션값 빈으로 뽑기
+
+
+
+
+jpa 설정
+https://easywritten.com/post/setting-up-jpa-without-spring-in-kotlin/
+
+
+
+
+
+
+
+
