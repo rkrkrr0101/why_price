@@ -33,5 +33,7 @@ class Member(
         koreanStocks.deleteKoreanStock(koreanStock)
     }
 
+    fun getKoreanStocks(): List<KoreanStock> = koreanStocks.getAssets()
+
     fun getName(): String = userName
 }
