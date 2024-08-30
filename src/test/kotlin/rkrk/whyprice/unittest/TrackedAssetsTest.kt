@@ -21,9 +21,9 @@ class TrackedAssetsTest {
     }
 
     private fun basicSetUpTrackedAssets(): TrackedAssets {
-        val stock1 = KoreanStock("volatility1")
-        val stock2 = KoreanStock("volatility2")
-        val stock3 = KoreanStock("notVol1")
+        val stock1 = KoreanStock("volatility1", "삼성전자")
+        val stock2 = KoreanStock("volatility2", "삼성전자")
+        val stock3 = KoreanStock("notVol1", "삼성전자")
         val trackedAssets = TrackedAssets()
         trackedAssets.addAsset(stock1)
         trackedAssets.addAsset(stock2)

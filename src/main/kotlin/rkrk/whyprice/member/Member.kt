@@ -1,6 +1,6 @@
 package rkrk.whyprice.member
 
-import rkrk.whyprice.trackedAssets.Asset
+import rkrk.whyprice.share.Asset
 import rkrk.whyprice.trackedAssets.TrackedAssets
 
 class Member {

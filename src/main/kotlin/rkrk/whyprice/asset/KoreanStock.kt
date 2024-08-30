@@ -1,9 +1,10 @@
 package rkrk.whyprice.asset
 
-import rkrk.whyprice.trackedAssets.Asset
+import rkrk.whyprice.share.Asset
 
 class KoreanStock(
     private val crNo: String,
+    private val name: String,
 ) : Asset {
     private var dataMap = hashMapOf<String, String>()
 
@@ -24,4 +25,6 @@ class KoreanStock(
     override fun getData(): Map<String, String> = dataMap
 
     override fun getIdentityCode(): String = crNo
+
+    override fun getName(): String = name
 }

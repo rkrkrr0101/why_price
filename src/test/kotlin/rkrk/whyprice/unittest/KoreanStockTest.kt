@@ -11,7 +11,7 @@ class KoreanStockTest {
     @Test
     @DisplayName("koreanStock의 데이터추가를 정상적으로 할수있다")
     fun fetchDataSuccess() {
-        val stock = KoreanStock("TEST")
+        val stock = KoreanStock("TEST", "삼성전자")
         val assetFetcherList = listOf(AssetFetcherMockOne(), AssetFetcherMockTwo())
 
         stock.fetchData(assetFetcherList)

@@ -6,7 +6,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.ResponseEntity
 import rkrk.whyprice.config.ApiConfig
-import rkrk.whyprice.util.ApiUtil
+import rkrk.whyprice.share.ApiUtil
 
 class KoreanInvTokenFetcher(
     private val apiUtil: ApiUtil,
@@ -17,7 +17,6 @@ class KoreanInvTokenFetcher(
         val response = apiUtil.fetchApiResponse(restTemplate, url, HttpMethod.POST, createHttpEntity())
         return extractResponseValue(response, "access_token")
     }
-    // todo response에서 access_token만 추출해서 반환하도록 수정
 
     private fun getBaseUrl(): String = "https://openapi.koreainvestment.com:9443/oauth2/tokenP"
 

@@ -10,8 +10,8 @@ import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 import rkrk.whyprice.config.ApiConfig
 import rkrk.whyprice.marketfetcher.koreaninvtoken.KoreanInvTokenFetcher
+import rkrk.whyprice.share.ApiUtil
 import rkrk.whyprice.share.RankFetcher
-import rkrk.whyprice.util.ApiUtil
 
 class HighRisersFetcher(
     private val apiUtil: ApiUtil,

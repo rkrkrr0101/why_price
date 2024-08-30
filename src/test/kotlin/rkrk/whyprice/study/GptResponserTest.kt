@@ -8,7 +8,7 @@ class GptResponserTest {
     @Test
     fun reportCreateTest() {
         // Given
-        val stock = KoreanStock("005930")
+        val stock = KoreanStock("005930", "삼성전자")
         val gptResponser = GptResponser()
 
         // When

@@ -1,4 +1,4 @@
-package rkrk.whyprice.util
+package rkrk.whyprice.share
 
 import com.fasterxml.jackson.databind.JsonNode
 import org.springframework.http.HttpEntity

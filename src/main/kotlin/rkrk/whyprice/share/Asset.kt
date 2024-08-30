@@ -1,4 +1,4 @@
-package rkrk.whyprice.trackedAssets
+package rkrk.whyprice.share
 
 import rkrk.whyprice.asset.AssetFetcher
 
@@ -10,4 +10,6 @@ interface Asset {
     fun getData(): Map<String, String>
 
     fun getIdentityCode(): String
+
+    fun getName(): String
 }

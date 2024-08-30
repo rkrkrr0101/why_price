@@ -1,13 +1,14 @@
 package rkrk.whyprice.mock
 
 import rkrk.whyprice.report.Report
+import rkrk.whyprice.share.Asset
+import rkrk.whyprice.share.RankFetcher
 import rkrk.whyprice.share.Responser
-import rkrk.whyprice.trackedAssets.Asset
 
 class ResponserMock : Responser {
     override fun hasVolatility(asset: Asset): Boolean = asset.getIdentityCode().contains("volatility")
 
-    override fun createReport(): List<Report> {
+    override fun createReport(rankFetcher: RankFetcher): List<Report> {
         TODO("Not yet implemented")
     }
 

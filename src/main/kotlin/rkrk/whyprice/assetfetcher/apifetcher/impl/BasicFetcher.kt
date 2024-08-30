@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 import rkrk.whyprice.assetfetcher.apifetcher.KoreanApiFetcher
-import rkrk.whyprice.util.ApiUtil
+import rkrk.whyprice.share.ApiUtil
 import javax.xml.parsers.DocumentBuilderFactory
 
 class BasicFetcher(

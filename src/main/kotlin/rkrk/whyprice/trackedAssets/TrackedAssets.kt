@@ -1,5 +1,6 @@
 package rkrk.whyprice.trackedAssets
 
+import rkrk.whyprice.share.Asset
 import rkrk.whyprice.share.Responser
 
 class TrackedAssets {
