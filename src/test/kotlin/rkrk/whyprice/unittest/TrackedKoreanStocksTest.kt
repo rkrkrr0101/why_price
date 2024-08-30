@@ -3,9 +3,9 @@ package rkrk.whyprice.unittest
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import rkrk.whyprice.asset.KoreanStock
+import rkrk.whyprice.domain.asset.KoreanStock
+import rkrk.whyprice.domain.trackedAssets.TrackedKoreanStocks
 import rkrk.whyprice.mock.ResponserMock
-import rkrk.whyprice.trackedAssets.TrackedKoreanStocks
 
 class TrackedKoreanStocksTest {
     @Test
@@ -25,9 +25,9 @@ class TrackedKoreanStocksTest {
         val stock2 = KoreanStock("volatility2", "삼성전자")
         val stock3 = KoreanStock("notVol1", "삼성전자")
         val trackedKoreanStocks = TrackedKoreanStocks()
-        trackedKoreanStocks.addAsset(stock1)
-        trackedKoreanStocks.addAsset(stock2)
-        trackedKoreanStocks.addAsset(stock3)
+        trackedKoreanStocks.addKoreanStock(stock1)
+        trackedKoreanStocks.addKoreanStock(stock2)
+        trackedKoreanStocks.addKoreanStock(stock3)
 
         return trackedKoreanStocks
     }

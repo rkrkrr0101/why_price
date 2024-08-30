@@ -1,21 +1,19 @@
-package rkrk.whyprice.trackedAssets
+package rkrk.whyprice.domain.trackedAssets
 
 import jakarta.persistence.Embeddable
 import jakarta.persistence.FetchType
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToMany
-import rkrk.whyprice.asset.KoreanStock
+import rkrk.whyprice.domain.asset.KoreanStock
 import rkrk.whyprice.share.Asset
 import rkrk.whyprice.share.Responser
 
 @Embeddable
-class TrackedKoreanStocks(
-    koreanStocks: MutableList<KoreanStock>,
-) {
+class TrackedKoreanStocks {
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    var koreanStocks = koreanStocks
-        private set
+    var koreanStocks = mutableListOf<KoreanStock>()
+        protected set
 
     fun addKoreanStock(koreanStock: KoreanStock) {
         koreanStocks.add(koreanStock)

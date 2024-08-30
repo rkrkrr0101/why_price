@@ -1,12 +1,12 @@
-package rkrk.whyprice.assetfetcher.apifetcher
+package rkrk.whyprice.outputapi.assetfetcher.apifetcher
 
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpMethod
 import org.springframework.http.ResponseEntity
 import org.springframework.util.MultiValueMap
 import org.springframework.web.client.RestTemplate
-import rkrk.whyprice.asset.AssetFetcher
 import rkrk.whyprice.config.ApiConfig
+import rkrk.whyprice.domain.asset.AssetFetcher
 import rkrk.whyprice.share.ApiUtil
 import java.net.URI
 

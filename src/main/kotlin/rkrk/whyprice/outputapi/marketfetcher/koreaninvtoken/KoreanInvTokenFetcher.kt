@@ -1,4 +1,4 @@
-package rkrk.whyprice.marketfetcher.koreaninvtoken
+package rkrk.whyprice.outputapi.marketfetcher.koreaninvtoken
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.springframework.http.HttpEntity

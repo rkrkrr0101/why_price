@@ -1,4 +1,4 @@
-package rkrk.whyprice.util
+package rkrk.whyprice.inputapi.util
 
 import com.fasterxml.jackson.databind.JsonNode
 import org.springframework.boot.web.client.RestTemplateBuilder

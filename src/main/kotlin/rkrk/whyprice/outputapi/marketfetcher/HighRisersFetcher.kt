@@ -1,4 +1,4 @@
-package rkrk.whyprice.marketfetcher
+package rkrk.whyprice.outputapi.marketfetcher
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 import rkrk.whyprice.config.ApiConfig
-import rkrk.whyprice.marketfetcher.koreaninvtoken.KoreanInvTokenFetcher
+import rkrk.whyprice.outputapi.marketfetcher.koreaninvtoken.KoreanInvTokenFetcher
 import rkrk.whyprice.share.ApiUtil
 import rkrk.whyprice.share.RankFetcher
 

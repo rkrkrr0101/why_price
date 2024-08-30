@@ -1,4 +1,4 @@
-package rkrk.whyprice.report
+package rkrk.whyprice.domain.report
 
 import java.time.LocalDateTime
 

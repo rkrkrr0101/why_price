@@ -1,4 +1,4 @@
-package rkrk.whyprice.asset
+package rkrk.whyprice.domain.asset
 
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
@@ -6,10 +6,16 @@ import rkrk.whyprice.share.Asset
 
 @Entity
 class KoreanStock(
-    private var crNo: String,
-    private var name: String,
+    crNo: String,
+    name: String,
     id: Long = 0,
 ) : Asset {
+    var crNo = crNo
+        protected set
+
+    var name = name
+        protected set
+
     @Id
     var id = id
         private set

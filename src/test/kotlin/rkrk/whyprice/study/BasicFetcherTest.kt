@@ -2,8 +2,8 @@ package rkrk.whyprice.study
 
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
-import rkrk.whyprice.assetfetcher.apifetcher.impl.BasicFetcher
-import rkrk.whyprice.util.ApiUtilImpl
+import rkrk.whyprice.inputapi.util.ApiUtilImpl
+import rkrk.whyprice.outputapi.assetfetcher.apifetcher.impl.BasicFetcher
 
 class BasicFetcherTest {
     @Test

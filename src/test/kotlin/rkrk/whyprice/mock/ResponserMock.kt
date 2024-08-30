@@ -1,6 +1,6 @@
 package rkrk.whyprice.mock
 
-import rkrk.whyprice.report.Report
+import rkrk.whyprice.domain.report.Report
 import rkrk.whyprice.share.Asset
 import rkrk.whyprice.share.RankFetcher
 import rkrk.whyprice.share.Responser

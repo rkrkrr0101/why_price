@@ -1,8 +1,8 @@
 package rkrk.whyprice.study
 
 import org.junit.jupiter.api.Test
-import rkrk.whyprice.asset.KoreanStock
-import rkrk.whyprice.responser.GptResponser
+import rkrk.whyprice.domain.asset.KoreanStock
+import rkrk.whyprice.outputapi.responser.GptResponser
 
 class GptResponserTest {
     @Test

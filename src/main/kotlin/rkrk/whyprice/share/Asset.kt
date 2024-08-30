@@ -1,6 +1,6 @@
 package rkrk.whyprice.share
 
-import rkrk.whyprice.asset.AssetFetcher
+import rkrk.whyprice.domain.asset.AssetFetcher
 
 interface Asset {
     fun fetchData(assetFetchers: List<AssetFetcher>)

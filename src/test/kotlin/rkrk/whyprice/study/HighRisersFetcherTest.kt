@@ -1,8 +1,8 @@
 package rkrk.whyprice.study
 
 import org.junit.jupiter.api.Test
-import rkrk.whyprice.marketfetcher.HighRisersFetcher
-import rkrk.whyprice.util.ApiUtilImpl
+import rkrk.whyprice.inputapi.util.ApiUtilImpl
+import rkrk.whyprice.outputapi.marketfetcher.HighRisersFetcher
 
 class HighRisersFetcherTest {
     @Test

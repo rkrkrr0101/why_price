@@ -1,4 +1,4 @@
-package rkrk.whyprice.responser
+package rkrk.whyprice.outputapi.responser
 
 import org.springframework.ai.chat.client.ChatClient
 import org.springframework.ai.chat.messages.SystemMessage
@@ -9,7 +9,7 @@ import org.springframework.ai.openai.OpenAiChatModel
 import org.springframework.ai.openai.OpenAiChatOptions
 import org.springframework.ai.openai.api.OpenAiApi
 import rkrk.whyprice.config.ApiConfig
-import rkrk.whyprice.report.Report
+import rkrk.whyprice.domain.report.Report
 import rkrk.whyprice.share.Asset
 import rkrk.whyprice.share.RankFetcher
 import rkrk.whyprice.share.Responser
