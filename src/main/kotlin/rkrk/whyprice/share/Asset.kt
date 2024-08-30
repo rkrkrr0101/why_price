@@ -7,9 +7,9 @@ interface Asset {
 
     fun isDataEmpty(): Boolean
 
-    fun getData(): Map<String, String>
+    fun retrieveData(): Map<String, String>
 
     fun getIdentityCode(): String
 
-    fun getName(): String
+    fun getAssetName(): String
 }

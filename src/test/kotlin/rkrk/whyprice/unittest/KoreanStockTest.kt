@@ -17,6 +17,6 @@ class KoreanStockTest {
         stock.fetchData(assetFetcherList)
 
         Assertions.assertThat(stock.isDataEmpty()).isFalse()
-        Assertions.assertThat(stock.getData().size).isEqualTo(2)
+        Assertions.assertThat(stock.retrieveData().size).isEqualTo(2)
     }
 }

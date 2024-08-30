@@ -1,16 +1,32 @@
 package rkrk.whyprice.member
 
-import rkrk.whyprice.share.Asset
-import rkrk.whyprice.trackedAssets.TrackedAssets
+import jakarta.persistence.Embedded
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import rkrk.whyprice.asset.KoreanStock
+import rkrk.whyprice.trackedAssets.TrackedKoreanStocks
 
-class Member {
-    private val assets = TrackedAssets()
+@Entity
+class Member(
+    koreanStocks: TrackedKoreanStocks,
+    id: Long = 0,
+) {
+    @Embedded
+    var koreanStocks = koreanStocks
+        private set
 
-    fun addAsset(asset: Asset) {
-        assets.addAsset(asset)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id = id
+        private set
+
+    fun addKoreanStock(koreanStock: KoreanStock) {
+        koreanStocks.addKoreanStock(koreanStock)
     }
 
-    fun deleteAsset(asset: Asset) {
-        assets.deleteAsset(asset)
+    fun deleteKoreanStock(koreanStock: KoreanStock) {
+        koreanStocks.deleteKoreanStock(koreanStock)
     }
 }

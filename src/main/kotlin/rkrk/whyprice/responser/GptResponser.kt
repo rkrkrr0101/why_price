@@ -43,7 +43,7 @@ class GptResponser : Responser {
     }
 
     override fun createReport(asset: Asset): Report {
-        val response = fetch(asset.getName())
+        val response = fetch(asset.getAssetName())
 
         return responseToReport(response)
     }

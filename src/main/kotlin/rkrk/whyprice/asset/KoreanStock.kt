@@ -1,12 +1,21 @@
 package rkrk.whyprice.asset
 
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
 import rkrk.whyprice.share.Asset
 
+@Entity
 class KoreanStock(
-    private val crNo: String,
-    private val name: String,
+    private var crNo: String,
+    private var name: String,
+    id: Long = 0,
 ) : Asset {
-    private var dataMap = hashMapOf<String, String>()
+    @Id
+    var id = id
+        private set
+
+    @Transient
+    private var dataMap: MutableMap<String, String> = hashMapOf()
 
     override fun fetchData(assetFetchers: List<AssetFetcher>) {
         dataMap.clear()
@@ -22,9 +31,9 @@ class KoreanStock(
 
     override fun isDataEmpty(): Boolean = dataMap.isEmpty()
 
-    override fun getData(): Map<String, String> = dataMap
+    override fun retrieveData(): Map<String, String> = dataMap
 
     override fun getIdentityCode(): String = crNo
 
-    override fun getName(): String = name
+    override fun getAssetName(): String = name
 }
