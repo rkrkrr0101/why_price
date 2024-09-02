@@ -4,17 +4,19 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import rkrk.whyprice.domain.asset.KoreanStock
 import rkrk.whyprice.domain.member.service.infra.MemberRepository
-import rkrk.whyprice.inputapi.dto.member.MemberCreateDto
-import rkrk.whyprice.inputapi.dto.member.MemberKoreanStockAddDto
-import rkrk.whyprice.inputapi.dto.member.MemberKoreanStockRemoveDto
-import rkrk.whyprice.inputapi.dto.member.MemberStockViewDto
-import rkrk.whyprice.inputapi.dto.member.MemberVolatilityDto
+import rkrk.whyprice.inputapi.dto.member.req.MemberCreateDto
+import rkrk.whyprice.inputapi.dto.member.req.MemberKoreanStockAddDto
+import rkrk.whyprice.inputapi.dto.member.req.MemberKoreanStockDeleteDto
+import rkrk.whyprice.inputapi.dto.member.req.MemberStockViewDto
+import rkrk.whyprice.inputapi.dto.member.req.MemberVolatilityDto
 import rkrk.whyprice.inputapi.usecase.MemberUseCase
+import rkrk.whyprice.share.Responser
 
 @Service
 @Transactional(readOnly = true)
 class MemberService(
     private val memberRepository: MemberRepository,
+    private val responser: Responser,
 ) : MemberUseCase {
     @Transactional
     override fun createMember(createDto: MemberCreateDto) {
@@ -32,7 +34,7 @@ class MemberService(
     }
 
     @Transactional
-    override fun deleteKoreanStock(stockDto: MemberKoreanStockRemoveDto) {
+    override fun deleteKoreanStock(stockDto: MemberKoreanStockDeleteDto) {
         val member = memberRepository.findById(stockDto.memberId)
         val stock = KoreanStock(stockDto.stockCrno, stockDto.stockName)
         member.deleteKoreanStock(stock)
@@ -44,7 +46,8 @@ class MemberService(
     }
 
     override fun fetchVolatility(memberDto: MemberVolatilityDto): List<KoreanStock> {
-        TODO("Not yet implemented")
+        val member = memberRepository.findById(memberDto.memberId)
+        return member.koreanStockHasVolatility(responser)
     }
 
     private fun duplicateCheckMember(memberName: String) {

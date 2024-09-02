@@ -1,18 +1,18 @@
 package rkrk.whyprice.inputapi.usecase
 
 import rkrk.whyprice.domain.asset.KoreanStock
-import rkrk.whyprice.inputapi.dto.member.MemberCreateDto
-import rkrk.whyprice.inputapi.dto.member.MemberKoreanStockAddDto
-import rkrk.whyprice.inputapi.dto.member.MemberKoreanStockRemoveDto
-import rkrk.whyprice.inputapi.dto.member.MemberStockViewDto
-import rkrk.whyprice.inputapi.dto.member.MemberVolatilityDto
+import rkrk.whyprice.inputapi.dto.member.req.MemberCreateDto
+import rkrk.whyprice.inputapi.dto.member.req.MemberKoreanStockAddDto
+import rkrk.whyprice.inputapi.dto.member.req.MemberKoreanStockDeleteDto
+import rkrk.whyprice.inputapi.dto.member.req.MemberStockViewDto
+import rkrk.whyprice.inputapi.dto.member.req.MemberVolatilityDto
 
 interface MemberUseCase {
     fun createMember(createDto: MemberCreateDto)
 
     fun addKoreanStock(stockDto: MemberKoreanStockAddDto)
 
-    fun deleteKoreanStock(stockDto: MemberKoreanStockRemoveDto)
+    fun deleteKoreanStock(stockDto: MemberKoreanStockDeleteDto)
 
     fun getKoreanStock(stockDto: MemberStockViewDto): List<KoreanStock>
 

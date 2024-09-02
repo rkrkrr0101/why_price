@@ -6,6 +6,7 @@ import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.ResponseEntity
+import org.springframework.stereotype.Component
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 import rkrk.whyprice.config.ApiConfig
@@ -13,6 +14,7 @@ import rkrk.whyprice.outputapi.marketfetcher.koreaninvtoken.KoreanInvTokenFetche
 import rkrk.whyprice.share.ApiUtil
 import rkrk.whyprice.share.RankFetcher
 
+@Component
 class HighRisersFetcher(
     private val apiUtil: ApiUtil,
 ) : RankFetcher {

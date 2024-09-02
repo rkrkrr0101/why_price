@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import rkrk.whyprice.domain.asset.KoreanStock
 import rkrk.whyprice.domain.trackedAssets.TrackedKoreanStocks
+import rkrk.whyprice.share.Responser
 
 @Entity
 class Member(
@@ -32,6 +33,8 @@ class Member(
     fun deleteKoreanStock(koreanStock: KoreanStock) {
         koreanStocks.deleteKoreanStock(koreanStock)
     }
+
+    fun koreanStockHasVolatility(responser: Responser): List<KoreanStock> = koreanStocks.hasVolatility(responser)
 
     fun getKoreanStocks(): List<KoreanStock> = koreanStocks.getAssets()
 

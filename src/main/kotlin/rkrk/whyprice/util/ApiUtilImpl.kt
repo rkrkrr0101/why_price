@@ -5,6 +5,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.http.ResponseEntity
+import org.springframework.stereotype.Component
 import org.springframework.util.MultiValueMap
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
@@ -12,6 +13,7 @@ import rkrk.whyprice.share.ApiUtil
 import java.net.URI
 import java.time.Duration
 
+@Component
 class ApiUtilImpl : ApiUtil {
     override fun createRestTemplate(
         connectTimeout: Long,

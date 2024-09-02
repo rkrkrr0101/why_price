@@ -1,4 +1,4 @@
-package rkrk.whyprice.inputapi.dto.member
+package rkrk.whyprice.inputapi.dto.member.req
 
 import rkrk.whyprice.domain.member.Member
 

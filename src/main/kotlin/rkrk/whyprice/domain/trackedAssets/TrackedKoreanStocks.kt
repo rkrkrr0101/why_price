@@ -23,8 +23,8 @@ class TrackedKoreanStocks {
         koreanStocks.remove(koreanStock)
     }
 
-    fun hasVolatility(responser: Responser): List<Asset> {
-        val resList = mutableListOf<Asset>()
+    fun hasVolatility(responser: Responser): List<KoreanStock> {
+        val resList = mutableListOf<KoreanStock>()
         for (koreanStock in koreanStocks) {
             if (responser.hasVolatility(koreanStock)) {
                 resList.add(koreanStock)
