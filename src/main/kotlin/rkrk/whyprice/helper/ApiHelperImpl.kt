@@ -1,4 +1,4 @@
-package rkrk.whyprice.util
+package rkrk.whyprice.helper
 
 import com.fasterxml.jackson.databind.JsonNode
 import org.springframework.boot.web.client.RestTemplateBuilder
@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component
 import org.springframework.util.MultiValueMap
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
-import rkrk.whyprice.share.ApiUtil
+import rkrk.whyprice.share.ApiHelper
 import java.net.URI
 import java.time.Duration
 
 @Component
-class ApiUtilImpl : ApiUtil {
+class ApiHelperImpl : ApiHelper {
     override fun createRestTemplate(
         connectTimeout: Long,
         readTimeout: Long,

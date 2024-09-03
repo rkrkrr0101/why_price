@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import rkrk.whyprice.domain.asset.KoreanStock
 import rkrk.whyprice.domain.trackedAssets.TrackedKoreanStocks
+import rkrk.whyprice.mock.CustomDateTimeMock
 import rkrk.whyprice.mock.ResponserMock
 
 class TrackedKoreanStocksTest {
@@ -13,7 +14,8 @@ class TrackedKoreanStocksTest {
     fun checkVolatility() {
         val trackedAssets = basicSetUpTrackedAssets()
 
-        val volatilityAssetList = trackedAssets.hasVolatility(ResponserMock())
+        val volatilityAssetList =
+            trackedAssets.hasVolatility(ResponserMock(CustomDateTimeMock("2021-01-01T00:00:00Z")))
         val tickerList = volatilityAssetList.map { it.getIdentityCode() }
 
         Assertions.assertThat(volatilityAssetList.size).isEqualTo(2)

@@ -11,18 +11,18 @@ import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 import rkrk.whyprice.config.ApiConfig
 import rkrk.whyprice.outputapi.marketfetcher.koreaninvtoken.KoreanInvTokenFetcher
-import rkrk.whyprice.share.ApiUtil
+import rkrk.whyprice.share.ApiHelper
 import rkrk.whyprice.share.RankFetcher
 
 @Component
 class HighRisersFetcher(
-    private val apiUtil: ApiUtil,
+    private val apiHelper: ApiHelper,
 ) : RankFetcher {
     override fun fetch(): List<String> {
-        val restTemplate = apiUtil.createRestTemplate()
-        val url = apiUtil.buildUrl(getBaseUrl(), createQueryParams())
+        val restTemplate = apiHelper.createRestTemplate()
+        val url = apiHelper.buildUrl(getBaseUrl(), createQueryParams())
         val httpEntity = createHttpEntity()
-        val response = apiUtil.fetchApiResponse(restTemplate, url, HttpMethod.GET, httpEntity)
+        val response = apiHelper.fetchApiResponse(restTemplate, url, HttpMethod.GET, httpEntity)
 
         return extractResponseAsList(response, "hts_kor_isnm")
     }
@@ -30,7 +30,7 @@ class HighRisersFetcher(
     private fun createHttpEntity(): HttpEntity<String> {
         val headers = HttpHeaders()
         headers.set("content-type", "application/json; charset=utf-8")
-        headers.set("authorization", "Bearer " + KoreanInvTokenFetcher(apiUtil).fetch())
+        headers.set("authorization", "Bearer " + KoreanInvTokenFetcher(apiHelper).fetch())
         headers.set("appkey", ApiConfig.getKoreaInvKey())
         headers.set("appsecret", ApiConfig.getKoreaSecretKey())
         headers.set("tr_id", "FHPST01700000")
@@ -69,7 +69,7 @@ class HighRisersFetcher(
         val itemNode = extractNodeList(response)
         val resList = mutableListOf<String>()
         for (node in itemNode) {
-            resList.add(apiUtil.extractNodeValue(node, key))
+            resList.add(apiHelper.extractNodeValue(node, key))
         }
         return resList
     }

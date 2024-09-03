@@ -5,14 +5,29 @@ import rkrk.whyprice.share.Asset
 import rkrk.whyprice.share.RankFetcher
 import rkrk.whyprice.share.Responser
 
-class ResponserMock : Responser {
+class ResponserMock(
+    private val dateTime: CustomDateTimeMock,
+) : Responser {
     override fun hasVolatility(asset: Asset): Boolean = asset.getIdentityCode().contains("volatility")
 
     override fun createReport(rankFetcher: RankFetcher): List<Report> {
-        TODO("Not yet implemented")
+        val fetch = rankFetcher.fetch()
+        val resList = mutableListOf<Report>()
+
+        for (assetName in fetch) {
+            resList.add(
+                Report(
+                    """$assetName report""",
+                    dateTime.getNow(),
+                ),
+            )
+        }
+        return resList
     }
 
-    override fun createReport(asset: Asset): Report {
-        TODO("Not yet implemented")
-    }
+    override fun createReport(asset: Asset): Report =
+        Report(
+            """${asset.getAssetName()} report""",
+            dateTime.getNow(),
+        )
 }

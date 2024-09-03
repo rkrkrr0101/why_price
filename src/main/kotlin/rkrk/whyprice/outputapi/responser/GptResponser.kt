@@ -12,11 +12,14 @@ import org.springframework.stereotype.Component
 import rkrk.whyprice.config.ApiConfig
 import rkrk.whyprice.domain.report.Report
 import rkrk.whyprice.share.Asset
+import rkrk.whyprice.share.CustomDateTime
 import rkrk.whyprice.share.RankFetcher
 import rkrk.whyprice.share.Responser
-import java.time.LocalDateTime
+
 @Component
-class GptResponser : Responser {
+class GptResponser(
+    private val customDateTime: CustomDateTime,
+) : Responser {
     private val option: OpenAiChatOptions =
         OpenAiChatOptions
             .builder()
@@ -72,5 +75,5 @@ class GptResponser : Responser {
         return Prompt(listOf(systemMessage, userMessage))
     }
 
-    private fun responseToReport(response: ChatResponse) = Report(response.result.output.content, LocalDateTime.now())
+    private fun responseToReport(response: ChatResponse) = Report(response.result.output.content, customDateTime.getNow())
 }

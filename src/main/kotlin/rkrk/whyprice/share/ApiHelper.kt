@@ -8,7 +8,7 @@ import org.springframework.util.MultiValueMap
 import org.springframework.web.client.RestTemplate
 import java.net.URI
 
-interface ApiUtil {
+interface ApiHelper {
     fun createRestTemplate(
         connectTimeout: Long = 3,
         readTimeout: Long = 3,

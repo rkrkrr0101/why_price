@@ -7,16 +7,16 @@ import org.springframework.util.MultiValueMap
 import org.springframework.web.client.RestTemplate
 import rkrk.whyprice.config.ApiConfig
 import rkrk.whyprice.domain.asset.AssetFetcher
-import rkrk.whyprice.share.ApiUtil
+import rkrk.whyprice.share.ApiHelper
 import java.net.URI
 
 abstract class KoreanApiFetcher(
-    private val apiUtil: ApiUtil,
+    private val apiHelper: ApiHelper,
 ) : AssetFetcher {
     override fun fetch(crNo: String): Map<String, String> {
-        val restTemplate = apiUtil.createRestTemplate()
+        val restTemplate = apiHelper.createRestTemplate()
 
-        val url = apiUtil.buildUrl(getBaseUrl(), createQueryParams(crNo, ApiConfig.getOpenApiKey()))
+        val url = apiHelper.buildUrl(getBaseUrl(), createQueryParams(crNo, ApiConfig.getOpenApiKey()))
 
         return apiCall(restTemplate, url, crNo)
     }
@@ -54,7 +54,7 @@ abstract class KoreanApiFetcher(
         url: URI,
     ): ResponseEntity<String> {
         val response =
-            apiUtil.fetchApiResponse(
+            apiHelper.fetchApiResponse(
                 restTemplate,
                 url,
                 HttpMethod.GET,

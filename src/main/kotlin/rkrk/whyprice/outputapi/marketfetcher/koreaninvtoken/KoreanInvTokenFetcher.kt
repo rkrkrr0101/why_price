@@ -6,15 +6,15 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.ResponseEntity
 import rkrk.whyprice.config.ApiConfig
-import rkrk.whyprice.share.ApiUtil
+import rkrk.whyprice.share.ApiHelper
 
 class KoreanInvTokenFetcher(
-    private val apiUtil: ApiUtil,
+    private val apiHelper: ApiHelper,
 ) {
     fun fetch(): String {
-        val restTemplate = apiUtil.createRestTemplate()
-        val url = apiUtil.buildUrl(getBaseUrl(), null, false)
-        val response = apiUtil.fetchApiResponse(restTemplate, url, HttpMethod.POST, createHttpEntity())
+        val restTemplate = apiHelper.createRestTemplate()
+        val url = apiHelper.buildUrl(getBaseUrl(), null, false)
+        val response = apiHelper.fetchApiResponse(restTemplate, url, HttpMethod.POST, createHttpEntity())
         return extractResponseValue(response, "access_token")
     }
 
