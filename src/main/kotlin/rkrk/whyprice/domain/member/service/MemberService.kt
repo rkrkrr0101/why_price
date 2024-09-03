@@ -28,14 +28,14 @@ class MemberService(
 
     @Transactional
     override fun addKoreanStock(stockDto: MemberKoreanStockAddDto) {
-        val member = memberRepository.findById(stockDto.memberId)
+        val member = memberRepository.findByUserName(stockDto.memberName)
         val stock = KoreanStock(stockDto.stockCrno, stockDto.stockName)
         member.addKoreanStock(stock)
     }
 
     @Transactional
     override fun deleteKoreanStock(stockDto: MemberKoreanStockDeleteDto) {
-        val member = memberRepository.findById(stockDto.memberId)
+        val member = memberRepository.findByUserName(stockDto.memberName)
         val stock = KoreanStock(stockDto.stockCrno, stockDto.stockName)
         member.deleteKoreanStock(stock)
     }
@@ -46,7 +46,7 @@ class MemberService(
     }
 
     override fun fetchVolatility(memberDto: MemberVolatilityDto): List<KoreanStock> {
-        val member = memberRepository.findById(memberDto.memberId)
+        val member = memberRepository.findByUserName(memberDto.memberName)
         return member.koreanStockHasVolatility(responser)
     }
 

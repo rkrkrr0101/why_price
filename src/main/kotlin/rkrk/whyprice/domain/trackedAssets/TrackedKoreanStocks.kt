@@ -5,7 +5,6 @@ import jakarta.persistence.FetchType
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToMany
 import rkrk.whyprice.domain.asset.KoreanStock
-import rkrk.whyprice.share.Asset
 import rkrk.whyprice.share.Responser
 
 @Embeddable
@@ -20,7 +19,7 @@ class TrackedKoreanStocks {
     }
 
     fun deleteKoreanStock(koreanStock: KoreanStock) {
-        koreanStocks.remove(koreanStock)
+        koreanStocks.find { it.name == koreanStock.name && it.crNo == koreanStock.crNo }?.let { koreanStocks.remove(it) }
     }
 
     fun hasVolatility(responser: Responser): List<KoreanStock> {

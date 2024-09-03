@@ -2,7 +2,11 @@ package rkrk.whyprice.domain.report
 
 import java.time.LocalDateTime
 
-data class Report(
-    val report: String,
-    val createTime: LocalDateTime,
-)
+class Report(
+    private val report: String,
+    private val createDateTime: LocalDateTime,
+) {
+    fun getReportBody(): String = report
+
+    fun getCreateTime(): LocalDateTime = createDateTime
+}

@@ -41,10 +41,9 @@ class MemberController(
         memberUseCase.deleteKoreanStock(deleteDto)
     }
 
+    // todo get 리퀘스트바디 변경
     @GetMapping("/stock")
-    fun getKoreanStock(
-        @RequestBody stockViewDto: MemberStockViewDto,
-    ): Result<List<KoreanStockResponseDto>> {
+    fun getKoreanStock(stockViewDto: MemberStockViewDto): Result<List<KoreanStockResponseDto>> {
         val stockDtos =
             memberUseCase
                 .getKoreanStock(stockViewDto)
@@ -53,9 +52,7 @@ class MemberController(
     }
 
     @GetMapping("/stock/volatility")
-    fun fetchVolatility(
-        @RequestBody memberVolatilityDto: MemberVolatilityDto,
-    ): Result<List<KoreanStockResponseDto>> {
+    fun fetchVolatility(memberVolatilityDto: MemberVolatilityDto): Result<List<KoreanStockResponseDto>> {
         val stockDtos =
             memberUseCase
                 .fetchVolatility(memberVolatilityDto)

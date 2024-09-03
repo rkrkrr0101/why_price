@@ -8,7 +8,7 @@ import rkrk.whyprice.share.Responser
 class ResponserMock(
     private val dateTime: CustomDateTimeMock,
 ) : Responser {
-    override fun hasVolatility(asset: Asset): Boolean = asset.getIdentityCode().contains("volatility")
+    override fun hasVolatility(asset: Asset): Boolean = asset.getAssetName().contains("삼성")
 
     override fun createReport(rankFetcher: RankFetcher): List<Report> {
         val fetch = rankFetcher.fetch()

@@ -17,6 +17,6 @@ class GptResponserTest {
         print("")
 
         // Then
-        print(report.report)
+        print(report.getReportBody())
     }
 }
