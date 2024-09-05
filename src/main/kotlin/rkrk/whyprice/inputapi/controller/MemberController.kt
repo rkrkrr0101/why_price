@@ -41,7 +41,6 @@ class MemberController(
         memberUseCase.deleteKoreanStock(deleteDto)
     }
 
-    // todo get 리퀘스트바디 변경
     @GetMapping("/stock")
     fun getKoreanStock(stockViewDto: MemberStockViewDto): Result<List<KoreanStockResponseDto>> {
         val stockDtos =
