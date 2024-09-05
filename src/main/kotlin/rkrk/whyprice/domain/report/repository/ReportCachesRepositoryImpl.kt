@@ -25,7 +25,7 @@ class ReportCachesRepositoryImpl(
 
     override fun isCacheValid(assetName: String): Boolean {
         val reportCaches = jpaRepository.findByReportAssetName(assetName) ?: return false
-        return reportCaches.isValid(customDateTime.getNow().minusMinutes(30))
+        return reportCaches.isValid(customDateTime.getNow())
     }
 
     override fun findOne(assetName: String): ReportCache =

@@ -95,7 +95,7 @@ class ReportServiceTest
         }
 
         @Test
-        @DisplayName("캐시보고서가 만료되면 새로운 보고서를 생성한다")
+        @DisplayName("캐시보고서가 만료되면 새로운 보고서를 리턴한다")
         fun expiredCacheReport() {
             reportCachesRepository.saveOrUpdate(
                 Report(

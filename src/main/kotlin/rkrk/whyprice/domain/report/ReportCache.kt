@@ -29,5 +29,5 @@ class ReportCache(
         this.report = report
     }
 
-    fun isValid(dateTime: LocalDateTime): Boolean = report.getCreateTime().isAfter(dateTime)
+    fun isValid(dateTime: LocalDateTime): Boolean = report.getCreateTime().isAfter(dateTime.minusMinutes(30))
 }

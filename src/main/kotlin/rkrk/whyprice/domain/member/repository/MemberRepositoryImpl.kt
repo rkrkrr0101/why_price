@@ -8,6 +8,7 @@ import rkrk.whyprice.domain.member.service.infra.MemberRepository
 class MemberRepositoryImpl(
     private val memberJpaRepository: MemberJpaRepository,
 ) : MemberRepository {
+    //todo findOne으로 변경
     override fun findByUserName(name: String): Member =
         memberJpaRepository.findByUserName(name)
             ?: throw IllegalArgumentException("존재하지 않는 회원입니다.")
@@ -17,7 +18,7 @@ class MemberRepositoryImpl(
     override fun delete(member: Member) {
         memberJpaRepository.delete(member)
     }
-
+    //todo findOne으로 변경
     override fun findById(id: Long): Member =
         memberJpaRepository
             .findById(id)
