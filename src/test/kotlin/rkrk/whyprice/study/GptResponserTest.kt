@@ -13,7 +13,7 @@ class GptResponserTest {
         val gptResponser = GptResponser(CustomDateTimeImpl())
 
         // When
-        val report = gptResponser.createReport(stock)
+        val report = gptResponser.createReport(stock.getAssetName())
         print("")
 
         // Then

@@ -2,7 +2,6 @@ package rkrk.whyprice.mock
 
 import rkrk.whyprice.domain.report.Report
 import rkrk.whyprice.share.Asset
-import rkrk.whyprice.share.RankFetcher
 import rkrk.whyprice.share.Responser
 
 class ResponserMock(
@@ -10,24 +9,10 @@ class ResponserMock(
 ) : Responser {
     override fun hasVolatility(asset: Asset): Boolean = asset.getAssetName().contains("삼성")
 
-    override fun createReport(rankFetcher: RankFetcher): List<Report> {
-        val fetch = rankFetcher.fetch()
-        val resList = mutableListOf<Report>()
-
-        for (assetName in fetch) {
-            resList.add(
-                Report(
-                    """$assetName report""",
-                    dateTime.getNow(),
-                ),
-            )
-        }
-        return resList
-    }
-
-    override fun createReport(asset: Asset): Report =
+    override fun createReport(assetName: String): Report =
         Report(
-            """${asset.getAssetName()} report""",
+            assetName,
+            """$assetName report""",
             dateTime.getNow(),
         )
 }

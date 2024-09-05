@@ -13,7 +13,6 @@ import rkrk.whyprice.config.ApiConfig
 import rkrk.whyprice.domain.report.Report
 import rkrk.whyprice.share.Asset
 import rkrk.whyprice.share.CustomDateTime
-import rkrk.whyprice.share.RankFetcher
 import rkrk.whyprice.share.Responser
 
 @Component
@@ -34,22 +33,10 @@ class GptResponser(
         TODO("Not yet implemented")
     }
 
-    override fun createReport(rankFetcher: RankFetcher): List<Report> {
-        val rankList = rankFetcher.fetch()
-        val resList = mutableListOf<Report>()
+    override fun createReport(assetName: String): Report {
+        val response = fetch(assetName)
 
-        for (assetName in rankList) {
-            val response = fetch(assetName)
-            val report = responseToReport(response)
-            resList.add(report)
-        }
-        return resList
-    }
-
-    override fun createReport(asset: Asset): Report {
-        val response = fetch(asset.getAssetName())
-
-        return responseToReport(response)
+        return responseToReport(assetName, response)
     }
 
     private fun fetch(
@@ -75,5 +62,8 @@ class GptResponser(
         return Prompt(listOf(systemMessage, userMessage))
     }
 
-    private fun responseToReport(response: ChatResponse) = Report(response.result.output.content, customDateTime.getNow())
+    private fun responseToReport(
+        assetName: String,
+        response: ChatResponse,
+    ) = Report(assetName, response.result.output.content, customDateTime.getNow())
 }
