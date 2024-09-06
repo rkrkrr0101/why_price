@@ -28,36 +28,52 @@ class GptResponser(
     private val chatClient: ChatClient =
         ChatClient.builder(OpenAiChatModel(OpenAiApi(ApiConfig.getGptKey()), option)).build()
 
-    override fun hasVolatility(asset: Asset): Boolean {
-        // GPT API를 이용하여 해당 자산의 변동성을 예측하는 기능을 구현
-        TODO("Not yet implemented")
+    override fun hasVolatility(
+        asset: Asset,
+        volatilityTime: Int,
+    ): Boolean {
+        val response = fetch(createVolatilityPrompt(asset.getAssetName(), volatilityTime))
+        return response.result.output.content
+            .contains("o")
     }
 
-    override fun createReport(assetName: String): Report {
-        val response = fetch(assetName)
+    override fun createReport(
+        assetName: String,
+        volatilityTime: Int,
+    ): Report {
+        val response = fetch(createReportPrompt(assetName, volatilityTime))
 
         return responseToReport(assetName, response)
     }
 
-    private fun fetch(
-        assetName: String,
-        volatilityTime: Int = 1,
-    ): ChatResponse {
+    private fun fetch(prompt: Prompt): ChatResponse {
         val response =
             chatClient
-                .prompt(createPrompt(assetName, volatilityTime))
+                .prompt(prompt)
                 .call()
                 .chatResponse()
         return response
     }
 
-    private fun createPrompt(
+    private fun createReportPrompt(
         assetName: String,
         volatilityTime: Int,
     ): Prompt {
         val systemText = "너는 20년 경력의 금융시장 전문가야"
         val systemMessage = SystemMessage(systemText)
         val userTest = """${assetName}의 현재가격과 최근 ${volatilityTime}시간동안의 변동성과 변동성의 이유를 검색하고 평가해서 레포트로 써줘"""
+        val userMessage = UserMessage(userTest)
+        return Prompt(listOf(systemMessage, userMessage))
+    }
+
+    private fun createVolatilityPrompt(
+        assetName: String,
+        volatilityTime: Int,
+    ): Prompt {
+        val systemText = "너는 20년 경력의 금융시장 전문가야"
+        val systemMessage = SystemMessage(systemText)
+        val userTest = """${assetName}의 현재가격과 최근 ${volatilityTime}시간동안의 변동성과 변동성의 이유를 검색하고 평가해서 o나 x로만 말해줘"""
+        userTest.plus("변동성이 크면 o,작으면 x로 말하면돼")
         val userMessage = UserMessage(userTest)
         return Prompt(listOf(systemMessage, userMessage))
     }

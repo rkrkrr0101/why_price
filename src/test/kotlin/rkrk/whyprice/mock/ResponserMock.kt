@@ -7,9 +7,15 @@ import rkrk.whyprice.share.Responser
 class ResponserMock(
     private val dateTime: CustomDateTimeMock,
 ) : Responser {
-    override fun hasVolatility(asset: Asset): Boolean = asset.getAssetName().contains("삼성")
+    override fun hasVolatility(
+        asset: Asset,
+        volatilityTime: Int,
+    ): Boolean = asset.getAssetName().contains("삼성")
 
-    override fun createReport(assetName: String): Report =
+    override fun createReport(
+        assetName: String,
+        volatilityTime: Int,
+    ): Report =
         Report(
             assetName,
             """$assetName report""",
