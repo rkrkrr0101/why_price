@@ -10,13 +10,13 @@ import rkrk.whyprice.inputapi.dto.member.req.MemberKoreanStockDeleteDto
 import rkrk.whyprice.inputapi.dto.member.req.MemberStockViewDto
 import rkrk.whyprice.inputapi.dto.member.req.MemberVolatilityDto
 import rkrk.whyprice.inputapi.usecase.MemberUseCase
-import rkrk.whyprice.share.Responser
+import rkrk.whyprice.member.application.port.CheckVolatilityPort
 
 @Service
 @Transactional(readOnly = true)
 class MemberService(
     private val memberRepository: MemberRepository,
-    private val responser: Responser,
+    private val checkVolatilityPort: CheckVolatilityPort,
 ) : MemberUseCase {
     @Transactional
     override fun createMember(createDto: MemberCreateDto) {
@@ -47,7 +47,7 @@ class MemberService(
 
     override fun fetchVolatility(memberDto: MemberVolatilityDto): List<KoreanStock> {
         val member = memberRepository.findByUserName(memberDto.memberName)
-        return member.koreanStockHasVolatility(responser)
+        return member.koreanStockHasVolatility(checkVolatilityPort)
     }
 
     private fun duplicateCheckMember(memberName: String) {

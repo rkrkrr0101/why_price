@@ -1,12 +1,14 @@
 package rkrk.whyprice.mock
 
-import rkrk.whyprice.domain.report.Report
-import rkrk.whyprice.share.Asset
-import rkrk.whyprice.share.Responser
+import rkrk.whyprice.asset.domain.Asset
+import rkrk.whyprice.member.application.port.CheckVolatilityPort
+import rkrk.whyprice.report.application.port.out.CreateReportPort
+import rkrk.whyprice.report.domain.Report
 
 class ResponserMock(
     private val dateTime: CustomDateTimeMock,
-) : Responser {
+) : CreateReportPort,
+    CheckVolatilityPort {
     override fun hasVolatility(
         asset: Asset,
         volatilityTime: Int,

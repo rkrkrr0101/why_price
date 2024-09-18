@@ -5,7 +5,7 @@ import jakarta.persistence.FetchType
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToMany
 import rkrk.whyprice.domain.asset.KoreanStock
-import rkrk.whyprice.share.Responser
+import rkrk.whyprice.member.application.port.CheckVolatilityPort
 
 @Embeddable
 class TrackedKoreanStocks {
@@ -22,10 +22,10 @@ class TrackedKoreanStocks {
         koreanStocks.find { it.name == koreanStock.name && it.crNo == koreanStock.crNo }?.let { koreanStocks.remove(it) }
     }
 
-    fun hasVolatility(responser: Responser): List<KoreanStock> {
+    fun hasVolatility(checkVolatilityPort: CheckVolatilityPort): List<KoreanStock> {
         val resList = mutableListOf<KoreanStock>()
         for (koreanStock in koreanStocks) {
-            if (responser.hasVolatility(koreanStock)) {
+            if (checkVolatilityPort.hasVolatility(koreanStock)) {
                 resList.add(koreanStock)
             }
         }

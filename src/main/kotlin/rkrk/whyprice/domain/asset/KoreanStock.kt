@@ -2,7 +2,7 @@ package rkrk.whyprice.domain.asset
 
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
-import rkrk.whyprice.share.Asset
+import rkrk.whyprice.asset.domain.Asset
 
 @Entity
 class KoreanStock(
@@ -42,5 +42,4 @@ class KoreanStock(
     override fun getIdentityCode(): String = crNo
 
     override fun getAssetName(): String = name
-
 }

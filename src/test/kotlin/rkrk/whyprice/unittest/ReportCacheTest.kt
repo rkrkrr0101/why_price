@@ -3,9 +3,9 @@ package rkrk.whyprice.unittest
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import rkrk.whyprice.domain.report.Report
-import rkrk.whyprice.domain.report.ReportCache
 import rkrk.whyprice.mock.CustomDateTimeMock
+import rkrk.whyprice.report.adapter.out.persistence.ReportCache
+import rkrk.whyprice.report.domain.Report
 
 class ReportCacheTest {
     @Test

@@ -12,8 +12,8 @@ import rkrk.whyprice.inputapi.dto.member.req.MemberKoreanStockDeleteDto
 import rkrk.whyprice.inputapi.dto.member.req.MemberStockViewDto
 import rkrk.whyprice.inputapi.dto.member.req.MemberVolatilityDto
 import rkrk.whyprice.inputapi.dto.member.res.KoreanStockResponseDto
-import rkrk.whyprice.inputapi.result.Result
 import rkrk.whyprice.inputapi.usecase.MemberUseCase
+import rkrk.whyprice.share.Result
 
 @RestController
 @RequestMapping("/api/member")

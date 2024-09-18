@@ -2,8 +2,8 @@ package rkrk.whyprice.study
 
 import org.junit.jupiter.api.Test
 import rkrk.whyprice.domain.asset.KoreanStock
-import rkrk.whyprice.helper.CustomDateTimeImpl
-import rkrk.whyprice.outputapi.responser.GptResponser
+import rkrk.whyprice.share.adapter.GptResponser
+import rkrk.whyprice.share.impl.CustomDateTimeImpl
 
 class GptResponserTest {
     @Test

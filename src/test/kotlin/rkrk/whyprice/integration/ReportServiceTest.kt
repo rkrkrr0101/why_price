@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
 import rkrk.whyprice.domain.asset.KoreanStock
-import rkrk.whyprice.domain.report.Report
-import rkrk.whyprice.domain.report.repository.ReportCachesJpaRepository
-import rkrk.whyprice.domain.report.repository.ReportCachesRepositoryImpl
-import rkrk.whyprice.domain.report.service.ReportService
 import rkrk.whyprice.mock.CustomDateTimeMock
 import rkrk.whyprice.mock.RankFetcherMock
 import rkrk.whyprice.mock.ResponserMock
+import rkrk.whyprice.report.adapter.out.persistence.ReportCachesJpaRepository
+import rkrk.whyprice.report.adapter.out.persistence.ReportCachesRepositoryImpl
+import rkrk.whyprice.report.application.service.ReportService
+import rkrk.whyprice.report.domain.Report
 
 @SpringBootTest
 @Transactional
