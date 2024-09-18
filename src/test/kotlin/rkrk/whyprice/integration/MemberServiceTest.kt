@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
 import rkrk.whyprice.domain.asset.KoreanStock
-import rkrk.whyprice.domain.member.Member
-import rkrk.whyprice.domain.member.service.MemberService
-import rkrk.whyprice.domain.member.service.infra.MemberRepository
-import rkrk.whyprice.inputapi.dto.member.req.MemberCreateDto
-import rkrk.whyprice.inputapi.dto.member.req.MemberKoreanStockAddDto
-import rkrk.whyprice.inputapi.dto.member.req.MemberKoreanStockDeleteDto
-import rkrk.whyprice.inputapi.dto.member.req.MemberStockViewDto
-import rkrk.whyprice.inputapi.dto.member.req.MemberVolatilityDto
+import rkrk.whyprice.member.application.port.input.dto.req.MemberCreateDto
+import rkrk.whyprice.member.application.port.input.dto.req.MemberKoreanStockAddDto
+import rkrk.whyprice.member.application.port.input.dto.req.MemberKoreanStockDeleteDto
+import rkrk.whyprice.member.application.port.input.dto.req.MemberStockViewDto
+import rkrk.whyprice.member.application.port.input.dto.req.MemberVolatilityDto
+import rkrk.whyprice.member.application.port.out.MemberRepository
+import rkrk.whyprice.member.application.service.MemberService
+import rkrk.whyprice.member.domain.Member
 import rkrk.whyprice.mock.CustomDateTimeMock
 import rkrk.whyprice.mock.ResponserMock
 

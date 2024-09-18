@@ -1,16 +1,16 @@
-package rkrk.whyprice.domain.member.service
+package rkrk.whyprice.member.application.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import rkrk.whyprice.domain.asset.KoreanStock
-import rkrk.whyprice.domain.member.service.infra.MemberRepository
-import rkrk.whyprice.inputapi.dto.member.req.MemberCreateDto
-import rkrk.whyprice.inputapi.dto.member.req.MemberKoreanStockAddDto
-import rkrk.whyprice.inputapi.dto.member.req.MemberKoreanStockDeleteDto
-import rkrk.whyprice.inputapi.dto.member.req.MemberStockViewDto
-import rkrk.whyprice.inputapi.dto.member.req.MemberVolatilityDto
-import rkrk.whyprice.inputapi.usecase.MemberUseCase
-import rkrk.whyprice.member.application.port.CheckVolatilityPort
+import rkrk.whyprice.member.application.port.input.MemberUseCase
+import rkrk.whyprice.member.application.port.input.dto.req.MemberCreateDto
+import rkrk.whyprice.member.application.port.input.dto.req.MemberKoreanStockAddDto
+import rkrk.whyprice.member.application.port.input.dto.req.MemberKoreanStockDeleteDto
+import rkrk.whyprice.member.application.port.input.dto.req.MemberStockViewDto
+import rkrk.whyprice.member.application.port.input.dto.req.MemberVolatilityDto
+import rkrk.whyprice.member.application.port.out.CheckVolatilityPort
+import rkrk.whyprice.member.application.port.out.MemberRepository
 
 @Service
 @Transactional(readOnly = true)

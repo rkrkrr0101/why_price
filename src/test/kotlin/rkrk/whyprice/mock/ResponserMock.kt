@@ -1,7 +1,7 @@
 package rkrk.whyprice.mock
 
 import rkrk.whyprice.asset.domain.Asset
-import rkrk.whyprice.member.application.port.CheckVolatilityPort
+import rkrk.whyprice.member.application.port.out.CheckVolatilityPort
 import rkrk.whyprice.report.application.port.out.CreateReportPort
 import rkrk.whyprice.report.domain.Report
 

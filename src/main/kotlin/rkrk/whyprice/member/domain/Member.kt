@@ -1,4 +1,4 @@
-package rkrk.whyprice.domain.member
+package rkrk.whyprice.member.domain
 
 import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
@@ -6,8 +6,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import rkrk.whyprice.domain.asset.KoreanStock
-import rkrk.whyprice.domain.trackedAssets.TrackedKoreanStocks
-import rkrk.whyprice.member.application.port.CheckVolatilityPort
+import rkrk.whyprice.member.application.port.out.CheckVolatilityPort
 
 @Entity
 class Member(

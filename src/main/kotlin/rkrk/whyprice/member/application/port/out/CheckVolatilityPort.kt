@@ -1,4 +1,4 @@
-package rkrk.whyprice.member.application.port
+package rkrk.whyprice.member.application.port.out
 
 import rkrk.whyprice.asset.domain.Asset
 

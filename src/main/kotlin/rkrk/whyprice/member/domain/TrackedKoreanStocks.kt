@@ -1,11 +1,11 @@
-package rkrk.whyprice.domain.trackedAssets
+package rkrk.whyprice.member.domain
 
 import jakarta.persistence.Embeddable
 import jakarta.persistence.FetchType
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToMany
 import rkrk.whyprice.domain.asset.KoreanStock
-import rkrk.whyprice.member.application.port.CheckVolatilityPort
+import rkrk.whyprice.member.application.port.out.CheckVolatilityPort
 
 @Embeddable
 class TrackedKoreanStocks {

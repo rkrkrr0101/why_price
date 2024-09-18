@@ -1,6 +1,6 @@
-package rkrk.whyprice.inputapi.dto.member.req
+package rkrk.whyprice.member.application.port.input.dto.req
 
-import rkrk.whyprice.domain.member.Member
+import rkrk.whyprice.member.domain.Member
 
 data class MemberCreateDto(
     val name: String,

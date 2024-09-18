@@ -1,4 +1,4 @@
-package rkrk.whyprice.inputapi.dto.member.res
+package rkrk.whyprice.member.adapter.input.web.dto.res
 
 data class KoreanStockResponseDto(
     val identityCode: String,

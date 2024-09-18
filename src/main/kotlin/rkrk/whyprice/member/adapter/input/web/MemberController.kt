@@ -1,4 +1,4 @@
-package rkrk.whyprice.inputapi.controller
+package rkrk.whyprice.member.adapter.input.web
 
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import rkrk.whyprice.inputapi.dto.member.req.MemberCreateDto
-import rkrk.whyprice.inputapi.dto.member.req.MemberKoreanStockAddDto
-import rkrk.whyprice.inputapi.dto.member.req.MemberKoreanStockDeleteDto
-import rkrk.whyprice.inputapi.dto.member.req.MemberStockViewDto
-import rkrk.whyprice.inputapi.dto.member.req.MemberVolatilityDto
-import rkrk.whyprice.inputapi.dto.member.res.KoreanStockResponseDto
-import rkrk.whyprice.inputapi.usecase.MemberUseCase
+import rkrk.whyprice.member.adapter.input.web.dto.res.KoreanStockResponseDto
+import rkrk.whyprice.member.application.port.input.MemberUseCase
+import rkrk.whyprice.member.application.port.input.dto.req.MemberCreateDto
+import rkrk.whyprice.member.application.port.input.dto.req.MemberKoreanStockAddDto
+import rkrk.whyprice.member.application.port.input.dto.req.MemberKoreanStockDeleteDto
+import rkrk.whyprice.member.application.port.input.dto.req.MemberStockViewDto
+import rkrk.whyprice.member.application.port.input.dto.req.MemberVolatilityDto
 import rkrk.whyprice.share.Result
 
 @RestController

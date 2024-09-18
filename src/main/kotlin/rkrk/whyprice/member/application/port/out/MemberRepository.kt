@@ -1,6 +1,6 @@
-package rkrk.whyprice.domain.member.service.infra
+package rkrk.whyprice.member.application.port.out
 
-import rkrk.whyprice.domain.member.Member
+import rkrk.whyprice.member.domain.Member
 
 interface MemberRepository {
     fun findByUserName(name: String): Member

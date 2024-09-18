@@ -11,7 +11,7 @@ import org.springframework.ai.openai.api.OpenAiApi
 import org.springframework.stereotype.Component
 import rkrk.whyprice.asset.domain.Asset
 import rkrk.whyprice.config.ApiConfig
-import rkrk.whyprice.member.application.port.CheckVolatilityPort
+import rkrk.whyprice.member.application.port.out.CheckVolatilityPort
 import rkrk.whyprice.report.application.port.out.CreateReportPort
 import rkrk.whyprice.report.domain.Report
 import rkrk.whyprice.share.infra.CustomDateTime
