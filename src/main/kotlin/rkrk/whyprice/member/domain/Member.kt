@@ -5,7 +5,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
-import rkrk.whyprice.domain.asset.KoreanStock
+import rkrk.whyprice.asset.domain.KoreanStock
 import rkrk.whyprice.member.application.port.out.CheckVolatilityPort
 
 @Entity

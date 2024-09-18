@@ -3,7 +3,7 @@ package rkrk.whyprice.unittest
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import rkrk.whyprice.domain.asset.KoreanStock
+import rkrk.whyprice.asset.domain.KoreanStock
 import rkrk.whyprice.member.domain.TrackedKoreanStocks
 import rkrk.whyprice.mock.CustomDateTimeMock
 import rkrk.whyprice.mock.ResponserMock

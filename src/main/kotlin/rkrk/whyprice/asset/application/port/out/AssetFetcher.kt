@@ -1,4 +1,4 @@
-package rkrk.whyprice.domain.asset
+package rkrk.whyprice.asset.application.port.out
 
 // 멤버서비스의 포트인터페이스
 interface AssetFetcher {

@@ -1,6 +1,6 @@
 package rkrk.whyprice.member.application.port.input
 
-import rkrk.whyprice.domain.asset.KoreanStock
+import rkrk.whyprice.asset.domain.KoreanStock
 import rkrk.whyprice.member.application.port.input.dto.req.MemberCreateDto
 import rkrk.whyprice.member.application.port.input.dto.req.MemberKoreanStockAddDto
 import rkrk.whyprice.member.application.port.input.dto.req.MemberKoreanStockDeleteDto

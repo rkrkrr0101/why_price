@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
-import rkrk.whyprice.domain.asset.KoreanStock
+import rkrk.whyprice.asset.domain.KoreanStock
 import rkrk.whyprice.member.application.port.input.dto.req.MemberCreateDto
 import rkrk.whyprice.member.application.port.input.dto.req.MemberKoreanStockAddDto
 import rkrk.whyprice.member.application.port.input.dto.req.MemberKoreanStockDeleteDto

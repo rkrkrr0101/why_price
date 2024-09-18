@@ -4,7 +4,7 @@ import jakarta.persistence.Embeddable
 import jakarta.persistence.FetchType
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToMany
-import rkrk.whyprice.domain.asset.KoreanStock
+import rkrk.whyprice.asset.domain.KoreanStock
 import rkrk.whyprice.member.application.port.out.CheckVolatilityPort
 
 @Embeddable

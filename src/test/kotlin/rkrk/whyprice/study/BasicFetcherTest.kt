@@ -2,7 +2,7 @@ package rkrk.whyprice.study
 
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
-import rkrk.whyprice.outputapi.assetfetcher.apifetcher.impl.BasicFetcher
+import rkrk.whyprice.asset.adapter.out.api.assetfetcher.apifetcher.impl.BasicFetcher
 import rkrk.whyprice.share.impl.ApiHelperImpl
 
 class BasicFetcherTest {
