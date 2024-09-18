@@ -7,7 +7,7 @@ import org.springframework.util.MultiValueMap
 import org.springframework.web.client.RestTemplate
 import rkrk.whyprice.asset.application.port.out.AssetFetcher
 import rkrk.whyprice.config.ApiConfig
-import rkrk.whyprice.share.infra.ApiHelper
+import rkrk.whyprice.share.port.ApiHelper
 import java.net.URI
 
 abstract class KoreanApiFetcher(

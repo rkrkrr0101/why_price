@@ -1,6 +1,6 @@
 package rkrk.whyprice.mock
 
-import rkrk.whyprice.share.infra.CustomDateTime
+import rkrk.whyprice.share.port.CustomDateTime
 import java.time.LocalDateTime
 
 class CustomDateTimeMock(

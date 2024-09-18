@@ -1,7 +1,7 @@
 package rkrk.whyprice.share.impl
 
 import org.springframework.stereotype.Component
-import rkrk.whyprice.share.infra.CustomDateTime
+import rkrk.whyprice.share.port.CustomDateTime
 import java.time.LocalDateTime
 
 @Component

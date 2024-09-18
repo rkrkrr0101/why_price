@@ -6,7 +6,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.ResponseEntity
 import rkrk.whyprice.config.ApiConfig
-import rkrk.whyprice.share.infra.ApiHelper
+import rkrk.whyprice.share.port.ApiHelper
 
 class KoreanInvTokenFetcher(
     private val apiHelper: ApiHelper,

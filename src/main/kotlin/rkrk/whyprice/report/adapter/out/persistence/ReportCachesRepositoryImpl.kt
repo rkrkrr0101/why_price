@@ -3,7 +3,7 @@ package rkrk.whyprice.report.adapter.out.persistence
 import org.springframework.stereotype.Repository
 import rkrk.whyprice.report.application.port.out.ReportCachesRepository
 import rkrk.whyprice.report.domain.Report
-import rkrk.whyprice.share.infra.CustomDateTime
+import rkrk.whyprice.share.port.CustomDateTime
 
 @Repository
 class ReportCachesRepositoryImpl(

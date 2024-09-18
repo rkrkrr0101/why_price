@@ -11,7 +11,7 @@ import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 import rkrk.whyprice.config.ApiConfig
 import rkrk.whyprice.report.application.port.out.RankFetcher
-import rkrk.whyprice.share.infra.ApiHelper
+import rkrk.whyprice.share.port.ApiHelper
 
 @Component
 class HighRisersFetcher(

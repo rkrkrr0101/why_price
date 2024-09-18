@@ -1,4 +1,4 @@
-package rkrk.whyprice.share.infra
+package rkrk.whyprice.share.port
 
 import java.time.LocalDateTime
 
