@@ -2,7 +2,6 @@ package rkrk.whyprice.member.application.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import rkrk.whyprice.asset.domain.KoreanStock
 import rkrk.whyprice.member.application.port.input.MemberUseCase
 import rkrk.whyprice.member.application.port.input.dto.req.MemberCreateDto
 import rkrk.whyprice.member.application.port.input.dto.req.MemberKoreanStockAddDto
@@ -11,6 +10,7 @@ import rkrk.whyprice.member.application.port.input.dto.req.MemberStockViewDto
 import rkrk.whyprice.member.application.port.input.dto.req.MemberVolatilityDto
 import rkrk.whyprice.member.application.port.out.CheckVolatilityPort
 import rkrk.whyprice.member.application.port.out.MemberRepository
+import rkrk.whyprice.member.domain.KoreanStock
 
 @Service
 @Transactional(readOnly = true)

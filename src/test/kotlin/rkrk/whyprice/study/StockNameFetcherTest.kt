@@ -2,14 +2,14 @@ package rkrk.whyprice.study
 
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
-import rkrk.whyprice.asset.adapter.out.api.assetfetcher.apifetcher.impl.BasicFetcher
+import rkrk.whyprice.member.adapter.out.api.assetfetcher.apifetcher.impl.StockNameFetcher
 import rkrk.whyprice.share.impl.ApiHelperImpl
 
-class BasicFetcherTest {
+class StockNameFetcherTest {
     @Test
     fun successFetch() {
-        val basicFetcher = BasicFetcher(ApiHelperImpl())
-        val fetch = basicFetcher.fetch("1301110006246")
+        val stockNameFetcher = StockNameFetcher(ApiHelperImpl())
+        val fetch = stockNameFetcher.fetch("1301110006246")
 
         Assertions.assertThat(fetch["assetName"]).isEqualTo("삼성전자")
     }

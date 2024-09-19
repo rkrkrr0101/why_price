@@ -2,7 +2,7 @@ package rkrk.whyprice.report.application.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import rkrk.whyprice.asset.domain.Asset
+import rkrk.whyprice.member.domain.Asset
 import rkrk.whyprice.report.application.port.input.ReportUseCase
 import rkrk.whyprice.report.application.port.out.CreateReportPort
 import rkrk.whyprice.report.application.port.out.RankFetcher

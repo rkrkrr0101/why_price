@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
-import rkrk.whyprice.asset.domain.KoreanStock
+import rkrk.whyprice.member.domain.KoreanStock
 import rkrk.whyprice.mock.CustomDateTimeMock
 import rkrk.whyprice.mock.RankFetcherMock
 import rkrk.whyprice.mock.ResponserMock

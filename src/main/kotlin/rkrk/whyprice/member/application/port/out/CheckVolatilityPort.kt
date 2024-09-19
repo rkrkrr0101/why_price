@@ -1,6 +1,6 @@
 package rkrk.whyprice.member.application.port.out
 
-import rkrk.whyprice.asset.domain.Asset
+import rkrk.whyprice.member.domain.Asset
 
 interface CheckVolatilityPort {
     fun hasVolatility(

@@ -1,15 +1,15 @@
-package rkrk.whyprice.asset.adapter.out.api.assetfetcher.apifetcher.impl
+package rkrk.whyprice.member.adapter.out.api.assetfetcher.apifetcher.impl
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.springframework.http.ResponseEntity
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
-import rkrk.whyprice.asset.adapter.out.api.assetfetcher.apifetcher.KoreanApiFetcher
+import rkrk.whyprice.member.adapter.out.api.assetfetcher.apifetcher.KoreanApiFetcher
 import rkrk.whyprice.share.port.ApiHelper
 import javax.xml.parsers.DocumentBuilderFactory
 
-class BasicFetcher(
+class StockNameFetcher(
     private val apiHelper: ApiHelper,
 ) : KoreanApiFetcher(apiHelper) {
     override fun getBaseUrl(): String = "https://apis.data.go.kr/1160100/service/GetKrxListedInfoService/getItemInfo"

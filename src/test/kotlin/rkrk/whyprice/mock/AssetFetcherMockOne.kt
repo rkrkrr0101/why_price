@@ -1,6 +1,6 @@
 package rkrk.whyprice.mock
 
-import rkrk.whyprice.asset.application.port.out.AssetFetcher
+import rkrk.whyprice.member.application.port.out.AssetFetcher
 
 class AssetFetcherMockOne : AssetFetcher {
     override fun fetch(crNo: String): Map<String, String> = hashMapOf(Pair("testKey1", "testValue1"))

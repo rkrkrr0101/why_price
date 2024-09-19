@@ -1,6 +1,7 @@
 실시간순위api docs
 https://apiportal.koreainvestment.com/apiservice/apiservice-domestic-stock-ranking#L_6df56964-f22b-43d4-9457-f06264018e5b
 
+도메인에 코어외부(웹,영속성등)로직이 섞이기 시작하면 엔티티분리
 
 
 컨트롤러 예외처리
@@ -37,7 +38,9 @@ gpt프롬프트 튜닝
             jpa레포지토리
 
 
+에셋과 멤버 합체?-이경우 에셋은 jpa분리해야할듯?
 이후 접근자세팅
+
 
 유스케이스 분리후 컨트롤러 분리시에는 유스케이스부터 분리하고 서비스-이후 컨트롤러 분리
 
@@ -65,7 +68,8 @@ https://easywritten.com/post/setting-up-jpa-without-spring-in-kotlin/
 https://github.com/wikibook/clean-architecture/
 
 
-
+고칠점
+    설계시 유스케이스단위로 생각하기
 
 
 

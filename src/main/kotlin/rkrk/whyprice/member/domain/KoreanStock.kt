@@ -1,8 +1,8 @@
-package rkrk.whyprice.asset.domain
+package rkrk.whyprice.member.domain
 
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
-import rkrk.whyprice.asset.application.port.out.AssetFetcher
+import rkrk.whyprice.member.application.port.out.AssetFetcher
 
 @Entity
 class KoreanStock(
