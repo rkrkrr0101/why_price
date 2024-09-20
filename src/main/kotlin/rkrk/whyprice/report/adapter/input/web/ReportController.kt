@@ -4,28 +4,26 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import rkrk.whyprice.member.domain.KoreanStock
-import rkrk.whyprice.report.adapter.input.web.dto.req.KoreanStockReportDto
-import rkrk.whyprice.report.adapter.input.web.dto.res.ReportResponseDto
-import rkrk.whyprice.report.application.port.input.ReportUseCase
+import rkrk.whyprice.report.application.port.input.CreateReportUseCase
+import rkrk.whyprice.report.application.port.input.dto.req.KoreanStockReportDto
+import rkrk.whyprice.report.application.port.input.dto.res.ResponseReportDto
 import rkrk.whyprice.share.Result
 
 @RestController
 @RequestMapping("/api/report")
 class ReportController(
-    private val reportUseCase: ReportUseCase,
+    private val reportUseCase: CreateReportUseCase,
 ) {
     @GetMapping("/stock/high")
-    fun fetchHighReports(): Result<List<ReportResponseDto>> {
+    fun fetchHighReports(): Result<List<ResponseReportDto>> {
         val reports =
             reportUseCase
                 .fetchHighReports()
-                .map { ReportResponseDto(it.getReportBody(), it.getCreateTime()) }
+
         return Result(reports)
     }
 
     @GetMapping("/stock")
-    fun fetchKoreanStockReport(stockDto: KoreanStockReportDto): Result<ReportResponseDto> {
-        val report = reportUseCase.fetchHighReport(KoreanStock(stockDto.crno, stockDto.name))
-        return Result(ReportResponseDto(report.getReportBody(), report.getCreateTime()))
-    }
+    fun fetchKoreanStockReport(stockDto: KoreanStockReportDto): Result<ResponseReportDto> =
+        Result(reportUseCase.fetchHighReport(KoreanStock(stockDto.crno, stockDto.name)))
 }

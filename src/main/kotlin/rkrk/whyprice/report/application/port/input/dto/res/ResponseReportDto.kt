@@ -1,8 +1,8 @@
-package rkrk.whyprice.report.adapter.input.web.dto.res
+package rkrk.whyprice.report.application.port.input.dto.res
 
 import java.time.LocalDateTime
 
-data class ReportResponseDto(
+data class ResponseReportDto(
     val report: String,
     val reportDate: LocalDateTime,
 )

@@ -15,7 +15,7 @@ import rkrk.whyprice.member.application.port.input.dto.req.DeleteMemberKoreanSto
 import rkrk.whyprice.member.application.port.input.dto.req.RegisterMemberDto
 import rkrk.whyprice.member.application.port.input.dto.req.ViewMemberStockDto
 import rkrk.whyprice.member.application.port.input.dto.req.VolatilityMemberStocksDto
-import rkrk.whyprice.member.application.port.input.dto.res.KoreanStockResponseDto
+import rkrk.whyprice.member.application.port.input.dto.res.ResponseKoreanStockDto
 import rkrk.whyprice.share.Result
 
 @RestController
@@ -48,16 +48,16 @@ class MemberController(
     }
 
     @GetMapping("/stock")
-    fun getKoreanStock(stockViewDto: ViewMemberStockDto): Result<List<KoreanStockResponseDto>> {
+    fun getKoreanStock(stockViewDto: ViewMemberStockDto): Result<List<ResponseKoreanStockDto>> {
         val stockDtos =
             getKoreanStockQuery
                 .getKoreanStock(stockViewDto)
-                .map { KoreanStockResponseDto(it.getIdentityCode(), it.getAssetName()) }
+                .map { ResponseKoreanStockDto(it.getIdentityCode(), it.getAssetName()) }
         return Result(stockDtos)
     }
 
     @GetMapping("/stock/volatility")
-    fun fetchVolatility(volatilityMemberStocksDto: VolatilityMemberStocksDto): Result<List<KoreanStockResponseDto>> {
+    fun fetchVolatility(volatilityMemberStocksDto: VolatilityMemberStocksDto): Result<List<ResponseKoreanStockDto>> {
         val stockDtos =
             volatilityCheckKoreanStockQuery.fetchVolatility(volatilityMemberStocksDto)
         return Result(stockDtos)

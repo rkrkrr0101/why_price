@@ -1,4 +1,4 @@
-package rkrk.whyprice.report.adapter.input.web.dto.req
+package rkrk.whyprice.report.application.port.input.dto.req
 
 data class KoreanStockReportDto(
     val name: String,
