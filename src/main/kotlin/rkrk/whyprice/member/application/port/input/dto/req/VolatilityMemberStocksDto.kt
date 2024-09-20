@@ -1,5 +1,5 @@
 package rkrk.whyprice.member.application.port.input.dto.req
 
-data class MemberStockViewDto(
+data class VolatilityMemberStocksDto(
     val memberName: String,
 )

@@ -1,10 +1,10 @@
 package rkrk.whyprice.member.application.port.input
 
-import rkrk.whyprice.member.application.port.input.dto.req.MemberKoreanStockAddDto
-import rkrk.whyprice.member.application.port.input.dto.req.MemberKoreanStockDeleteDto
+import rkrk.whyprice.member.application.port.input.dto.req.AddMemberKoreanStockDto
+import rkrk.whyprice.member.application.port.input.dto.req.DeleteMemberKoreanStockDto
 
 interface ManageKoreanStockUseCase {
-    fun addKoreanStock(stockDto: MemberKoreanStockAddDto)
+    fun addKoreanStock(stockDto: AddMemberKoreanStockDto)
 
-    fun deleteKoreanStock(stockDto: MemberKoreanStockDeleteDto)
+    fun deleteKoreanStock(stockDto: DeleteMemberKoreanStockDto)
 }

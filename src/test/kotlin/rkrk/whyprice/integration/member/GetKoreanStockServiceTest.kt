@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
-import rkrk.whyprice.member.application.port.input.dto.req.MemberStockViewDto
+import rkrk.whyprice.member.application.port.input.dto.req.ViewMemberStockDto
 import rkrk.whyprice.member.application.port.out.MemberRepository
 import rkrk.whyprice.member.application.service.GetKoreanStockService
 import rkrk.whyprice.util.InitUtil
@@ -25,7 +25,7 @@ class GetKoreanStockServiceTest
         fun getKoreanStock() {
             InitUtil.basicMemberInit(memberRepository)
 
-            val koreanStocks = getKoreanStockService.getKoreanStock(MemberStockViewDto("member1"))
+            val koreanStocks = getKoreanStockService.getKoreanStock(ViewMemberStockDto("member1"))
 
             Assertions.assertThat(koreanStocks.size).isEqualTo(2)
             Assertions.assertThat(koreanStocks.map { it.name }.toList()).contains("삼성전자", "LG전자")

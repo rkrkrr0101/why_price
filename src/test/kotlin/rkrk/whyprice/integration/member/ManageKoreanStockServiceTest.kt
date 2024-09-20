@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
-import rkrk.whyprice.member.application.port.input.dto.req.MemberKoreanStockAddDto
-import rkrk.whyprice.member.application.port.input.dto.req.MemberKoreanStockDeleteDto
+import rkrk.whyprice.member.application.port.input.dto.req.AddMemberKoreanStockDto
+import rkrk.whyprice.member.application.port.input.dto.req.DeleteMemberKoreanStockDto
 import rkrk.whyprice.member.application.port.out.MemberRepository
 import rkrk.whyprice.member.application.service.ManageKoreanStockService
 import rkrk.whyprice.util.InitUtil
@@ -28,7 +28,7 @@ class ManageKoreanStockServiceTest
             InitUtil.basicMemberInit(memberRepository)
 
             manageKoreanStockService.addKoreanStock(
-                MemberKoreanStockAddDto("member1", "111111-1111111", "비싼주식"),
+                AddMemberKoreanStockDto("member1", "111111-1111111", "비싼주식"),
             )
             val member = memberRepository.findByUserName("member1")
 
@@ -43,7 +43,7 @@ class ManageKoreanStockServiceTest
             InitUtil.basicMemberInit(memberRepository)
 
             manageKoreanStockService.deleteKoreanStock(
-                MemberKoreanStockDeleteDto("member1", "130111-0006246", "삼성전자"),
+                DeleteMemberKoreanStockDto("member1", "130111-0006246", "삼성전자"),
             )
             val member = memberRepository.findByUserName("member1")
 

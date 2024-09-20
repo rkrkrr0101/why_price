@@ -1,7 +1,5 @@
 package rkrk.whyprice.member.application.port.input.dto.req
 
-data class MemberKoreanStockAddDto(
+data class ViewMemberStockDto(
     val memberName: String,
-    val stockCrno: String,
-    val stockName: String,
 )

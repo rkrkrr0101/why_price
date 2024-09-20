@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
-import rkrk.whyprice.member.application.port.input.dto.req.MemberVolatilityDto
+import rkrk.whyprice.member.application.port.input.dto.req.VolatilityMemberStocksDto
 import rkrk.whyprice.member.application.port.out.MemberRepository
 import rkrk.whyprice.member.application.service.VolatilityCheckKoreanStockService
 import rkrk.whyprice.mock.CustomDateTimeMock
@@ -29,7 +29,7 @@ class VolatilityCheckKoreanStockServiceTest
         fun fetchVolatility() {
             InitUtil.basicMemberInit(memberRepository)
 
-            val resDtos = volatilityCheckService.fetchVolatility(MemberVolatilityDto("member1"))
+            val resDtos = volatilityCheckService.fetchVolatility(VolatilityMemberStocksDto("member1"))
 
             Assertions.assertThat(resDtos.size).isEqualTo(1)
             Assertions.assertThat(resDtos.map { it.assetName }.toList()).contains("삼성전자")
