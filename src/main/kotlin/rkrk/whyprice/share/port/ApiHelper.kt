@@ -17,7 +17,7 @@ interface ApiHelper {
     fun buildUrl(
         baseUrl: String,
         queryParams: MultiValueMap<String, String>?,
-        encodeType: Boolean = true,
+        encoded: Boolean = false,
     ): URI
 
     fun fetchApiResponse( // 리팩터링

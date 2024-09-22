@@ -1,37 +1,43 @@
 package rkrk.whyprice.member.adapter.out.api.assetfetcher.apifetcher
 
+import org.apache.catalina.util.URLEncoder
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpMethod
 import org.springframework.http.ResponseEntity
+import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 import org.springframework.web.client.RestTemplate
 import rkrk.whyprice.config.ApiConfig
-import rkrk.whyprice.member.application.port.out.AssetFetcher
+import rkrk.whyprice.member.adapter.out.api.assetfetcher.AssetFetcher
 import rkrk.whyprice.share.port.ApiHelper
 import java.net.URI
+import java.nio.charset.Charset
 
 abstract class KoreanApiFetcher(
     private val apiHelper: ApiHelper,
 ) : AssetFetcher {
-    override fun fetch(crNo: String): Map<String, String> {
+    override fun fetch(queryKey: String): Map<String, String> {
         val restTemplate = apiHelper.createRestTemplate()
 
-        val url = apiHelper.buildUrl(getBaseUrl(), createQueryParams(crNo, ApiConfig.getOpenApiKey()))
+        val queryParams = createQueryParams(queryKey, ApiConfig.getOpenApiKey())
+        val specialEncode = specialEncode(queryParams)
 
-        return apiCall(restTemplate, url, crNo)
+        val url = apiHelper.buildUrl(getBaseUrl(), specialEncode, true)
+
+        return apiCall(restTemplate, url, queryKey)
     }
 
     private fun apiCall(
         restTemplate: RestTemplate,
         url: URI,
-        crNo: String,
+        queryKey: String,
     ): Map<String, String> {
         val log = LoggerFactory.getLogger(this.javaClass)
         try {
             val response = fetchApiResponse(restTemplate, url)
 
             responseErrorCheck(response)
-            log.info("성공 법인코드={}", crNo)
+            log.info("성공 검색키={}", queryKey)
 
             return extractResponseAsMap(response)
         } catch (e: Exception) {
@@ -40,10 +46,27 @@ abstract class KoreanApiFetcher(
         }
     }
 
+    // 오픈api용 인코딩,/나 +같은걸 한글과 같이 인코딩하기위해 필요
+    private fun specialEncode(queryParams: MultiValueMap<String, String>?): MultiValueMap<String, String> {
+        println(queryParams)
+        val encodeQueryParams = LinkedMultiValueMap<String, String>()
+        val urlEncoder = URLEncoder()
+        if (queryParams != null) {
+            for ((key, valueList) in queryParams) {
+                val resValueList = mutableListOf<String>()
+                for (value in valueList) {
+                    resValueList.add(urlEncoder.encode(value, Charset.forName("UTF-8")))
+                }
+                encodeQueryParams.addAll(key, resValueList)
+            }
+        }
+        return encodeQueryParams
+    }
+
     protected abstract fun getBaseUrl(): String
 
     protected abstract fun createQueryParams(
-        crNo: String,
+        queryKey: String,
         serviceKey: String,
     ): MultiValueMap<String, String>
 

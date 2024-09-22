@@ -1,8 +1,10 @@
 package rkrk.whyprice.member.domain
 
 import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
-import rkrk.whyprice.member.application.port.out.AssetFetcher
+import rkrk.whyprice.member.adapter.out.api.assetfetcher.AssetFetcher
 
 @Entity
 class KoreanStock(
@@ -17,6 +19,7 @@ class KoreanStock(
         protected set
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id = id
         private set
 

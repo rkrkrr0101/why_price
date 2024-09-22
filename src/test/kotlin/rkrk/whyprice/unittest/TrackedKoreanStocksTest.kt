@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import rkrk.whyprice.member.domain.KoreanStock
+import rkrk.whyprice.member.domain.Member
 import rkrk.whyprice.member.domain.TrackedKoreanStocks
 import rkrk.whyprice.mock.CustomDateTimeMock
 import rkrk.whyprice.mock.ResponserMock
@@ -26,10 +27,11 @@ class TrackedKoreanStocksTest {
         val stock1 = KoreanStock("volatility1", "삼성전자")
         val stock2 = KoreanStock("volatility2", "롯데제과")
         val stock3 = KoreanStock("notVol1", "LG전자")
+        val member = Member("abc")
         val trackedKoreanStocks = TrackedKoreanStocks()
-        trackedKoreanStocks.addKoreanStock(stock1)
-        trackedKoreanStocks.addKoreanStock(stock2)
-        trackedKoreanStocks.addKoreanStock(stock3)
+        trackedKoreanStocks.addKoreanStock(stock1, member)
+        trackedKoreanStocks.addKoreanStock(stock2, member)
+        trackedKoreanStocks.addKoreanStock(stock3, member)
 
         return trackedKoreanStocks
     }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
 import rkrk.whyprice.member.application.port.input.dto.req.ViewMemberStockDto
+import rkrk.whyprice.member.application.port.out.KoreanStockRepository
 import rkrk.whyprice.member.application.port.out.MemberRepository
 import rkrk.whyprice.member.application.service.GetKoreanStockService
 import rkrk.whyprice.util.InitUtil
@@ -17,13 +18,14 @@ class GetKoreanStockServiceTest
     @Autowired
     constructor(
         private val memberRepository: MemberRepository,
+        private val koreanStockRepository: KoreanStockRepository,
     ) {
         private val getKoreanStockService = GetKoreanStockService(memberRepository)
 
         @Test
         @DisplayName("회원이 가지고있는 한국주식들을 조회할수있다")
         fun getKoreanStock() {
-            InitUtil.basicMemberInit(memberRepository)
+            InitUtil.basicMemberInit(memberRepository, koreanStockRepository)
 
             val koreanStocks = getKoreanStockService.getKoreanStock(ViewMemberStockDto("member1"))
 

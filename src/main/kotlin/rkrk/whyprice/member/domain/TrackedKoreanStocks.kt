@@ -1,29 +1,41 @@
 package rkrk.whyprice.member.domain
 
+import jakarta.persistence.CascadeType
 import jakarta.persistence.Embeddable
 import jakarta.persistence.FetchType
-import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToMany
 import rkrk.whyprice.member.application.port.out.CheckVolatilityPort
 
 @Embeddable
 class TrackedKoreanStocks {
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    var koreanStocks = mutableListOf<KoreanStock>()
+    @OneToMany(
+        mappedBy = "member",
+        fetch = FetchType.LAZY,
+        cascade = [CascadeType.ALL],
+        orphanRemoval = true,
+    )
+    var trackedKoreanStocks = mutableListOf<TrackedKoreanStock>()
         protected set
 
-    fun addKoreanStock(koreanStock: KoreanStock) {
-        koreanStocks.add(koreanStock)
+    fun addKoreanStock(
+        koreanStock: KoreanStock,
+        member: Member,
+    ) {
+        trackedKoreanStocks.add(TrackedKoreanStock(member, koreanStock))
     }
 
     fun deleteKoreanStock(koreanStock: KoreanStock) {
-        koreanStocks.find { it.name == koreanStock.name && it.crNo == koreanStock.crNo }?.let { koreanStocks.remove(it) }
+        // koreanStocks.find { it.name == koreanStock.name && it.crNo == koreanStock.crNo }?.let { koreanStocks.remove(it) }
+        trackedKoreanStocks
+            .find {
+                it.koreanStock.name == koreanStock.name && it.koreanStock.crNo == koreanStock.crNo
+            }?.let { trackedKoreanStocks.remove(it) }
     }
 
     fun hasVolatility(checkVolatilityPort: CheckVolatilityPort): List<KoreanStock> {
         val resList = mutableListOf<KoreanStock>()
-        for (koreanStock in koreanStocks) {
+        for (trackedKoreanStock in trackedKoreanStocks) {
+            val koreanStock = trackedKoreanStock.koreanStock
             if (checkVolatilityPort.hasVolatility(koreanStock)) {
                 resList.add(koreanStock)
             }
@@ -31,5 +43,5 @@ class TrackedKoreanStocks {
         return resList
     }
 
-    fun getAssets(): List<KoreanStock> = koreanStocks
+    fun getAssets(): List<KoreanStock> = trackedKoreanStocks.map { it.koreanStock }
 }

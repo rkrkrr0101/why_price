@@ -9,20 +9,20 @@ import rkrk.whyprice.member.adapter.out.api.assetfetcher.apifetcher.KoreanApiFet
 import rkrk.whyprice.share.port.ApiHelper
 import javax.xml.parsers.DocumentBuilderFactory
 
-class StockNameFetcher(
+class FindStockNameByCrnoFetcher(
     private val apiHelper: ApiHelper,
 ) : KoreanApiFetcher(apiHelper) {
     override fun getBaseUrl(): String = "https://apis.data.go.kr/1160100/service/GetKrxListedInfoService/getItemInfo"
 
     override fun createQueryParams(
-        crNo: String,
+        queryKey: String,
         serviceKey: String,
     ): MultiValueMap<String, String> {
         val resMap: MultiValueMap<String, String> = LinkedMultiValueMap()
         resMap["resultType"] = "json"
         resMap["numOfRows"] = "1"
         resMap["serviceKey"] = serviceKey
-        resMap["crno"] = crNo
+        resMap["crno"] = queryKey
         return resMap
     }
 

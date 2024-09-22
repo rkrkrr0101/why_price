@@ -8,8 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
 import rkrk.whyprice.member.application.port.input.dto.req.AddMemberKoreanStockDto
 import rkrk.whyprice.member.application.port.input.dto.req.DeleteMemberKoreanStockDto
+import rkrk.whyprice.member.application.port.out.KoreanStockRepository
 import rkrk.whyprice.member.application.port.out.MemberRepository
 import rkrk.whyprice.member.application.service.ManageKoreanStockService
+import rkrk.whyprice.mock.FindKoreanStockByNameAdapterMock
 import rkrk.whyprice.util.InitUtil
 
 @SpringBootTest
@@ -18,14 +20,20 @@ class ManageKoreanStockServiceTest
     @Autowired
     constructor(
         private val memberRepository: MemberRepository,
+        private val koreanStockRepository: KoreanStockRepository,
     ) {
-        private val manageKoreanStockService = ManageKoreanStockService(memberRepository)
+        private val manageKoreanStockService =
+            ManageKoreanStockService(
+                memberRepository,
+                koreanStockRepository,
+                FindKoreanStockByNameAdapterMock(),
+            )
 
         // todo 중복일경우 에러띄우기
         @Test
         @DisplayName("회원이 가지고있는 한국주식을 추가할수있다")
         fun addKoreanStock() {
-            InitUtil.basicMemberInit(memberRepository)
+            InitUtil.basicMemberInit(memberRepository, koreanStockRepository)
 
             manageKoreanStockService.addKoreanStock(
                 AddMemberKoreanStockDto("member1", "111111-1111111", "비싼주식"),
@@ -40,7 +48,7 @@ class ManageKoreanStockServiceTest
         @Test
         @DisplayName("회원이 가지고있는 한국주식을 삭제할수있다")
         fun deleteKoreanStock() {
-            InitUtil.basicMemberInit(memberRepository)
+            InitUtil.basicMemberInit(memberRepository, koreanStockRepository)
 
             manageKoreanStockService.deleteKoreanStock(
                 DeleteMemberKoreanStockDto("member1", "130111-0006246", "삼성전자"),

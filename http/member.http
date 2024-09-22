@@ -1,0 +1,48 @@
+###1.가입(2번누르면 중복체크)
+POST {{baseApi}}/api/member
+Content-Type: application/json
+
+{
+  "name": "abc"
+}
+###2.멤버주식추가(삼전)
+POST {{baseApi}}/api/member/stock
+Content-Type: application/json
+
+{
+  "memberName": "abc",
+  "stockCrno": "130111-0006246",
+  "stockName": "삼성전자"
+}
+###2.멤버주식추가(LG)
+POST {{baseApi}}/api/member/stock
+Content-Type: application/json
+
+{
+  "memberName": "abc",
+  "stockCrno": "110111-2487050",
+  "stockName": "LG전자"
+}
+
+###
+DELETE {{baseApi}}/api/member/stock
+Content-Type: application/json
+
+{
+  "memberName": "abc",
+  "stockCrno": "130111-0006246",
+  "stockName": "삼성전자"
+}
+
+###
+GET {{baseApi}}/api/member/stock?memberName=abc
+Content-Type: application/json
+
+{
+  "memberName": "abc",
+  "stockCrno": "",
+  "stockName": ""
+}
+
+###
+GET {{baseApi}}/api/member/stock/volatility

@@ -25,7 +25,7 @@ class Member(
         protected set
 
     fun addKoreanStock(koreanStock: KoreanStock) {
-        koreanStocks.addKoreanStock(koreanStock)
+        koreanStocks.addKoreanStock(koreanStock, this)
     }
 
     fun deleteKoreanStock(koreanStock: KoreanStock) {

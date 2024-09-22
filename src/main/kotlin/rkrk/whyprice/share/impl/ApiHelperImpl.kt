@@ -30,16 +30,13 @@ class ApiHelperImpl : ApiHelper {
     override fun buildUrl(
         baseUrl: String,
         queryParams: MultiValueMap<String, String>?,
-        encodeType: Boolean,
-    ): URI {
-        val url =
-            UriComponentsBuilder
-                .fromHttpUrl(baseUrl)
-                .queryParams(queryParams)
-                .build(encodeType)
-                .toUri()
-        return url
-    }
+        encoded: Boolean,
+    ): URI =
+        UriComponentsBuilder
+            .fromHttpUrl(baseUrl)
+            .queryParams(queryParams)
+            .build(encoded)
+            .toUri()
 
     override fun fetchApiResponse(
         restTemplate: RestTemplate,
