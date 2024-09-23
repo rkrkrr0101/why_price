@@ -12,6 +12,8 @@ import rkrk.whyprice.member.application.port.out.KoreanStockRepository
 import rkrk.whyprice.member.application.port.out.MemberRepository
 import rkrk.whyprice.member.application.service.ManageKoreanStockService
 import rkrk.whyprice.member.application.service.exception.DuplicateMemberKoreanStockException
+import rkrk.whyprice.member.application.service.exception.NotExistsDeleteMemberKoreanStockException
+import rkrk.whyprice.member.application.service.exception.NotExistsMemberException
 import rkrk.whyprice.mock.FindKoreanStockByNameAdapterMock
 import rkrk.whyprice.util.InitUtil
 
@@ -30,7 +32,6 @@ class ManageKoreanStockServiceTest
                 FindKoreanStockByNameAdapterMock(),
             )
 
-        // todo 중복일경우 에러띄우기
         @Test
         @DisplayName("회원이 가지고있는 한국주식을 추가할수있다")
         fun addKoreanStock() {
@@ -61,6 +62,23 @@ class ManageKoreanStockServiceTest
                 }.isInstanceOf(DuplicateMemberKoreanStockException::class.java)
         }
 
+        @Test
+        @DisplayName("없는회원이 한국주식을 추가하면 예외가 발생한다")
+        fun notExistsMemberAddKoreanStock() {
+            InitUtil.basicMemberInit(memberRepository, koreanStockRepository)
+
+            Assertions
+                .assertThatThrownBy {
+                    manageKoreanStockService.addKoreanStock(
+                        AddMemberKoreanStockDto(
+                            "notExistsMember",
+                            "111111-1111111",
+                            "비싼주식",
+                        ),
+                    )
+                }.isInstanceOf(NotExistsMemberException::class.java)
+        }
+
         // todo 없는주식일경우 에러띄우기
         @Test
         @DisplayName("회원이 가지고있는 한국주식을 삭제할수있다")
@@ -74,5 +92,39 @@ class ManageKoreanStockServiceTest
 
             Assertions.assertThat(member.getKoreanStocks().size).isEqualTo(1)
             Assertions.assertThat(member.getKoreanStocks().map { it.name }.toList()).doesNotContain("삼성전자")
+        }
+
+        @Test
+        @DisplayName("회원이 가지고있지않은 한국주식을 삭제하려고하면 예외가 발생한다")
+        fun notExistsDeleteKoreanStock() {
+            InitUtil.basicMemberInit(memberRepository, koreanStockRepository)
+
+            Assertions
+                .assertThatThrownBy {
+                    manageKoreanStockService.deleteKoreanStock(
+                        DeleteMemberKoreanStockDto(
+                            "member1",
+                            "111111-1111111",
+                            "없는주식",
+                        ),
+                    )
+                }.isInstanceOf(NotExistsDeleteMemberKoreanStockException::class.java)
+        }
+
+        @Test
+        @DisplayName("없는회원이 한국주식을 삭제하려고하면 예외가 발생한다")
+        fun notExistsMemberDeleteKoreanStock() {
+            InitUtil.basicMemberInit(memberRepository, koreanStockRepository)
+
+            Assertions
+                .assertThatThrownBy {
+                    manageKoreanStockService.deleteKoreanStock(
+                        DeleteMemberKoreanStockDto(
+                            "notExistsMember",
+                            "111111-1111111",
+                            "비싼주식",
+                        ),
+                    )
+                }.isInstanceOf(NotExistsMemberException::class.java)
         }
     }

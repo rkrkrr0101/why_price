@@ -2,6 +2,7 @@ package rkrk.whyprice.member.adapter.out.persistence
 
 import org.springframework.stereotype.Repository
 import rkrk.whyprice.member.application.port.out.MemberRepository
+import rkrk.whyprice.member.application.service.exception.NotExistsMemberException
 import rkrk.whyprice.member.domain.Member
 
 @Repository
@@ -11,7 +12,7 @@ class MemberRepositoryImpl(
     // todo findOne으로 변경
     override fun findByUserName(name: String): Member =
         memberJpaRepository.findByUserName(name)
-            ?: throw IllegalArgumentException("존재하지 않는 회원입니다.")
+            ?: throw NotExistsMemberException("존재하지 않는 회원입니다.")
 
     override fun save(member: Member): Member = memberJpaRepository.save(member)
 
@@ -23,7 +24,7 @@ class MemberRepositoryImpl(
     override fun findById(id: Long): Member =
         memberJpaRepository
             .findById(id)
-            .orElseThrow { IllegalArgumentException("존재하지 않는 회원입니다.") }
+            .orElseThrow { NotExistsMemberException("존재하지 않는 회원입니다.") }
 
     override fun existsByName(name: String): Boolean = memberJpaRepository.existsByUserName(name)
 }

@@ -9,6 +9,7 @@ import rkrk.whyprice.member.application.port.out.FindKoreanStockByNamePort
 import rkrk.whyprice.member.application.port.out.KoreanStockRepository
 import rkrk.whyprice.member.application.port.out.MemberRepository
 import rkrk.whyprice.member.application.service.exception.DuplicateMemberKoreanStockException
+import rkrk.whyprice.member.application.service.exception.NotExistsDeleteMemberKoreanStockException
 import rkrk.whyprice.member.domain.KoreanStock
 
 @Service
@@ -35,7 +36,7 @@ class ManageKoreanStockService(
         val member = memberRepository.findByUserName(stockDto.memberName)
         val stock = (
             koreanStockRepository.findOneOrNull(stockDto.stockName)
-                ?: throw IllegalArgumentException("없는주식")
+                ?: throw NotExistsDeleteMemberKoreanStockException("없는주식")
         )
 
         member.deleteKoreanStock(stock)
