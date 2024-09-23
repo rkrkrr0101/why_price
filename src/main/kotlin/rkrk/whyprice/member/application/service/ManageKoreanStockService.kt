@@ -8,6 +8,7 @@ import rkrk.whyprice.member.application.port.input.dto.req.DeleteMemberKoreanSto
 import rkrk.whyprice.member.application.port.out.FindKoreanStockByNamePort
 import rkrk.whyprice.member.application.port.out.KoreanStockRepository
 import rkrk.whyprice.member.application.port.out.MemberRepository
+import rkrk.whyprice.member.application.service.exception.DuplicateMemberKoreanStockException
 import rkrk.whyprice.member.domain.KoreanStock
 
 @Service
@@ -20,8 +21,11 @@ class ManageKoreanStockService(
     @Transactional
     override fun addKoreanStock(stockDto: AddMemberKoreanStockDto) {
         val member = memberRepository.findByUserName(stockDto.memberName)
-
         val koreanStock = findOrCreateKoreanStock(stockDto)
+
+        if (member.existsKoreanStock(koreanStock)) {
+            throw DuplicateMemberKoreanStockException("이미 존재하는 주식")
+        }
 
         member.addKoreanStock(koreanStock)
     }
@@ -29,7 +33,11 @@ class ManageKoreanStockService(
     @Transactional
     override fun deleteKoreanStock(stockDto: DeleteMemberKoreanStockDto) {
         val member = memberRepository.findByUserName(stockDto.memberName)
-        val stock = KoreanStock(stockDto.stockCrno, stockDto.stockName)
+        val stock = (
+            koreanStockRepository.findOneOrNull(stockDto.stockName)
+                ?: throw IllegalArgumentException("없는주식")
+        )
+
         member.deleteKoreanStock(stock)
     }
 

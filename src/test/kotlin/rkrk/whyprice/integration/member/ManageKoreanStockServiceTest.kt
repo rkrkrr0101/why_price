@@ -11,6 +11,7 @@ import rkrk.whyprice.member.application.port.input.dto.req.DeleteMemberKoreanSto
 import rkrk.whyprice.member.application.port.out.KoreanStockRepository
 import rkrk.whyprice.member.application.port.out.MemberRepository
 import rkrk.whyprice.member.application.service.ManageKoreanStockService
+import rkrk.whyprice.member.application.service.exception.DuplicateMemberKoreanStockException
 import rkrk.whyprice.mock.FindKoreanStockByNameAdapterMock
 import rkrk.whyprice.util.InitUtil
 
@@ -42,6 +43,22 @@ class ManageKoreanStockServiceTest
 
             Assertions.assertThat(member.getKoreanStocks().size).isEqualTo(3)
             Assertions.assertThat(member.getKoreanStocks().map { it.name }.toList()).contains("비싼주식")
+        }
+
+        @Test
+        @DisplayName("회원이 이미 가지고있는 한국주식을 추가하면 예외가 발생한다")
+        fun duplicateAddKoreanStock() {
+            InitUtil.basicMemberInit(memberRepository, koreanStockRepository)
+
+            manageKoreanStockService.addKoreanStock(
+                AddMemberKoreanStockDto("member1", "111111-1111111", "비싼주식"),
+            )
+            Assertions
+                .assertThatThrownBy {
+                    manageKoreanStockService.addKoreanStock(
+                        AddMemberKoreanStockDto("member1", "111111-1111111", "비싼주식"),
+                    )
+                }.isInstanceOf(DuplicateMemberKoreanStockException::class.java)
         }
 
         // todo 없는주식일경우 에러띄우기

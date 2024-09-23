@@ -48,7 +48,6 @@ abstract class KoreanApiFetcher(
 
     // 오픈api용 인코딩,/나 +같은걸 한글과 같이 인코딩하기위해 필요
     private fun specialEncode(queryParams: MultiValueMap<String, String>?): MultiValueMap<String, String> {
-        println(queryParams)
         val encodeQueryParams = LinkedMultiValueMap<String, String>()
         val urlEncoder = URLEncoder()
         if (queryParams != null) {

@@ -29,8 +29,10 @@ class Member(
     }
 
     fun deleteKoreanStock(koreanStock: KoreanStock) {
-        koreanStocks.deleteKoreanStock(koreanStock)
+        koreanStocks.deleteKoreanStock(koreanStock, this)
     }
+
+    fun existsKoreanStock(koreanStock: KoreanStock): Boolean = koreanStocks.existsKoreanStock(koreanStock, this)
 
     fun koreanStockHasVolatility(checkVolatilityPort: CheckVolatilityPort): List<KoreanStock> =
         koreanStocks.hasVolatility(checkVolatilityPort)

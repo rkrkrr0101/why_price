@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import rkrk.whyprice.member.application.service.exception.DuplicateMemberKoreanStockException
 import rkrk.whyprice.member.domain.exception.DuplicateMemberException
 import rkrk.whyprice.share.Result
 
@@ -17,6 +18,13 @@ class GlobalExceptionHandler {
     @ExceptionHandler(DuplicateMemberException::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     fun duplicateMemberName(exp: DuplicateMemberException): Result<String> {
+        log.warn(exp.message)
+        return Result(exp.msg)
+    }
+
+    @ExceptionHandler(DuplicateMemberKoreanStockException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun duplicateMemberKoreanStock(exp: DuplicateMemberKoreanStockException): Result<String> {
         log.warn(exp.message)
         return Result(exp.msg)
     }

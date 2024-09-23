@@ -24,13 +24,24 @@ class TrackedKoreanStocks {
         trackedKoreanStocks.add(TrackedKoreanStock(member, koreanStock))
     }
 
-    fun deleteKoreanStock(koreanStock: KoreanStock) {
-        // koreanStocks.find { it.name == koreanStock.name && it.crNo == koreanStock.crNo }?.let { koreanStocks.remove(it) }
+    fun deleteKoreanStock(
+        koreanStock: KoreanStock,
+        member: Member,
+    ) {
         trackedKoreanStocks
             .find {
-                it.koreanStock.name == koreanStock.name && it.koreanStock.crNo == koreanStock.crNo
+                it.koreanStock.id == koreanStock.id && it.member.id == member.id
             }?.let { trackedKoreanStocks.remove(it) }
     }
+
+    fun existsKoreanStock(
+        koreanStock: KoreanStock,
+        member: Member,
+    ): Boolean =
+        trackedKoreanStocks
+            .any {
+                it.koreanStock.id == koreanStock.id && it.member.id == member.id
+            }
 
     fun hasVolatility(checkVolatilityPort: CheckVolatilityPort): List<KoreanStock> {
         val resList = mutableListOf<KoreanStock>()
