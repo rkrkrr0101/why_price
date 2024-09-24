@@ -24,7 +24,7 @@ Content-Type: application/json
   "stockName": "LG전자"
 }
 
-###
+###3.멤버주식삭제(삼전)
 DELETE {{baseApi}}/api/member/stock
 Content-Type: application/json
 
@@ -34,15 +34,12 @@ Content-Type: application/json
   "stockName": "삼성전자"
 }
 
-###
+###4.멤버주식조회
 GET {{baseApi}}/api/member/stock?memberName=abc
 Content-Type: application/json
 
-{
-  "memberName": "abc",
-  "stockCrno": "",
-  "stockName": ""
-}
 
-###
-GET {{baseApi}}/api/member/stock/volatility
+###5.변동성체크
+GET {{baseApi}}/api/member/stock/volatility?memberName=abc
+Content-Type: application/json
+

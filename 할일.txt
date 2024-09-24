@@ -50,7 +50,7 @@ koreanStockHasVolatility 도메인서비스로 변경?
 컨트롤러 예외처리
     gpt돈없을때-에러 -GptResponser
     회원중복가입-워닝 -DuplicateCheckMemberService //완
-    해당주식없을때-워닝(??)//이건 어케체크하지
+    해당주식없을때(400)-워닝(??)//이건 어케체크하지
     해당회원없을떄-워닝 -MemberRepositoryImpl
     서버터졌을때
         gpt서버터졌을때(타임아웃,500)-워닝
@@ -61,21 +61,44 @@ koreanStockHasVolatility 도메인서비스로 변경?
     요청횟수제한넘겼을때-워닝
 요청횟수제한(https://positive-impactor.tistory.com/83)
 
-한국주식 멤버에 추가할떄
+한국주식 멤버에 추가할떄//완
     애드치고 해당주식 이름으로 db에서 조회
     못찾으면 해당주식 이름으로 api로 조회
-    없으면 예외(400)터트리고,있으면 db에 저장한후 해당주식 트랙에 저장//여기까지완
+    없으면 예외(400)터트리고,있으면 db에 저장한후 해당주식 트랙에 저장
     이미 있을경우 예외(400)
 
 apifetcher 구현체의 중복 제거
 
 테스트 없는거 생성
+    PerplexityChatOptions 테스트생성
 컨트롤러테스트
 .http만들기
+    멤버//완
+    레포트
 
 생각할거
     도메인과 jpa엔티티분리?//멤버쪽은 생각해보자 해야할거같아지고있음
 
+gpt 웹검색
+https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/function-calling
+SERP API
+걍 perplexity에 붙이는게 편해보이긴하다
+openAiApi를 커스텀해서 베이스url 바꾸고 사용
+어짜피 같으니까 될거같음
+https://github.com/spring-projects/spring-ai/issues/507
+OpenAiChatOptions를 상속받아서 내필드를 추가하고 fromOptions을 수정해서 사용?
+
+OpenAiChatModel의 createRequest메서드에서
+ModelOptionsUtils.merge를 사용해서 옵션을 병합함
+ModelOptionsUtils.merge는 objectToMap를 사용하고,이건 ObjectMapper을 사용해서 소스와 타겟을 맵으로 바꾼후에 합침
+즉 옵션의 모든 퍼플릭을 대상으로 필드명과 값으로 합쳐버림,이걸 가져가다 쓰면될거같음
+즉 OpenAiChatOptions를 상속받던가 합성해서,필드를 추가하고 Equal이나 이런거만 수정해두면될듯
+아니면 OpenAiChatModel모델을 상속해서 처리해도될거같긴한데
+
+1.OpenAiApi에서 baseurl 변경해서 생성
+2.PerplexityChatOptions에 searchRecencyFilter추가해서 생성
+2.OpenAiChatModel에 url변경된 OpenAiApi와 PerplexityChatOptions넣어서 생성
+3.이후동일
 
 
 후순위

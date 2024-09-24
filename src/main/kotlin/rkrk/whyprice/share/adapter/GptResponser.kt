@@ -6,8 +6,6 @@ import org.springframework.ai.chat.messages.UserMessage
 import org.springframework.ai.chat.model.ChatResponse
 import org.springframework.ai.chat.prompt.Prompt
 import org.springframework.ai.openai.OpenAiChatModel
-import org.springframework.ai.openai.OpenAiChatOptions
-import org.springframework.ai.openai.api.OpenAiApi
 import org.springframework.stereotype.Component
 import rkrk.whyprice.config.ApiConfig
 import rkrk.whyprice.member.application.port.out.CheckVolatilityPort
@@ -21,14 +19,28 @@ class GptResponser(
     private val customDateTime: CustomDateTime,
 ) : CheckVolatilityPort,
     CreateReportPort {
-    private val option: OpenAiChatOptions =
-        OpenAiChatOptions
+//    private val gptOption: OpenAiChatOptions =
+//        OpenAiChatOptions
+//            .builder()
+//            .withModel("gpt-4o-mini")
+//            .withTemperature(0.8F)
+//            .build()
+    private val perplexityOptions =
+        PerplexityChatOptions
             .builder()
-            .withModel("gpt-4o-mini")
+            .searchRecencyFilter("week")
+            .withModel("llama-3.1-sonar-small-128k-online")
             .withTemperature(0.8F)
             .build()
+
+//    private val chatClient: ChatClient =
+//        ChatClient.builder(OpenAiChatModel(OpenAiApi(ApiConfig.getGptKey()), gptOption)).build()
+    // https://api.perplexity.ai/chat/completions
     private val chatClient: ChatClient =
-        ChatClient.builder(OpenAiChatModel(OpenAiApi(ApiConfig.getGptKey()), option)).build()
+        ChatClient
+            .builder(
+                OpenAiChatModel(PerplexityApi(ApiConfig.getPerplexityKey()), perplexityOptions),
+            ).build()
 
     override fun hasVolatility(
         asset: Asset,

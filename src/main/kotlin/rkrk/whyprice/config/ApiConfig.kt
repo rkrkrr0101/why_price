@@ -17,6 +17,8 @@ class ApiConfig private constructor() {
 
         fun getGptKey(): String = properties.getProperty("GPT_KEY")
 
+        fun getPerplexityKey(): String = properties.getProperty("PERPLEXITY_KEY")
+
         fun getKoreaInvKey(): String = properties.getProperty("KOREA_INV_KEY")
 
         fun getKoreaSecretKey(): String = properties.getProperty("KOREA_INV_SECRET")
