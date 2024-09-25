@@ -2,6 +2,7 @@ package rkrk.whyprice.share.adapter
 
 import org.springframework.ai.openai.api.ApiUtils
 import org.springframework.ai.openai.api.OpenAiApi
+import org.springframework.ai.retry.RetryUtils
 import org.springframework.http.ResponseEntity
 import org.springframework.util.Assert
 import org.springframework.web.client.RestClient
@@ -9,13 +10,14 @@ import reactor.core.publisher.Flux
 
 class PerplexityApi(
     key: String,
-) : OpenAiApi("https://api.perplexity.ai", key) {
+    baseUrl: String = "https://api.perplexity.ai",
+) : OpenAiApi(baseUrl, key) {
     private val restClient =
         RestClient
             .builder()
-            .baseUrl(
-                "https://api.perplexity.ai",
-            ).defaultHeaders(ApiUtils.getJsonContentHeaders(key))
+            .baseUrl(baseUrl)
+            .defaultHeaders(ApiUtils.getJsonContentHeaders(key))
+            .defaultStatusHandler(RetryUtils.DEFAULT_RESPONSE_ERROR_HANDLER)
             .build()
 
     override fun chatCompletionEntity(chatRequest: ChatCompletionRequest?): ResponseEntity<ChatCompletion> {

@@ -1,16 +1,18 @@
 package rkrk.whyprice.share.adapter
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.ai.openai.OpenAiChatOptions
 
 // https://docs.perplexity.ai/api-reference/chat-completions
 // todo 테스트생성
+@JsonInclude(JsonInclude.Include.NON_NULL)
 class PerplexityChatOptions : OpenAiChatOptions() {
     @JsonProperty("search_domain_filter")
-    var searchDomainFilter = ""
+    var searchDomainFilter: String? = null
 
     @JsonProperty("search_recency_filter")
-    var searchRecencyFilter = ""
+    var searchRecencyFilter: String? = null
 
     companion object {
         @JvmStatic
@@ -40,7 +42,7 @@ class PerplexityChatOptions : OpenAiChatOptions() {
         return result
     }
 
-    class PerplexityBuilder : Builder() {
+    class PerplexityBuilder {
         private val perplexityChatOptions = PerplexityChatOptions()
 
         fun searchDomainFilter(searchDomainFilter: String): PerplexityBuilder {
@@ -53,17 +55,36 @@ class PerplexityChatOptions : OpenAiChatOptions() {
             return this
         }
 
-        override fun build(): PerplexityChatOptions {
-            val baseOptions = super.build()
-            perplexityChatOptions.apply {
-                model = baseOptions.model
-                frequencyPenalty = baseOptions.frequencyPenalty
-                maxTokens = baseOptions.maxTokens
-                temperature = baseOptions.temperature
-                topP = baseOptions.topP
-                presencePenalty = baseOptions.presencePenalty
-            }
-            return perplexityChatOptions
+        fun withTemperature(temperature: Float): PerplexityBuilder {
+            perplexityChatOptions.temperature = temperature
+            return this
         }
+
+        fun withModel(model: String): PerplexityBuilder {
+            perplexityChatOptions.model = model
+            return this
+        }
+
+        fun withFrequencyPenalty(frequencyPenalty: Float): PerplexityBuilder {
+            perplexityChatOptions.frequencyPenalty = frequencyPenalty
+            return this
+        }
+
+        fun withMaxTokens(maxTokens: Int): PerplexityBuilder {
+            perplexityChatOptions.maxTokens = maxTokens
+            return this
+        }
+
+        fun withTopP(topP: Float): PerplexityBuilder {
+            perplexityChatOptions.topP = topP
+            return this
+        }
+
+        fun withPresencePenalty(presencePenalty: Float): PerplexityBuilder {
+            perplexityChatOptions.presencePenalty = presencePenalty
+            return this
+        }
+
+        fun build(): PerplexityChatOptions = perplexityChatOptions
     }
 }

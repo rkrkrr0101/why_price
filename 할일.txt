@@ -67,14 +67,7 @@ koreanStockHasVolatility 도메인서비스로 변경?
     없으면 예외(400)터트리고,있으면 db에 저장한후 해당주식 트랙에 저장
     이미 있을경우 예외(400)
 
-apifetcher 구현체의 중복 제거
 
-테스트 없는거 생성
-    PerplexityChatOptions 테스트생성
-컨트롤러테스트
-.http만들기
-    멤버//완
-    레포트
 
 생각할거
     도메인과 jpa엔티티분리?//멤버쪽은 생각해보자 해야할거같아지고있음
@@ -99,6 +92,17 @@ ModelOptionsUtils.merge는 objectToMap를 사용하고,이건 ObjectMapper을 �
 2.PerplexityChatOptions에 searchRecencyFilter추가해서 생성
 2.OpenAiChatModel에 url변경된 OpenAiApi와 PerplexityChatOptions넣어서 생성
 3.이후동일
+
+apifetcher 구현체의 중복 제거
+
+테스트 없는거 생성
+    PerplexityChatOptions 테스트생성
+    PerplexityApi는 할떄마다 비용나오니 생각해보고만들자
+컨트롤러테스트
+.http만들기
+    멤버//완
+    레포트
+
 
 
 후순위
