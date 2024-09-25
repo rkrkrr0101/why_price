@@ -3,7 +3,7 @@ package rkrk.whyprice.unittest
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import rkrk.whyprice.share.adapter.PerplexityChatOptions
+import rkrk.whyprice.share.adapter.responser.infrastructure.PerplexityChatOptions
 
 class PerplexityChatOptionsTest {
     @Test

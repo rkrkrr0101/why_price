@@ -1,4 +1,4 @@
-package rkrk.whyprice.share.adapter
+package rkrk.whyprice.share.adapter.responser.infrastructure
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty

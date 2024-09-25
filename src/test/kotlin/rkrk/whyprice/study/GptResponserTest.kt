@@ -2,7 +2,7 @@ package rkrk.whyprice.study
 
 import org.junit.jupiter.api.Test
 import rkrk.whyprice.member.domain.KoreanStock
-import rkrk.whyprice.share.adapter.GptResponser
+import rkrk.whyprice.share.adapter.responser.GptResponser
 import rkrk.whyprice.share.impl.CustomDateTimeImpl
 
 class GptResponserTest {

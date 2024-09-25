@@ -96,12 +96,13 @@ ModelOptionsUtils.merge는 objectToMap를 사용하고,이건 ObjectMapper을 �
 apifetcher 구현체의 중복 제거
 
 테스트 없는거 생성
-    PerplexityChatOptions 테스트생성
+    PerplexityChatOptions 테스트생성//완
     PerplexityApi는 할떄마다 비용나오니 생각해보고만들자
 컨트롤러테스트
 .http만들기
     멤버//완
     레포트
+gpt 통신 메시지 수정(cot)
 
 
 

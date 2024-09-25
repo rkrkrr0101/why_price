@@ -1,4 +1,4 @@
-package rkrk.whyprice.share.adapter
+package rkrk.whyprice.share.adapter.responser
 
 import org.springframework.ai.chat.client.ChatClient
 import org.springframework.ai.chat.messages.SystemMessage
@@ -12,6 +12,8 @@ import rkrk.whyprice.member.application.port.out.CheckVolatilityPort
 import rkrk.whyprice.member.domain.Asset
 import rkrk.whyprice.report.application.port.out.CreateReportPort
 import rkrk.whyprice.report.domain.Report
+import rkrk.whyprice.share.adapter.responser.infrastructure.PerplexityApi
+import rkrk.whyprice.share.adapter.responser.infrastructure.PerplexityChatOptions
 import rkrk.whyprice.share.port.CustomDateTime
 
 @Component
@@ -19,12 +21,6 @@ class GptResponser(
     private val customDateTime: CustomDateTime,
 ) : CheckVolatilityPort,
     CreateReportPort {
-//    private val gptOption: OpenAiChatOptions =
-//        OpenAiChatOptions
-//            .builder()
-//            .withModel("gpt-4o-mini")
-//            .withTemperature(0.8F)
-//            .build()
     private val perplexityOptions =
         PerplexityChatOptions
             .builder()
@@ -33,9 +29,6 @@ class GptResponser(
             .withTemperature(0.8F)
             .build()
 
-//    private val chatClient: ChatClient =
-//        ChatClient.builder(OpenAiChatModel(OpenAiApi(ApiConfig.getGptKey()), gptOption)).build()
-    // https://api.perplexity.ai/chat/completions
     private val chatClient: ChatClient =
         ChatClient
             .builder(

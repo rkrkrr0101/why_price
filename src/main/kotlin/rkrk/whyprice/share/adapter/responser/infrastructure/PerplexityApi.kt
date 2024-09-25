@@ -1,4 +1,4 @@
-package rkrk.whyprice.share.adapter
+package rkrk.whyprice.share.adapter.responser.infrastructure
 
 import org.springframework.ai.openai.api.ApiUtils
 import org.springframework.ai.openai.api.OpenAiApi
