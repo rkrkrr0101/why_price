@@ -1,24 +1,32 @@
 해야할일
 
 apifetcher 구현체의 중복 제거
+컨트롤러테스트
+report high랭크 생성시 오래걸려서 타임아웃
+컨트롤러 예외처리
+gpt프롬프트 튜닝
+
+
+
+
+
 
 테스트 없는거 생성
     PerplexityChatOptions 테스트생성//완
     PerplexityApi는 할떄마다 비용나오니 생각해보고만들자
-컨트롤러테스트
-report high랭크 생성시 오래걸려서 타임아웃
 
-report 생성시 KoreanStock에 저장안됨
-    ManageKoreanStockService의 findOrCreateKoreanStock 유즈케이스로 분리//완
-    report생성시에 확인후 레포트생성
+report 생성시 KoreanStock에 저장안됨//완
+    ManageKoreanStockService의 findOrCreateKoreanStock 어댑터로 분리//완
+    report생성시에 존재하는지 확인후 레포트생성//완
 
 AddMemberKoreanStockDto의 crno 제거//완
 
-.http만들기
+.http만들기//완
     멤버//완
     레포트//완
-컨트롤러 예외처리
-gpt프롬프트 튜닝
+
+
+
 ----------------------------------
 메모
 report high랭크 생성시 오래걸려서 타임아웃

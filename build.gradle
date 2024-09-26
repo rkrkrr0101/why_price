@@ -53,4 +53,7 @@ kotlin {
 
 tasks.named('test') {
     useJUnitPlatform()
+    filter{
+        excludeTestsMatching("rkrk.whyprice.study.*")
+    }
 }
