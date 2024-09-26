@@ -2,6 +2,8 @@ package rkrk.whyprice.report.application.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import rkrk.whyprice.member.application.port.input.dto.req.FindOrCreateKoreanStockDto
+import rkrk.whyprice.member.application.port.out.FindOrCreateKoreanStockPort
 import rkrk.whyprice.report.application.port.input.CreateReportUseCase
 import rkrk.whyprice.report.application.port.input.dto.req.KoreanStockReportDto
 import rkrk.whyprice.report.application.port.input.dto.res.ResponseReportDto
@@ -16,6 +18,7 @@ class CreateReportService(
     private val createReportPort: CreateReportPort,
     private val rankFetcher: RankFetcher,
     private val reportCachesRepository: ReportCachesRepository,
+    private val findOrCreateKoreanStockPort: FindOrCreateKoreanStockPort,
 ) : CreateReportUseCase {
     @Transactional
     override fun fetchHighReports(): List<ResponseReportDto> {
@@ -38,7 +41,9 @@ class CreateReportService(
         if (reportCachesRepository.isCacheValid(assetName)) {
             return reportCachesRepository.findOne(assetName).getMainReport()
         } else {
-            val report = createReportPort.createReport(assetName)
+            val koreanStock =
+                findOrCreateKoreanStockPort.findOrCreate(FindOrCreateKoreanStockDto(assetName))
+            val report = createReportPort.createReport(koreanStock.name)
             reportCachesRepository.saveOrUpdate(report)
             return report
         }

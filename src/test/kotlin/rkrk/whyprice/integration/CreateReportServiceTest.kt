@@ -6,7 +6,11 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
+import rkrk.whyprice.member.adapter.out.persistence.FindOrCreateKoreanStockAdapter
+import rkrk.whyprice.member.application.port.out.FindOrCreateKoreanStockPort
+import rkrk.whyprice.member.application.port.out.KoreanStockRepository
 import rkrk.whyprice.mock.CustomDateTimeMock
+import rkrk.whyprice.mock.FindKoreanStockByNameAdapterMock
 import rkrk.whyprice.mock.RankFetcherMock
 import rkrk.whyprice.mock.ResponserMock
 import rkrk.whyprice.report.adapter.out.persistence.ReportCachesJpaRepository
@@ -21,6 +25,7 @@ class CreateReportServiceTest
     @Autowired
     constructor(
         private val reportCachesJpaRepository: ReportCachesJpaRepository,
+        private val koreanStockRepository: KoreanStockRepository,
     ) {
         private val ranks =
             listOf(
@@ -41,11 +46,14 @@ class CreateReportServiceTest
                 reportCachesJpaRepository,
                 CustomDateTimeMock(timeNow),
             )
+        private val findOrCreateKoreanStockAdapter: FindOrCreateKoreanStockPort =
+            FindOrCreateKoreanStockAdapter(koreanStockRepository, FindKoreanStockByNameAdapterMock())
         private val createReportService =
             CreateReportService(
                 ResponserMock(CustomDateTimeMock(timeNow)),
                 RankFetcherMock(ranks),
                 reportCachesRepository,
+                findOrCreateKoreanStockAdapter,
             )
 
         @Test
