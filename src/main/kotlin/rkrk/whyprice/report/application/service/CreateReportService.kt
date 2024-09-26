@@ -2,8 +2,8 @@ package rkrk.whyprice.report.application.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import rkrk.whyprice.member.domain.Asset
 import rkrk.whyprice.report.application.port.input.CreateReportUseCase
+import rkrk.whyprice.report.application.port.input.dto.req.KoreanStockReportDto
 import rkrk.whyprice.report.application.port.input.dto.res.ResponseReportDto
 import rkrk.whyprice.report.application.port.out.CreateReportPort
 import rkrk.whyprice.report.application.port.out.RankFetcher
@@ -28,8 +28,8 @@ class CreateReportService(
     }
 
     @Transactional
-    override fun fetchHighReport(asset: Asset): ResponseReportDto {
-        createReport(asset.getAssetName()).let {
+    override fun fetchHighReport(dto: KoreanStockReportDto): ResponseReportDto {
+        createReport(dto.stockName).let {
             return ResponseReportDto(it.getReportBody(), it.getCreateTime())
         }
     }

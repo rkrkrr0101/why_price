@@ -1,11 +1,27 @@
+해야할일
+
+apifetcher 구현체의 중복 제거
+
+테스트 없는거 생성
+    PerplexityChatOptions 테스트생성//완
+    PerplexityApi는 할떄마다 비용나오니 생각해보고만들자
+컨트롤러테스트
+.http만들기
+    멤버//완
+    레포트
+컨트롤러 예외처리
+gpt프롬프트 튜닝
+----------------------------------
+메모
+
+
 실시간순위api docs
 https://apiportal.koreainvestment.com/apiservice/apiservice-domestic-stock-ranking#L_6df56964-f22b-43d4-9457-f06264018e5b
 
 도메인에 코어외부(웹,영속성등)로직이 섞이기 시작하면 엔티티분리
 
 
-컨트롤러 예외처리
-gpt프롬프트 튜닝
+
 
 헥사고날
     도메인
@@ -93,16 +109,7 @@ ModelOptionsUtils.merge는 objectToMap를 사용하고,이건 ObjectMapper을 �
 2.OpenAiChatModel에 url변경된 OpenAiApi와 PerplexityChatOptions넣어서 생성
 3.이후동일
 
-apifetcher 구현체의 중복 제거
 
-테스트 없는거 생성
-    PerplexityChatOptions 테스트생성//완
-    PerplexityApi는 할떄마다 비용나오니 생각해보고만들자
-컨트롤러테스트
-.http만들기
-    멤버//완
-    레포트
-gpt 통신 메시지 수정(cot)
 
 
 

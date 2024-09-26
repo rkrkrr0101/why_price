@@ -3,7 +3,6 @@ package rkrk.whyprice.report.adapter.input.web
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import rkrk.whyprice.member.domain.KoreanStock
 import rkrk.whyprice.report.application.port.input.CreateReportUseCase
 import rkrk.whyprice.report.application.port.input.dto.req.KoreanStockReportDto
 import rkrk.whyprice.report.application.port.input.dto.res.ResponseReportDto
@@ -24,6 +23,5 @@ class ReportController(
     }
 
     @GetMapping("/stock")
-    fun fetchKoreanStockReport(stockDto: KoreanStockReportDto): Result<ResponseReportDto> =
-        Result(reportUseCase.fetchHighReport(KoreanStock(stockDto.crno, stockDto.name)))
+    fun fetchKoreanStockReport(stockDto: KoreanStockReportDto): Result<ResponseReportDto> = Result(reportUseCase.fetchHighReport(stockDto))
 }
