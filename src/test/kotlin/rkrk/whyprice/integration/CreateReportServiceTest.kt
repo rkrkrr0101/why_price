@@ -6,12 +6,12 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
-import rkrk.whyprice.member.domain.KoreanStock
 import rkrk.whyprice.mock.CustomDateTimeMock
 import rkrk.whyprice.mock.RankFetcherMock
 import rkrk.whyprice.mock.ResponserMock
 import rkrk.whyprice.report.adapter.out.persistence.ReportCachesJpaRepository
 import rkrk.whyprice.report.adapter.out.persistence.ReportCachesRepositoryImpl
+import rkrk.whyprice.report.application.port.input.dto.req.KoreanStockReportDto
 import rkrk.whyprice.report.application.service.CreateReportService
 import rkrk.whyprice.report.domain.Report
 
@@ -60,7 +60,7 @@ class CreateReportServiceTest
         @Test
         @DisplayName("특정한 한국주식의 변동성보고서를 가져올수있다")
         fun fetchHighReport() {
-            val report = createReportService.fetchHighReport(KoreanStock("111111-1111111", "비싼주식"))
+            val report = createReportService.fetchHighReport(KoreanStockReportDto("비싼주식"))
 
             Assertions.assertThat(report.report).isEqualTo("비싼주식 report")
         }
@@ -68,9 +68,9 @@ class CreateReportServiceTest
         @Test
         @DisplayName("캐시 보고서가 없으면 새로운 캐시 보고서를 생성한다")
         fun createCacheReport() {
-            val stock = KoreanStock("130111-0006246", "삼성전자")
+            val stockDto = KoreanStockReportDto("삼성전자")
 
-            createReportService.fetchHighReport(stock)
+            createReportService.fetchHighReport(stockDto)
             val report = reportCachesRepository.findOne("삼성전자")
 
             Assertions.assertThat(report.getMainReport().getReportBody()).isEqualTo("삼성전자 report")
@@ -86,9 +86,9 @@ class CreateReportServiceTest
                     CustomDateTimeMock("2021-10-10T10:00:00").getNow(),
                 ),
             )
-            val stock = KoreanStock("130111-0006246", "삼성전자")
+            val stockDto = KoreanStockReportDto("삼성전자")
 
-            val report = createReportService.fetchHighReport(stock)
+            val report = createReportService.fetchHighReport(stockDto)
 
             Assertions.assertThat(report.report).isEqualTo("삼성전자 유효캐시 report")
             Assertions.assertThat(report.reportDate).isEqualTo(CustomDateTimeMock("2021-10-10T10:00:00").getNow())
@@ -104,9 +104,9 @@ class CreateReportServiceTest
                     CustomDateTimeMock("2021-10-10T09:00:00").getNow(),
                 ),
             )
-            val stock = KoreanStock("130111-0006246", "삼성전자")
+            val stockDto = KoreanStockReportDto("삼성전자")
 
-            val report = createReportService.fetchHighReport(stock)
+            val report = createReportService.fetchHighReport(stockDto)
 
             Assertions.assertThat(report.report).isEqualTo("삼성전자 report")
             Assertions.assertThat(report.reportDate).isEqualTo(CustomDateTimeMock(timeNow).getNow())
@@ -122,8 +122,8 @@ class CreateReportServiceTest
                     CustomDateTimeMock("2021-10-10T09:00:00").getNow(),
                 ),
             )
-            val stock = KoreanStock("130111-0006246", "삼성전자")
-            createReportService.fetchHighReport(stock)
+            val stockDto = KoreanStockReportDto("삼성전자")
+            createReportService.fetchHighReport(stockDto)
 
             val reportCache = reportCachesRepository.findOne("삼성전자")
 

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
+import rkrk.whyprice.member.adapter.out.persistence.FindOrCreateKoreanStockAdapter
 import rkrk.whyprice.member.application.port.input.dto.req.AddMemberKoreanStockDto
 import rkrk.whyprice.member.application.port.input.dto.req.DeleteMemberKoreanStockDto
 import rkrk.whyprice.member.application.port.out.KoreanStockRepository
@@ -25,11 +26,13 @@ class ManageKoreanStockServiceTest
         private val memberRepository: MemberRepository,
         private val koreanStockRepository: KoreanStockRepository,
     ) {
+        private val findOrCreateKoreanStockAdapter =
+            FindOrCreateKoreanStockAdapter(koreanStockRepository, FindKoreanStockByNameAdapterMock())
         private val manageKoreanStockService =
             ManageKoreanStockService(
                 memberRepository,
                 koreanStockRepository,
-                FindKoreanStockByNameAdapterMock(),
+                findOrCreateKoreanStockAdapter,
             )
 
         @Test
@@ -38,7 +41,7 @@ class ManageKoreanStockServiceTest
             InitUtil.basicMemberInit(memberRepository, koreanStockRepository)
 
             manageKoreanStockService.addKoreanStock(
-                AddMemberKoreanStockDto("member1", "111111-1111111", "비싼주식"),
+                AddMemberKoreanStockDto("member1", "비싼주식"),
             )
             val member = memberRepository.findByUserName("member1")
 
@@ -52,12 +55,12 @@ class ManageKoreanStockServiceTest
             InitUtil.basicMemberInit(memberRepository, koreanStockRepository)
 
             manageKoreanStockService.addKoreanStock(
-                AddMemberKoreanStockDto("member1", "111111-1111111", "비싼주식"),
+                AddMemberKoreanStockDto("member1", "비싼주식"),
             )
             Assertions
                 .assertThatThrownBy {
                     manageKoreanStockService.addKoreanStock(
-                        AddMemberKoreanStockDto("member1", "111111-1111111", "비싼주식"),
+                        AddMemberKoreanStockDto("member1", "비싼주식"),
                     )
                 }.isInstanceOf(DuplicateMemberKoreanStockException::class.java)
         }
@@ -72,7 +75,6 @@ class ManageKoreanStockServiceTest
                     manageKoreanStockService.addKoreanStock(
                         AddMemberKoreanStockDto(
                             "notExistsMember",
-                            "111111-1111111",
                             "비싼주식",
                         ),
                     )
