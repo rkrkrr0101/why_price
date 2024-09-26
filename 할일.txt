@@ -6,14 +6,24 @@ apifetcher 구현체의 중복 제거
     PerplexityChatOptions 테스트생성//완
     PerplexityApi는 할떄마다 비용나오니 생각해보고만들자
 컨트롤러테스트
+report high랭크 생성시 오래걸려서 타임아웃
+
+report 생성시 KoreanStock에 저장안됨
+    ManageKoreanStockService의 findOrCreateKoreanStock 유즈케이스로 분리
+
+AddMemberKoreanStockDto의 crno 제거//완
+
 .http만들기
     멤버//완
-    레포트
+    레포트//완
 컨트롤러 예외처리
 gpt프롬프트 튜닝
 ----------------------------------
 메모
-
+report high랭크 생성시 오래걸려서 타임아웃
+    1.버튼은 그냥 마지막값 가져오기로만 하고,해당버튼 누를시 확인 후 없는거만 생성요청,
+    2.스케줄러로 주기적으로 갱신 or 생성 요청
+    3.코루틴사용으로 비동기로 최대한 속도올려보기?
 
 실시간순위api docs
 https://apiportal.koreainvestment.com/apiservice/apiservice-domestic-stock-ranking#L_6df56964-f22b-43d4-9457-f06264018e5b
