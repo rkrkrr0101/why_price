@@ -1,0 +1,5 @@
+###
+GET {{baseApi}}/api/report/stock/high
+
+###
+GET {{baseApi}}/api/report/stock?stockName=삼성전자
