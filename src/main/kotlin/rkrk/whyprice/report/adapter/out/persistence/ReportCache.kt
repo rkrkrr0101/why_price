@@ -1,5 +1,8 @@
 package rkrk.whyprice.report.adapter.out.persistence
 
+import jakarta.persistence.AttributeOverride
+import jakarta.persistence.AttributeOverrides
+import jakarta.persistence.Column
 import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -14,6 +17,12 @@ class ReportCache(
     id: Long = 0,
 ) {
     @Embedded
+    @AttributeOverrides(
+        AttributeOverride(
+            name = "report",
+            column = Column(name = "report", columnDefinition = "TEXT"),
+        ),
+    )
     var report: Report = report
         protected set
 
