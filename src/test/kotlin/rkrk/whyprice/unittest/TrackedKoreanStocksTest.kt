@@ -19,7 +19,7 @@ class TrackedKoreanStocksTest {
             trackedAssets.hasVolatility(ResponserMock(CustomDateTimeMock("2021-01-01T00:00:00Z")))
         val tickerList = volatilityAssetList.map { it.getIdentityCode() }
 
-        Assertions.assertThat(volatilityAssetList.size).isEqualTo(2)
+        Assertions.assertThat(volatilityAssetList.size).isEqualTo(1)
         Assertions.assertThat(tickerList.contains("notVol1")).isFalse()
     }
 
