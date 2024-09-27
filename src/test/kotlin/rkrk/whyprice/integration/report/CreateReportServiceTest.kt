@@ -1,4 +1,4 @@
-package rkrk.whyprice.integration
+package rkrk.whyprice.integration.report
 
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DisplayName
