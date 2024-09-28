@@ -88,7 +88,7 @@ class ManageKoreanStockServiceTest
             InitUtil.basicMemberInit(memberRepository, koreanStockRepository)
 
             manageKoreanStockService.deleteKoreanStock(
-                DeleteMemberKoreanStockDto("member1", "130111-0006246", "삼성전자"),
+                DeleteMemberKoreanStockDto("member1", "삼성전자"),
             )
             val member = memberRepository.findByUserName("member1")
 
@@ -106,7 +106,6 @@ class ManageKoreanStockServiceTest
                     manageKoreanStockService.deleteKoreanStock(
                         DeleteMemberKoreanStockDto(
                             "member1",
-                            "111111-1111111",
                             "없는주식",
                         ),
                     )
@@ -123,7 +122,6 @@ class ManageKoreanStockServiceTest
                     manageKoreanStockService.deleteKoreanStock(
                         DeleteMemberKoreanStockDto(
                             "notExistsMember",
-                            "111111-1111111",
                             "비싼주식",
                         ),
                     )
