@@ -15,8 +15,12 @@ class TestConstant {
                 "기아",
                 "POSCO",
             )
-        val TEST_CURRENT_TIME = "2021-10-10T10:10:10"
-        val TEST_ONEHOUR_EARLY_TIME = "2021-10-10T09:10:10"
-        val TEST_ONEHOUR_LATE_TIME = "2021-10-10T11:10:10"
+        const val TEST_CURRENT_TIME = "2021-10-10T10:10:10"
+        const val TEST_ONE_HOUR_EARLY_TIME = "2021-10-10T09:10:10"
+        const val TEST_ONE_HOUR_LATE_TIME = "2021-10-10T11:10:10"
+        const val TEST_TEN_MINUTE_EARLY_TIME = "2021-10-10T10:00:10"
+        const val TEST_TEN_MINUTE_LATE_TIME = "2021-10-10T10:20:10"
+
+        const val HAS_VOLATILITY_WORD = "삼성"
     }
 }

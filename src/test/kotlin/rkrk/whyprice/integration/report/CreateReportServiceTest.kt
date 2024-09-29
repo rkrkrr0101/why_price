@@ -18,6 +18,7 @@ import rkrk.whyprice.report.adapter.out.persistence.ReportCachesRepositoryImpl
 import rkrk.whyprice.report.application.port.input.dto.req.KoreanStockReportDto
 import rkrk.whyprice.report.application.service.CreateReportService
 import rkrk.whyprice.report.domain.Report
+import rkrk.whyprice.util.TestConstant
 
 @SpringBootTest
 @Transactional
@@ -27,31 +28,17 @@ class CreateReportServiceTest
         private val reportCachesJpaRepository: ReportCachesJpaRepository,
         private val koreanStockRepository: KoreanStockRepository,
     ) {
-        private val ranks =
-            listOf(
-                "삼성전자",
-                "LG전자",
-                "SK하이닉스",
-                "네이버",
-                "카카오",
-                "삼성바이오로직스",
-                "셀트리온",
-                "현대차",
-                "기아",
-                "POSCO",
-            )
-        private val timeNow = "2021-10-10T10:10:10"
         private val reportCachesRepository: ReportCachesRepositoryImpl =
             ReportCachesRepositoryImpl(
                 reportCachesJpaRepository,
-                CustomDateTimeMock(timeNow),
+                CustomDateTimeMock(TestConstant.TEST_CURRENT_TIME),
             )
         private val findOrCreateKoreanStockAdapter: FindOrCreateKoreanStockPort =
             FindOrCreateKoreanStockAdapter(koreanStockRepository, FindKoreanStockByNameAdapterMock())
         private val createReportService =
             CreateReportService(
-                ResponserMock(CustomDateTimeMock(timeNow)),
-                RankFetcherMock(ranks),
+                ResponserMock(CustomDateTimeMock(TestConstant.TEST_CURRENT_TIME)),
+                RankFetcherMock(TestConstant.TEST_RANK_LIST),
                 reportCachesRepository,
                 findOrCreateKoreanStockAdapter,
             )
@@ -91,7 +78,7 @@ class CreateReportServiceTest
                 Report(
                     "삼성전자",
                     "삼성전자 유효캐시 report",
-                    CustomDateTimeMock("2021-10-10T10:00:00").getNow(),
+                    CustomDateTimeMock(TestConstant.TEST_TEN_MINUTE_EARLY_TIME).getNow(),
                 ),
             )
             val stockDto = KoreanStockReportDto("삼성전자")
@@ -99,7 +86,9 @@ class CreateReportServiceTest
             val report = createReportService.fetchHighReport(stockDto)
 
             Assertions.assertThat(report.report).isEqualTo("삼성전자 유효캐시 report")
-            Assertions.assertThat(report.reportDate).isEqualTo(CustomDateTimeMock("2021-10-10T10:00:00").getNow())
+            Assertions
+                .assertThat(report.reportDate)
+                .isEqualTo(CustomDateTimeMock(TestConstant.TEST_TEN_MINUTE_EARLY_TIME).getNow())
         }
 
         @Test
@@ -117,7 +106,9 @@ class CreateReportServiceTest
             val report = createReportService.fetchHighReport(stockDto)
 
             Assertions.assertThat(report.report).isEqualTo("삼성전자 report")
-            Assertions.assertThat(report.reportDate).isEqualTo(CustomDateTimeMock(timeNow).getNow())
+            Assertions.assertThat(report.reportDate).isEqualTo(
+                CustomDateTimeMock(TestConstant.TEST_CURRENT_TIME).getNow(),
+            )
         }
 
         @Test
@@ -127,7 +118,7 @@ class CreateReportServiceTest
                 Report(
                     "삼성전자",
                     "삼성전자 유효캐시 report",
-                    CustomDateTimeMock("2021-10-10T09:00:00").getNow(),
+                    CustomDateTimeMock(TestConstant.TEST_ONE_HOUR_EARLY_TIME).getNow(),
                 ),
             )
             val stockDto = KoreanStockReportDto("삼성전자")
@@ -136,6 +127,6 @@ class CreateReportServiceTest
             val reportCache = reportCachesRepository.findOne("삼성전자")
 
             Assertions.assertThat(reportCache.getMainReport().getReportBody()).isEqualTo("삼성전자 report")
-            Assertions.assertThat(reportCache.getCreateTime()).isEqualTo(CustomDateTimeMock(timeNow).getNow())
+            Assertions.assertThat(reportCache.getCreateTime()).isEqualTo(CustomDateTimeMock(TestConstant.TEST_CURRENT_TIME).getNow())
         }
     }
