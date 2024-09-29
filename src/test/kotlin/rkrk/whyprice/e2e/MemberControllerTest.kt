@@ -1,6 +1,7 @@
 package rkrk.whyprice.e2e
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -10,13 +11,14 @@ import org.springframework.context.annotation.Import
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.transaction.annotation.Transactional
 import rkrk.whyprice.member.application.port.out.KoreanStockRepository
 import rkrk.whyprice.member.application.port.out.MemberRepository
 import rkrk.whyprice.mock.TestConfig
 import rkrk.whyprice.util.InitUtil
+import rkrk.whyprice.util.ParsingUtil
+import java.nio.charset.StandardCharsets
 
 @SpringBootTest
 @Import(TestConfig::class)
@@ -125,12 +127,19 @@ class MemberControllerTest
         fun getKoreanStockToMember() {
             InitUtil.basicMemberInit(memberRepository, koreanStockRepository)
 
-            mvc
-                .perform(
-                    MockMvcRequestBuilders
-                        .get("/api/member/stock?memberName=member1")
-                        .contentType(MediaType.APPLICATION_JSON),
-                ).andExpect(status().isOk)
+            val mvcResult =
+                mvc
+                    .perform(
+                        MockMvcRequestBuilders
+                            .get("/api/member/stock?memberName=member1")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .characterEncoding(StandardCharsets.UTF_8),
+                    ).andExpect(status().isOk)
+                    .andReturn()
+            val body = ParsingUtil.toListMap(mvcResult, om)
+
+            Assertions.assertThat(body.size).isEqualTo(2)
+            Assertions.assertThat(body.filter { it["assetName"] == "삼성전자" }.size).isEqualTo(1)
         }
 
         @Test
@@ -138,11 +147,18 @@ class MemberControllerTest
         fun volatilityKoreanStockToMember() {
             InitUtil.basicMemberInit(memberRepository, koreanStockRepository)
 
-            mvc
-                .perform(
-                    MockMvcRequestBuilders
-                        .get("/api/member/stock/volatility?memberName=member1")
-                        .contentType(MediaType.APPLICATION_JSON),
-                ).andExpect(status().isOk)
+            val mvcResult =
+                mvc
+                    .perform(
+                        MockMvcRequestBuilders
+                            .get("/api/member/stock/volatility?memberName=member1")
+                            .contentType(MediaType.APPLICATION_JSON),
+                    ).andExpect(status().isOk)
+                    .andReturn()
+
+            val body = ParsingUtil.toListMap(mvcResult, om)
+
+            Assertions.assertThat(body.size).isEqualTo(1)
+            Assertions.assertThat(body.filter { it["assetName"] == "삼성전자" }.size).isEqualTo(1)
         }
     }
