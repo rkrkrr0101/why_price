@@ -9,8 +9,11 @@ class FindCrnoByStockNameFetcherTest {
     @Test
     fun successFetch() {
         val findCrnoByStockNameFetcher = FindCrnoByStockNameFetcher(ApiHelperImpl())
-        val fetch = findCrnoByStockNameFetcher.fetch("1301110006246")
+        // val fetch = findCrnoByStockNameFetcher.fetch("1301110006246")
+        val fetch = findCrnoByStockNameFetcher.fetch("삼성전자")
+        println(fetch["assetName"])
+        println(fetch)
 
-        Assertions.assertThat(fetch["assetName"]).isEqualTo("삼성전자")
+        Assertions.assertThat(fetch["assetCrno"]).isEqualTo("1301110006246")
     }
 }

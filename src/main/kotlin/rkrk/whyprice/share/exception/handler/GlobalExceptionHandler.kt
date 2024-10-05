@@ -44,4 +44,11 @@ class GlobalExceptionHandler {
         log.warn(exp.message)
         return Result(exp.msg)
     }
+
+    @ExceptionHandler(NoSuchElementException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun noSearchStockName(exp: NoSuchElementException): Result<String> {
+        log.warn(exp.message)
+        return Result(exp.message ?: "message null")
+    }
 }

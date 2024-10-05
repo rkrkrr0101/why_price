@@ -5,6 +5,6 @@ import rkrk.whyprice.report.domain.Report
 interface CreateReportPort {
     fun createReport(
         assetName: String,
-        volatilityTime: Int = 1,
+        volatilityTime: Int = 24,
     ): Report
 }

@@ -2,4 +2,4 @@
 GET {{baseApi}}/api/report/stock/high
 
 ###
-GET {{baseApi}}/api/report/stock?stockName=삼성전자
+GET {{baseApi}}/api/report/stock?stockName=영풍정밀

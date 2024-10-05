@@ -4,15 +4,37 @@ apifetcher 구현체의 중복 제거
 컨트롤러테스트
     결과값기반테스트//완
     예외처리테스트
-report high랭크 생성시 오래걸려서 타임아웃
-    배치로 처리후 없는거만 추가
+report high랭크 생성시 오래걸려서 타임아웃//완
+    배치로 처리후 없는거만 추가//완
 컨트롤러 예외처리
+    내가뱉는거//완
+    외부api가 뱉는거//어케하지
 gpt프롬프트 튜닝
 
+도커생성
+    환경변수처리
+        도커에서는 환경변수주입
+        로컬에서는 환경변수파일
+        환경변수파일은 도커파일에 들어가면안됨(https://devsangguy.tistory.com/18)
+        순서
+            환경변수 jar생성시 컴파일제외
+            도커 이미지실행시 환경변수 요구(https://blogshine.tistory.com/555)
+
+주식명검색 체크(중앙에너비스)
+주가 가져올곳 찾아서 떠먹여주기
+    srtnCd도 추가로 받아서 그거로 네이버검색?
+    아니면 주가api사용?//근데 전일거래량같은게 없네
 
 
 
 
+
+
+
+주가검색api
+https://www.data.go.kr/data/15094808/openapi.do#tab_layer_detail_function
+시간대별체결량api,전일거래량,현재주가전일주가 있음
+https://apiportal.koreainvestment.com/apiservice/apiservice-domestic-stock-quotations2#L_81b30d9e-1bce-439f-9cf0-56f0ea1a4f95
 
 테스트 없는거 생성
     PerplexityChatOptions 테스트생성//완
