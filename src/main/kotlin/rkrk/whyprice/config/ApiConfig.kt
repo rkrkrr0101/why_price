@@ -1,10 +1,11 @@
 package rkrk.whyprice.config
 
+import io.github.cdimascio.dotenv.Dotenv
 import io.github.cdimascio.dotenv.dotenv
 
 class ApiConfig private constructor() {
     companion object {
-        private val dotenv = dotenv()
+        private val dotenv = Dotenv.configure().ignoreIfMissing().load()
 
         fun getOpenApiKey(): String = dotenv.get("OPENAPI_KEY")
 
