@@ -1,5 +1,6 @@
 package rkrk.whyprice.member.domain
 
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -12,9 +13,11 @@ class KoreanStock(
     name: String,
     id: Long = 0,
 ) : Asset {
+    @Column(unique = true)
     var crNo = crNo
         protected set
 
+    @Column(unique = true)
     var name = name
         protected set
 
