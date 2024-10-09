@@ -11,7 +11,23 @@ report high랭크 생성시 오래걸려서 타임아웃//완
     외부api가 뱉는거//어케하지
 gpt프롬프트 튜닝
 
-도커생성
+주식이 처음들어갈떄(db에없는주식) list of empty뜨는 현상
+아마 이름검색기랑 관련된문제인거같음
+
+
+퍼플릭시티에서 뜨는에러,저쪽 서버문제같은데 이거뜰때 배치나 그런거 어케처리할지,
+아마 리트라이를 스프링ai쪽에서 자동으로 처리하는거같긴함
+org.springframework.ai.retry.TransientAiException: 502 - <html>
+batch-job-container  | <head><title>502 Bad Gateway</title></head>
+batch-job-container  | <body>
+batch-job-container  | <center><h1>502 Bad Gateway</h1></center>
+batch-job-container  | <hr><center>cloudflare</center>
+batch-job-container  | </body>
+batch-job-container  | </html>
+
+
+
+도커생성//완
     환경변수처리
         도커에서는 환경변수주입
         로컬에서는 환경변수파일
@@ -19,6 +35,7 @@ gpt프롬프트 튜닝
         순서
             환경변수 jar생성시 컴파일제외
             도커 이미지실행시 환경변수 요구(https://blogshine.tistory.com/555)
+        mysql컨테이너 볼륨붙이기(https://rondeveloper.tistory.com/92)
 
 주식명검색 체크(중앙에너비스)
 주가 가져올곳 찾아서 떠먹여주기
