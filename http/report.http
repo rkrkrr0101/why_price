@@ -1,5 +1,5 @@
-###
+###1.거래량상위 30위까지 레포트 출력
 GET {{baseApi}}/api/report/stock/high
 
-###
+###2.특정 주식의 레포트 출력
 GET {{baseApi}}/api/report/stock?stockName=영풍정밀
