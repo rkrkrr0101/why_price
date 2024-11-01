@@ -1,5 +1,12 @@
 package rkrk.whyprice.report.application.service
 
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.supervisorScope
+import kotlinx.coroutines.sync.Semaphore
+import kotlinx.coroutines.sync.withPermit
+import kotlinx.coroutines.yield
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import rkrk.whyprice.member.application.port.input.dto.req.FindOrCreateKoreanStockDto
@@ -11,6 +18,7 @@ import rkrk.whyprice.report.application.port.out.CreateReportPort
 import rkrk.whyprice.report.application.port.out.RankFetcher
 import rkrk.whyprice.report.application.port.out.ReportCachesRepository
 import rkrk.whyprice.report.domain.Report
+import java.time.LocalDateTime
 
 @Service
 @Transactional(readOnly = true)
@@ -20,34 +28,50 @@ class CreateReportService(
     private val reportCachesRepository: ReportCachesRepository,
     private val findOrCreateKoreanStockPort: FindOrCreateKoreanStockPort,
 ) : CreateReportUseCase {
-    @Transactional
-    override fun fetchHighReports(): List<ResponseReportDto> {
-        val reports =
-            rankFetch()
-                .map { assetName ->
-                    createReport(assetName)
-                }.map { ResponseReportDto(it.getReportBody(), it.getCreateTime()) }
-        return reports
-    }
+    private val semaphore = Semaphore(3)
 
     @Transactional
-    override fun fetchHighReport(dto: KoreanStockReportDto): ResponseReportDto {
-        createReport(dto.stockName).let {
+    override suspend fun fetchHighReports(): List<ResponseReportDto> =
+        coroutineScope {
+            rankFetch()
+                .map { assetName ->
+                    async {
+                        semaphore.withPermit {
+                            createReport(assetName)
+                        }
+                    }
+                }.awaitAll()
+                .map { ResponseReportDto(it.getReportBody(), it.getCreateTime()) }
+        }
+
+    @Transactional
+    override suspend fun fetchHighReport(dto: KoreanStockReportDto): ResponseReportDto {
+        supervisorScope {
+            createReport(dto.stockName)
+        }.let {
             return ResponseReportDto(it.getReportBody(), it.getCreateTime())
         }
     }
 
-    private fun createReport(assetName: String): Report {
-        if (reportCachesRepository.isCacheValid(assetName)) {
-            return reportCachesRepository.findOne(assetName).getMainReport()
-        } else {
-            val koreanStock =
-                findOrCreateKoreanStockPort.findOrCreate(FindOrCreateKoreanStockDto(assetName))
-            val report = createReportPort.createReport(koreanStock.name)
-            reportCachesRepository.saveOrUpdate(report)
-            return report
+    private suspend fun createReport(assetName: String): Report =
+        coroutineScope {
+            if (reportCachesRepository.isCacheValid(assetName)) {
+                reportCachesRepository.findOne(assetName).getMainReport()
+            } else {
+                val koreanStock =
+                    findOrCreateKoreanStockPort.findOrCreate(FindOrCreateKoreanStockDto(assetName))
+                println("$assetName 레포트생성진입시간:" + LocalDateTime.now().toString())
+                val report = createReportPort.createReport(koreanStock.name)
+                yield()
+                reportCachesRepository.saveOrUpdate(report)
+                report
+            }
         }
-    }
 
     private fun rankFetch(): List<String> = rankFetcher.fetch()
+
+    private suspend fun <T, R> List<T>.mapAsync(transform: suspend (T) -> R): List<R> =
+        supervisorScope {
+            this@mapAsync.map { async { transform(it) } }.awaitAll()
+        }
 }

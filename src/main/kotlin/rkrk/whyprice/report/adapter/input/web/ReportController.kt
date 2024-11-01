@@ -14,7 +14,7 @@ class ReportController(
     private val reportUseCase: CreateReportUseCase,
 ) {
     @GetMapping("/stock/high")
-    fun fetchHighReports(): Result<List<ResponseReportDto>> {
+    suspend fun fetchHighReports(): Result<List<ResponseReportDto>> {
         val reports =
             reportUseCase
                 .fetchHighReports()
@@ -23,5 +23,6 @@ class ReportController(
     }
 
     @GetMapping("/stock")
-    fun fetchKoreanStockReport(stockDto: KoreanStockReportDto): Result<ResponseReportDto> = Result(reportUseCase.fetchHighReport(stockDto))
+    suspend fun fetchKoreanStockReport(stockDto: KoreanStockReportDto): Result<ResponseReportDto> =
+        Result(reportUseCase.fetchHighReport(stockDto))
 }

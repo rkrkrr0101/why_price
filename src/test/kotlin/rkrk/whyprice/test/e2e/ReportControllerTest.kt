@@ -1,6 +1,8 @@
 package rkrk.whyprice.test.e2e
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import kotlinx.coroutines.async
+import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -31,45 +33,54 @@ class ReportControllerTest
         @Test
         @DisplayName("특정주식의 레포트를 출력할수있다")
         fun getStockReport() {
-            val mvcResult =
-                mvc
-                    .perform(
-                        MockMvcRequestBuilders
-                            .get("/api/report/stock?stockName=삼성전자")
-                            .contentType(MediaType.APPLICATION_JSON),
-                    ).andExpect(status().isOk)
-                    .andReturn()
+            runTest {
+                val mvcResult =
+                    async {
+                        mvc
+                            .perform(
+                                MockMvcRequestBuilders
+                                    .get("/api/report/stock?stockName=삼성전자")
+                                    .contentType(MediaType.APPLICATION_JSON),
+                            ).andExpect(status().isOk)
+                            .andDo {
+                                println("Status: ${it.response.status}")
+                                println("Content-Type: ${it.response.contentType}")
+                                println("Response: ${it.response.contentAsString}")
+                            }.andReturn()
+                    }
+                val body = ParsingUtil.toMap(mvcResult.await(), om)
 
-            val body = ParsingUtil.toMap(mvcResult, om)
-
-            Assertions.assertThat(body.size).isEqualTo(2)
-            Assertions.assertThat(body["report"]).isEqualTo("삼성전자 report")
-            Assertions.assertThat(body["reportDate"]).isEqualTo(TestConstant.TEST_CURRENT_TIME)
+                Assertions.assertThat(body.size).isEqualTo(2)
+                Assertions.assertThat(body["report"]).isEqualTo("삼성전자 report")
+                Assertions.assertThat(body["reportDate"]).isEqualTo(TestConstant.TEST_CURRENT_TIME)
+            }
         }
 
         @Test
         @DisplayName("거래량상위주식의 레포트를 출력할수있다")
         fun getHighStockReport() {
-            val mvcResult =
-                mvc
-                    .perform(
-                        MockMvcRequestBuilders
-                            .get("/api/report/stock/high")
-                            .contentType(MediaType.APPLICATION_JSON),
-                    ).andExpect(status().isOk)
-                    .andReturn()
+            runTest {
+                val mvcResult =
+                    mvc
+                        .perform(
+                            MockMvcRequestBuilders
+                                .get("/api/report/stock/high")
+                                .contentType(MediaType.APPLICATION_JSON),
+                        ).andExpect(status().isOk)
+                        .andReturn()
 
-            val body = ParsingUtil.toListMap(mvcResult, om)
+                val body = ParsingUtil.toListMap(mvcResult, om)
 
-            Assertions.assertThat(body.size).isEqualTo(10)
-            Assertions
-                .assertThat(
-                    body.contains(
-                        hashMapOf(
-                            Pair("report", "삼성전자 report"),
-                            Pair("reportDate", TestConstant.TEST_CURRENT_TIME),
+                Assertions.assertThat(body.size).isEqualTo(10)
+                Assertions
+                    .assertThat(
+                        body.contains(
+                            hashMapOf(
+                                Pair("report", "삼성전자 report"),
+                                Pair("reportDate", TestConstant.TEST_CURRENT_TIME),
+                            ),
                         ),
-                    ),
-                ).isTrue()
+                    ).isTrue()
+            }
         }
     }

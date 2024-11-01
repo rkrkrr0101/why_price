@@ -4,7 +4,7 @@ import rkrk.whyprice.report.application.port.input.dto.req.KoreanStockReportDto
 import rkrk.whyprice.report.application.port.input.dto.res.ResponseReportDto
 
 interface CreateReportUseCase {
-    fun fetchHighReports(): List<ResponseReportDto>
+    suspend fun fetchHighReports(): List<ResponseReportDto>
 
-    fun fetchHighReport(dto: KoreanStockReportDto): ResponseReportDto
+    suspend fun fetchHighReport(dto: KoreanStockReportDto): ResponseReportDto
 }

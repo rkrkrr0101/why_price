@@ -15,7 +15,7 @@ class ResponserMock(
         volatilityTime: Int,
     ): Boolean = asset.getAssetName().contains(TestConstant.HAS_VOLATILITY_WORD)
 
-    override fun createReport(
+    override suspend fun createReport(
         assetName: String,
         volatilityTime: Int,
     ): Report =

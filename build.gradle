@@ -41,6 +41,10 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     //ai
     implementation 'org.springframework.ai:spring-ai-openai-spring-boot-starter'
+    //코루틴
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.9.0'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0'
 
     implementation 'io.github.cdimascio:dotenv-kotlin:6.4.2'
 

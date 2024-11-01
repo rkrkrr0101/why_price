@@ -1,5 +1,7 @@
 package rkrk.whyprice.share.adapter.responser
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.springframework.ai.chat.client.ChatClient
 import org.springframework.ai.chat.messages.SystemMessage
 import org.springframework.ai.chat.messages.UserMessage
@@ -46,14 +48,15 @@ class GptResponser(
             .contains("o")
     }
 
-    override fun createReport(
+    override suspend fun createReport(
         assetName: String,
         volatilityTime: Int,
-    ): Report {
-        val response = fetch(createReportPrompt(assetName, volatilityTime))
+    ): Report =
+        withContext(Dispatchers.IO) {
+            val response = fetchAsync(createReportPrompt(assetName, volatilityTime))
 
-        return responseToReport(assetName, response)
-    }
+            responseToReport(assetName, response)
+        }
 
     private fun fetch(prompt: Prompt): ChatResponse {
         val response =
@@ -63,6 +66,16 @@ class GptResponser(
                 .chatResponse()
         return response
     }
+
+    private suspend fun fetchAsync(prompt: Prompt): ChatResponse =
+        withContext(Dispatchers.IO) {
+            val response =
+                chatClient
+                    .prompt(prompt)
+                    .call()
+                    .chatResponse()
+            response
+        }
 
     // todo 프롬프트에 검색사이트 명시 및 최신 사이트만 검색하게 강제
     // TKG애강 주가 뉴스 inanchor:2024-09-06 inanchor:2024-09-05 inanchor:2024-09-04

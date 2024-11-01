@@ -10,8 +10,8 @@ import java.net.URI
 
 interface ApiHelper {
     fun createRestTemplate(
-        connectTimeout: Long = 3,
-        readTimeout: Long = 3,
+        connectTimeout: Long = 5,
+        readTimeout: Long = 10,
     ): RestTemplate
 
     fun buildUrl(
