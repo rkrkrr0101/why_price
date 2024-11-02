@@ -1,9 +1,9 @@
 package rkrk.whyprice.test.e2e
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import kotlinx.coroutines.async
 import kotlinx.coroutines.test.runTest
-import org.assertj.core.api.Assertions
+import org.hamcrest.Matchers.hasItem
+import org.hamcrest.Matchers.hasSize
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,11 +13,16 @@ import org.springframework.context.annotation.Import
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.asyncDispatch
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.request
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.transaction.annotation.Transactional
+import rkrk.whyprice.report.application.port.input.dto.res.ResponseReportDto
+import rkrk.whyprice.share.Result
 import rkrk.whyprice.tool.TestConstant
 import rkrk.whyprice.tool.config.TestConfig
-import rkrk.whyprice.tool.util.ParsingUtil
+import rkrk.whyprice.tool.mock.CustomDateTimeMock
 
 @SpringBootTest
 @Import(TestConfig::class)
@@ -35,24 +40,24 @@ class ReportControllerTest
         fun getStockReport() {
             runTest {
                 val mvcResult =
-                    async {
-                        mvc
-                            .perform(
-                                MockMvcRequestBuilders
-                                    .get("/api/report/stock?stockName=삼성전자")
-                                    .contentType(MediaType.APPLICATION_JSON),
-                            ).andExpect(status().isOk)
-                            .andDo {
-                                println("Status: ${it.response.status}")
-                                println("Content-Type: ${it.response.contentType}")
-                                println("Response: ${it.response.contentAsString}")
-                            }.andReturn()
-                    }
-                val body = ParsingUtil.toMap(mvcResult.await(), om)
-
-                Assertions.assertThat(body.size).isEqualTo(2)
-                Assertions.assertThat(body["report"]).isEqualTo("삼성전자 report")
-                Assertions.assertThat(body["reportDate"]).isEqualTo(TestConstant.TEST_CURRENT_TIME)
+                    mvc
+                        .perform(
+                            MockMvcRequestBuilders
+                                .get("/api/report/stock?stockName=삼성전자")
+                                .contentType(MediaType.APPLICATION_JSON),
+                        ).andExpect(status().isOk)
+                        .andExpect(request().asyncStarted())
+                        .andExpect(
+                            request()
+                                .asyncResult(
+                                    Result(
+                                        ResponseReportDto(
+                                            "삼성전자 report",
+                                            CustomDateTimeMock(TestConstant.TEST_CURRENT_TIME).getNow(),
+                                        ),
+                                    ),
+                                ),
+                        ).andReturn()
             }
         }
 
@@ -66,21 +71,14 @@ class ReportControllerTest
                             MockMvcRequestBuilders
                                 .get("/api/report/stock/high")
                                 .contentType(MediaType.APPLICATION_JSON),
-                        ).andExpect(status().isOk)
+                        ).andExpect(request().asyncStarted())
                         .andReturn()
 
-                val body = ParsingUtil.toListMap(mvcResult, om)
-
-                Assertions.assertThat(body.size).isEqualTo(10)
-                Assertions
-                    .assertThat(
-                        body.contains(
-                            hashMapOf(
-                                Pair("report", "삼성전자 report"),
-                                Pair("reportDate", TestConstant.TEST_CURRENT_TIME),
-                            ),
-                        ),
-                    ).isTrue()
+                mvc
+                    .perform(asyncDispatch(mvcResult))
+                    .andExpect(status().isOk)
+                    .andExpect(jsonPath("$.data", hasSize<Any>(10)))
+                    .andExpect(jsonPath("$.data[*].report", hasItem("LG전자 report")))
             }
         }
     }

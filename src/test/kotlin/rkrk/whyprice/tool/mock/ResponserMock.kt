@@ -18,10 +18,14 @@ class ResponserMock(
     override suspend fun createReport(
         assetName: String,
         volatilityTime: Int,
-    ): Report =
-        Report(
-            assetName,
-            """$assetName report""",
-            dateTime.getNow(),
-        )
+    ): Report {
+        val report =
+            Report(
+                assetName,
+                """$assetName report""",
+                dateTime.getNow(),
+            )
+
+        return report
+    }
 }
