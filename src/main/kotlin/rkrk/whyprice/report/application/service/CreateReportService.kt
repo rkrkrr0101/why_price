@@ -32,17 +32,10 @@ class CreateReportService(
 
     @Transactional
     override suspend fun fetchHighReports(): List<ResponseReportDto> =
-        coroutineScope {
-            rankFetch()
-                .map { assetName ->
-                    async {
-                        semaphore.withPermit {
-                            createReport(assetName)
-                        }
-                    }
-                }.awaitAll()
-                .map { ResponseReportDto(it.getReportBody(), it.getCreateTime()) }
-        }
+        rankFetch()
+            .mapAsync {
+                semaphore.withPermit { createReport(it) }
+            }.map { ResponseReportDto(it.getReportBody(), it.getCreateTime()) }
 
     @Transactional
     override suspend fun fetchHighReport(dto: KoreanStockReportDto): ResponseReportDto {

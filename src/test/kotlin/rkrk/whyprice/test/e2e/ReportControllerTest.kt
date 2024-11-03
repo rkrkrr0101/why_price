@@ -1,6 +1,5 @@
 package rkrk.whyprice.test.e2e
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import kotlinx.coroutines.test.runTest
 import org.hamcrest.Matchers.hasItem
 import org.hamcrest.Matchers.hasSize
@@ -33,8 +32,6 @@ class ReportControllerTest
     constructor(
         val mvc: MockMvc,
     ) {
-        val om = ObjectMapper()
-
         @Test
         @DisplayName("특정주식의 레포트를 출력할수있다")
         fun getStockReport() {
