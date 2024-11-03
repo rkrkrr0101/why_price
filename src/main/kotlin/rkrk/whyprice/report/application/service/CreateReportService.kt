@@ -1,7 +1,5 @@
 package rkrk.whyprice.report.application.service
 
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.supervisorScope
 import kotlinx.coroutines.sync.Semaphore
@@ -18,6 +16,7 @@ import rkrk.whyprice.report.application.port.out.CreateReportPort
 import rkrk.whyprice.report.application.port.out.RankFetcher
 import rkrk.whyprice.report.application.port.out.ReportCachesRepository
 import rkrk.whyprice.report.domain.Report
+import rkrk.whyprice.share.extension.mapAsync
 import java.time.LocalDateTime
 
 @Service
@@ -62,9 +61,4 @@ class CreateReportService(
         }
 
     private fun rankFetch(): List<String> = rankFetcher.fetch()
-
-    private suspend fun <T, R> List<T>.mapAsync(transform: suspend (T) -> R): List<R> =
-        supervisorScope {
-            this@mapAsync.map { async { transform(it) } }.awaitAll()
-        }
 }
