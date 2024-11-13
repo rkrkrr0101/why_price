@@ -1,15 +1,13 @@
 package rkrk.whyprice.member.adapter.out.persistence
 
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
+import org.springframework.stereotype.Repository
 import rkrk.whyprice.member.application.port.input.dto.req.FindOrCreateKoreanStockDto
 import rkrk.whyprice.member.application.port.out.FindKoreanStockByNamePort
 import rkrk.whyprice.member.application.port.out.FindOrCreateKoreanStockPort
 import rkrk.whyprice.member.application.port.out.KoreanStockRepository
 import rkrk.whyprice.member.domain.KoreanStock
 
-@Service
-@Transactional
+@Repository
 class FindOrCreateKoreanStockAdapter(
     private val koreanStockRepository: KoreanStockRepository,
     private val findKoreanStockByNamePort: FindKoreanStockByNamePort,
