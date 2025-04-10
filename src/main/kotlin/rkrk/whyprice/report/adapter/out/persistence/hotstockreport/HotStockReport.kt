@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import rkrk.whyprice.report.domain.Report
+import java.time.LocalDateTime
 
 @Entity
 class HotStockReport(
@@ -30,4 +31,8 @@ class HotStockReport(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = id
         protected set
+
+    fun getCreateTime(): LocalDateTime = report.getCreateTime()
+
+    fun getMainReport(): Report = report
 }

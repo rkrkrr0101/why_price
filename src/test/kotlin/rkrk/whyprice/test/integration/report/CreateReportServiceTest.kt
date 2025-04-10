@@ -46,9 +46,9 @@ class CreateReportServiceTest
 
         @Test
         @DisplayName("높은 거래량의 변동성보고서를 가져올수있다")
-        fun fetchHighReports() {
+        fun getHighReports() {
             runTest {
-                val reports = createReportService.fetchHighReports()
+                val reports = createReportService.getHighReports()
                 Assertions.assertThat(reports.size).isEqualTo(10)
                 Assertions.assertThat(reports.first { it.report == "삼성바이오로직스 report" }).isNotNull
             }
