@@ -3,7 +3,7 @@ package rkrk.whyprice.test.unit
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import rkrk.whyprice.report.adapter.out.persistence.ReportCache
+import rkrk.whyprice.report.adapter.out.persistence.reportcache.ReportCache
 import rkrk.whyprice.report.domain.Report
 import rkrk.whyprice.tool.mock.CustomDateTimeMock
 

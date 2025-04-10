@@ -1,4 +1,4 @@
-package rkrk.whyprice.report.adapter.out.persistence
+package rkrk.whyprice.report.adapter.out.persistence.reportcache
 
 import org.springframework.data.jpa.repository.JpaRepository
 

@@ -76,6 +76,7 @@ class GptResponser(
                     .chatResponse()
             response
         }
+        
 
     // todo 프롬프트에 검색사이트 명시 및 최신 사이트만 검색하게 강제
     // TKG애강 주가 뉴스 inanchor:2024-09-06 inanchor:2024-09-05 inanchor:2024-09-04

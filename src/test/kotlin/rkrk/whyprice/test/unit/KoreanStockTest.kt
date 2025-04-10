@@ -13,10 +13,11 @@ class KoreanStockTest {
     fun fetchDataSuccess() {
         val stock = KoreanStock("TEST", "삼성전자")
         val assetFetcherList = listOf(AssetFetcherMockOne(), AssetFetcherMockTwo())
-
+ 
         stock.fetchData(assetFetcherList)
 
         Assertions.assertThat(stock.isDataEmpty()).isFalse()
         Assertions.assertThat(stock.retrieveData().size).isEqualTo(2)
     }
+
 }

@@ -1,6 +1,6 @@
 package rkrk.whyprice.report.application.port.out
 
-import rkrk.whyprice.report.adapter.out.persistence.ReportCache
+import rkrk.whyprice.report.adapter.out.persistence.reportcache.ReportCache
 import rkrk.whyprice.report.domain.Report
 
 interface ReportCachesRepository {

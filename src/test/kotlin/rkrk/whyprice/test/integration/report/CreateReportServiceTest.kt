@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional
 import rkrk.whyprice.member.adapter.out.persistence.FindOrCreateKoreanStockAdapter
 import rkrk.whyprice.member.application.port.out.FindOrCreateKoreanStockPort
 import rkrk.whyprice.member.application.port.out.KoreanStockRepository
-import rkrk.whyprice.report.adapter.out.persistence.ReportCachesJpaRepository
-import rkrk.whyprice.report.adapter.out.persistence.ReportCachesRepositoryImpl
+import rkrk.whyprice.report.adapter.out.persistence.reportcache.ReportCachesJpaRepository
+import rkrk.whyprice.report.adapter.out.persistence.reportcache.ReportCachesRepositoryImpl
 import rkrk.whyprice.report.application.port.input.dto.req.KoreanStockReportDto
 import rkrk.whyprice.report.application.service.CreateReportService
 import rkrk.whyprice.report.domain.Report
