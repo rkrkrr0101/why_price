@@ -20,7 +20,7 @@ repositories {
     maven { url 'https://repo.spring.io/milestone' }//ai 디펜던시 조회장소 추가
 }
 ext {
-    set('springAiVersion', "1.0.0-M1")//밑에서 사용할 버전 변수
+    set('springAiVersion', "1.0.0-M7")//밑에서 사용할 버전 변수
 }
 dependencyManagement {
     imports {
@@ -40,7 +40,8 @@ dependencies {
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     //ai
-    implementation 'org.springframework.ai:spring-ai-openai-spring-boot-starter'
+    //implementation 'org.springframework.ai:spring-ai-openai-spring-boot-starter'
+    implementation 'org.springframework.ai:spring-ai-starter-mcp-server'
     //코루틴
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.9.0'
