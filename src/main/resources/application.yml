@@ -13,6 +13,12 @@ spring:
   ai:
     openai:
       api-key: notUsed #사용하지않지만 항목이 있어야 에러가 안남,openAiChatModel을 개조해서 써서 이럼
+    mcp:
+      server:
+        name: why-price-mcp-server
+        enabled: true
+        sse-endpoint: /sse
+        type: sync
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${MYSQL_URL}
